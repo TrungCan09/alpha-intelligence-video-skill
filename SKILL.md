@@ -10,14 +10,15 @@ Tạo video theo nguyên tắc: **voice và nội dung đã duyệt là nguồn 
 ## Định tuyến bắt buộc
 
 1. Đọc [hệ nhận diện](references/brand-system.md) cho mọi tác vụ.
-2. Nếu viết script, phân tích voice hoặc lập cue, đọc [nội dung và timing](references/content-timing.md).
-3. Nếu thiết kế/dựng/sửa animation hoặc sound, đọc [motion language](references/motion-language.md).
-4. Trước khi render hoặc bàn giao, đọc và thực hiện [QA và bàn giao](references/qa-delivery.md).
+2. Nếu viết voice-over từ bài đăng hoặc văn bản thô, đọc [biên kịch ElevenLabs](references/script-elevenlabs.md), rồi đọc phần nguồn sự thật trong [nội dung và timing](references/content-timing.md).
+3. Nếu đã có script/voice và cần phân tích audio hoặc lập cue, đọc [nội dung và timing](references/content-timing.md).
+4. Nếu thiết kế/dựng/sửa animation hoặc sound, đọc [motion language](references/motion-language.md).
+5. Trước khi render hoặc bàn giao, đọc và thực hiện [QA và bàn giao](references/qa-delivery.md).
 
 ## Workflow chuẩn
 
 1. Xác định rõ bài viết, script, voice và tài sản nào đã được duyệt. Không tự sửa nguồn đã khóa.
-2. Nếu chưa có script, viết voice-over cô đọng; tách riêng lời đọc và on-screen text.
+2. Nếu chưa có script, tạo hai phương án voice-over theo output contract ElevenLabs; tách lời đọc khỏi on-screen text. Nếu script đã chốt, không tự tạo lại hai bản.
 3. Đo audio thật, phân tích khoảng lặng, rồi lập cue sheet theo **ý nghĩa được nói**, không chia thời gian theo số chữ.
 4. Với mỗi cue, ghi: câu nói, thời điểm bắt đầu, semantic cue, visual hit, text, chuyển động, SFX và lý do.
 5. Thiết kế storyboard: mỗi scene có một motion concept; nối scene bằng hard cut có chủ đích hoặc exit nội bộ.
@@ -41,6 +42,7 @@ Tạo video theo nguyên tắc: **voice và nội dung đã duyệt là nguồn 
 ## Công cụ đi kèm
 
 - `scripts/analyze-audio.mjs`: duration, khoảng lặng và cue template.
+- `scripts/estimate-voiceover.mjs`: đếm từ và ước lượng duration có cộng nhịp nghỉ.
 - `scripts/check-alpha-video.mjs`: kiểm tra source và master.
 - `scripts/extract-qa-frames.mjs`: trích frame tại cue và ±3 frame quanh transition.
 - `scripts/validate-package.mjs`: kiểm tra cấu trúc package.

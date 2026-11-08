@@ -7,6 +7,7 @@ Repository này tổng hợp độc lập hệ thống nhận diện, kinh nghi�
 ## Điểm cốt lõi
 
 - Voice và nội dung đã duyệt là nguồn sự thật.
+- Khi chưa có script, tạo hai bản voice-over ElevenLabs dưới 2 phút: kể chuyện và siêu cô đọng.
 - Animation bám semantic cue, không chia timeline theo số chữ.
 - Branding, typography, safe zone và tagline nhất quán xuyên suốt series.
 - Mỗi scene có một motion concept giải thích nội dung.
@@ -56,6 +57,14 @@ node scripts/analyze-audio.mjs "D:/duong dan co khoang trang/voice.mp3" --fps 30
 
 Khoảng lặng chỉ là ứng viên. Luôn nghe voice và xác nhận thời điểm semantic cue.
 
+Đếm từ và ước lượng thời lượng voice-over:
+
+```bash
+node scripts/estimate-voiceover.mjs --file script.txt --strict
+```
+
+Ước lượng đã cộng nhịp nghỉ từ dấu câu; sau khi generate vẫn phải đo duration của file ElevenLabs thật.
+
 Kiểm tra source và master:
 
 ```bash
@@ -77,7 +86,7 @@ Starter tổng hợp không có voice nên master mẫu không có audio. Với 
 ## Cấu trúc
 
 - `SKILL.md`: entrypoint và workflow.
-- `references/`: branding, content/timing, motion/sound, QA.
+- `references/`: branding, biên kịch ElevenLabs, content/timing, motion/sound và QA.
 - `assets/remotion-starter/`: starter kit code-native, không dữ liệu riêng tư.
 - `scripts/`: phân tích audio, invariant check và frame extraction.
 - `.github/workflows/validate.yml`: kiểm tra package, TypeScript và composition.
