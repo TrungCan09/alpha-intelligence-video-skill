@@ -1,0 +1,32 @@
+name: Validate skill
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: assets/remotion-starter/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Kiểm tra package
+        run: node scripts/validate-package.mjs
+      - name: Kiểm tra skill schema
+        run: python scripts/quick_validate.py .
+      - name: Cài starter
+        working-directory: assets/remotion-starter
+        run: npm ci
+      - name: Typecheck
+        working-directory: assets/remotion-starter
+        run: npm run typecheck
+      - name: Liệt kê composition
+        working-directory: assets/remotion-starter
+        run: npm run compositions

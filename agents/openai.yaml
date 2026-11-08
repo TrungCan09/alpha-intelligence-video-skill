@@ -1,0 +1,7 @@
+interface:
+  display_name: "Alpha Intelligence Video"
+  short_description: "Tạo video ngắn đúng nhận diện Alpha Intelligence"
+  brand_color: "#20F669"
+  default_prompt: "Dùng $alpha-intelligence-video-skill để tạo hoặc chỉnh sửa video Alpha Intelligence, bám semantic cue của voice và hoàn tất QA trước khi bàn giao."
+policy:
+  allow_implicit_invocation: true

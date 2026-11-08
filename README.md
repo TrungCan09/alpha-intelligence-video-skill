@@ -1,0 +1,91 @@
+# Alpha Intelligence Video Skill
+
+Skill tiếng Việt để sản xuất video ngắn cho **Cộng đồng Alpha Intelligence**: bài viết → script → voice → semantic cue → storyboard → Remotion → sound → QA → master.
+
+Repository này tổng hợp độc lập hệ thống nhận diện, kinh nghiệm timing và các lỗi motion đã được kiểm chứng trong quá trình sản xuất. Không chứa voice, bài viết hay tài sản riêng tư; không sao chép nguyên văn skill bên thứ ba.
+
+## Điểm cốt lõi
+
+- Voice và nội dung đã duyệt là nguồn sự thật.
+- Animation bám semantic cue, không chia timeline theo số chữ.
+- Branding, typography, safe zone và tagline nhất quán xuyên suốt series.
+- Mỗi scene có một motion concept giải thích nội dung.
+- Có starter Remotion và công cụ phân tích audio, kiểm tra invariant, trích frame QA.
+
+## Cài skill
+
+### Codex
+
+```bash
+git clone https://github.com/TrungCan09/alpha-intelligence-video-skill.git "$CODEX_HOME/skills/alpha-intelligence-video-skill"
+```
+
+### Agent hỗ trợ thư mục `.agents/skills`
+
+```bash
+git clone https://github.com/TrungCan09/alpha-intelligence-video-skill.git .agents/skills/alpha-intelligence-video-skill
+```
+
+Sau đó gọi:
+
+```text
+Dùng $alpha-intelligence-video-skill để dựng video từ bài viết và voice này.
+```
+
+Skill cho phép implicit invocation khi tác vụ liên quan tới video Alpha Intelligence.
+
+## Dùng starter
+
+```bash
+cd assets/remotion-starter
+npm install
+npm run typecheck
+npm run compositions
+npm run render:preview
+```
+
+Starter có composition `AlphaIntelligenceStarter`, 1080×1920, 30 fps, theme, font, background stack, header, safe stage, glass card, gradient type và timeline theo giây.
+
+## Công cụ QA
+
+Phân tích audio và tạo cue template:
+
+```bash
+node scripts/analyze-audio.mjs "D:/duong dan co khoang trang/voice.mp3" --fps 30 --out cues.json
+```
+
+Khoảng lặng chỉ là ứng viên. Luôn nghe voice và xác nhận thời điểm semantic cue.
+
+Kiểm tra source và master:
+
+```bash
+node scripts/check-alpha-video.mjs --project assets/remotion-starter
+node scripts/check-alpha-video.mjs --project assets/remotion-starter --video outputs/master.mp4 --expect-audio
+```
+
+Trích frame tại timestamp hoặc quanh cue:
+
+```bash
+node scripts/extract-qa-frames.mjs outputs/master.mp4 --times 0,5.63,10.79 --out qa-frames
+node scripts/extract-qa-frames.mjs outputs/master.mp4 --cues cues.json --fps 30 --out qa-frames
+```
+
+Các script tìm FFmpeg/ffprobe theo thứ tự: biến môi trường `FFMPEG_PATH`/`FFPROBE_PATH`, hệ thống, rồi binary compositor của Remotion trong `node_modules`.
+
+Starter tổng hợp không có voice nên master mẫu không có audio. Với video sản xuất thật, luôn dùng `--expect-audio` để bắt buộc AAC.
+
+## Cấu trúc
+
+- `SKILL.md`: entrypoint và workflow.
+- `references/`: branding, content/timing, motion/sound, QA.
+- `assets/remotion-starter/`: starter kit code-native, không dữ liệu riêng tư.
+- `scripts/`: phân tích audio, invariant check và frame extraction.
+- `.github/workflows/validate.yml`: kiểm tra package, TypeScript và composition.
+
+## Đóng góp
+
+Pull request phải giữ các invariant thương hiệu, không đưa tài sản riêng tư vào repository và kèm lý do cho motion rule mới. Quy tắc mới nên xuất phát từ một lỗi có thể tái hiện, không phải sở thích nhất thời.
+
+## Giấy phép
+
+[MIT](LICENSE)
