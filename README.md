@@ -9,7 +9,7 @@ Repository này tổng hợp độc lập hệ thống nhận diện, kinh nghi�
 - Voice và nội dung đã duyệt là nguồn sự thật.
 - Khi chưa có script, tạo hai bản voice-over ElevenLabs dưới 2 phút: kể chuyện và siêu cô đọng.
 - Animation bám semantic cue, không chia timeline theo số chữ.
-- Branding, typography, safe zone và tagline nhất quán xuyên suốt series.
+- Branding, typography, safe zone và tagline được khóa bằng token, component ngữ nghĩa và validator.
 - Mỗi scene có một motion concept giải thích nội dung.
 - Có starter Remotion và công cụ phân tích audio, kiểm tra invariant, trích frame QA.
 - Có motion/media primitives tự chứa: entrance/exit, Ken Burns, counter, spark, parallax, motion trail, footage và captions.
@@ -46,7 +46,7 @@ npm run compositions
 npm run render:preview
 ```
 
-Starter có composition `AlphaIntelligenceStarter`, 1080×1920, 30 fps, theme, font, background stack, header, safe stage, glass card, gradient type và timeline theo giây.
+Starter có composition `AlphaIntelligenceStarter`, 1080×1920, 30 fps, `brand.config.json`, font load tập trung, `BrandFrame`, typography role, background stack và timeline theo giây.
 
 Composition `AlphaPrimitivesDemo` kiểm tra các pattern bổ sung:
 
@@ -77,6 +77,8 @@ Kiểm tra storyboard và contrast:
 ```bash
 node scripts/check-storyboard.mjs tests/fixtures/storyboard.valid.json
 node scripts/check-contrast.mjs '#F9F9F9' '#050D1D'
+node scripts/check-brand-contrast.mjs
+node scripts/check-brand-usage.mjs
 ```
 
 Tạo bộ SFX WAV tối giản khi dự án chưa có sound asset:

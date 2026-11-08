@@ -1,13 +1,21 @@
 import React, {useEffect, useState} from 'react';
+import type {ReactNode} from 'react';
 import {AbsoluteFill, Easing, continueRender, delayRender, interpolate, useCurrentFrame, useVideoConfig} from 'remotion';
 import {ALPHA_THEME, BRAND} from './theme';
 import {frameAt} from './timeline';
+import {HeroText} from './typography';
 
 export const easeOut = Easing.bezier(0.16, 1, 0.3, 1);
 
 export const FontGate: React.FC<React.PropsWithChildren> = ({children}) => {
   const [handle] = useState(() => delayRender('Đợi font Alpha Intelligence'));
-  useEffect(() => { document.fonts.ready.then(() => continueRender(handle)); }, [handle]);
+  useEffect(() => {
+    Promise.all([
+      document.fonts.load('800 80px "Montserrat"'),
+      document.fonts.load('700 48px "Be Vietnam Pro"'),
+      document.fonts.ready,
+    ]).finally(() => continueRender(handle));
+  }, [handle]);
   return <>{children}</>;
 };
 
@@ -35,6 +43,16 @@ export const BrandHeader: React.FC = () => <div style={{fontFamily: ALPHA_THEME.
   <div style={{fontSize: 32, marginTop: 8}}>{BRAND.tagline}</div>
 </div>;
 
+export const BrandFrame: React.FC<React.PropsWithChildren<{assetLayer?: ReactNode; overlay?: ReactNode}>> = ({children, assetLayer, overlay}) => <FontGate>
+  <AbsoluteFill lang="vi" style={{background: ALPHA_THEME.colors.ink, color: ALPHA_THEME.colors.text, fontFamily: ALPHA_THEME.type.vietnamese, overflow: 'hidden', WebkitFontSmoothing: 'antialiased'}}>
+    <BackgroundStack />
+    {assetLayer}
+    <SafeStage><BrandHeader />{children}</SafeStage>
+    {overlay}
+    <GradeGrain />
+  </AbsoluteFill>
+</FontGate>;
+
 export const GlassCard: React.FC<React.PropsWithChildren<{accent?: 'green' | 'cyan'}>> = ({children, accent = 'cyan'}) => <div style={{background: `${ALPHA_THEME.colors.navy}E8`, border: `2px solid ${ALPHA_THEME.colors[accent]}66`, borderRadius: 28, boxShadow: `0 18px 60px ${ALPHA_THEME.colors[accent]}18`, padding: '32px 36px'}}>{children}</div>;
 
-export const GradientText: React.FC<React.PropsWithChildren<{size?: number}>> = ({children, size = 96}) => <div style={{fontFamily: ALPHA_THEME.type.vietnamese, fontWeight: 700, fontSize: size, lineHeight: 1.06, color: ALPHA_THEME.colors.text, backgroundImage: `linear-gradient(180deg, ${ALPHA_THEME.colors.text} 30%, ${ALPHA_THEME.colors.green} 120%)`, backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', filter: `drop-shadow(0 0 22px ${ALPHA_THEME.colors.green}28)`}}>{children}</div>;
+export const GradientText: React.FC<React.PropsWithChildren<{size?: number; focus?: boolean}>> = ({children, size = 96, focus = false}) => <HeroText size={size} focus={focus}>{children}</HeroText>;

@@ -9,7 +9,7 @@ Tạo video theo nguyên tắc: **voice và nội dung đã duyệt là nguồn 
 
 ## Định tuyến bắt buộc
 
-1. Đọc [hệ nhận diện](references/brand-system.md) cho mọi tác vụ.
+1. Đọc [hệ nhận diện](references/brand-system.md) cho mọi tác vụ. Khi viết hoặc sửa Remotion, dùng `brand.config.json`, `BrandFrame` và typography role trong starter; không tạo theme song song.
 2. Nếu chuyển bài viết thành script, storyboard hoặc on-screen text, đọc [bảo toàn nội dung nguồn](references/source-content-rules.md).
 3. Nếu viết voice-over từ bài đăng hoặc văn bản thô, đọc [biên kịch ElevenLabs](references/script-elevenlabs.md), rồi đọc phần nguồn sự thật trong [nội dung và timing](references/content-timing.md).
 4. Nếu đã có script/voice và cần phân tích audio hoặc lập cue, đọc [nội dung và timing](references/content-timing.md).
@@ -47,6 +47,8 @@ Tạo video theo nguyên tắc: **voice và nội dung đã duyệt là nguồn 
 - `scripts/estimate-voiceover.mjs`: đếm từ và ước lượng duration có cộng nhịp nghỉ.
 - `scripts/check-storyboard.mjs`: kiểm tra title/support, thời gian đọc, danh sách, numbering và episode label.
 - `scripts/check-contrast.mjs`: kiểm tra contrast WCAG của cặp màu.
+- `scripts/check-brand-contrast.mjs`: kiểm tra toàn bộ ma trận chữ–nền được phép trong token thương hiệu.
+- `scripts/check-brand-usage.mjs`: bắt buộc BrandFrame, font entrypoint, typography role và ngăn hex inline.
 - `scripts/generate-sfx.mjs`: tạo bộ SFX WAV tối giản, không cần tải asset.
 - `scripts/check-alpha-video.mjs`: kiểm tra source và master.
 - `scripts/extract-qa-frames.mjs`: trích frame tại cue và ±3 frame quanh transition.

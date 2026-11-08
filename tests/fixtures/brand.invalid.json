@@ -1,0 +1,6 @@
+{
+  "colors": {"text": "#081938", "ink": "#050D1D"},
+  "allowedTextPairs": [
+    {"foreground": "text", "background": "ink", "min": 4.5}
+  ]
+}

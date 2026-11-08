@@ -1,0 +1,47 @@
+{
+  "brand": {
+    "header": "CỘNG ĐỒNG ALPHA INTELLIGENCE",
+    "communityPrefix": "CỘNG ĐỒNG",
+    "communityName": "ALPHA INTELLIGENCE",
+    "tagline": "Học sinh làm chủ AI và Vibecode"
+  },
+  "colors": {
+    "ink": "#050D1D",
+    "navy": "#081938",
+    "green": "#20F669",
+    "cyan": "#00FCFE",
+    "blue": "#263BE1",
+    "steel": "#4FA8D5",
+    "text": "#F9F9F9",
+    "muted": "#D7E3F4"
+  },
+  "fonts": {
+    "hero": "Montserrat",
+    "vietnamese": "Be Vietnam Pro",
+    "fallback": "sans-serif",
+    "heroWeight": 800,
+    "bodyWeight": 700
+  },
+  "sizes": {
+    "heroMin": 80,
+    "bodyMin": 48,
+    "labelMin": 32
+  },
+  "safe": {
+    "x": 60,
+    "top": 150,
+    "bottom": 270
+  },
+  "allowedTextPairs": [
+    {"foreground": "text", "background": "ink", "min": 4.5},
+    {"foreground": "muted", "background": "ink", "min": 4.5},
+    {"foreground": "green", "background": "ink", "min": 4.5},
+    {"foreground": "cyan", "background": "ink", "min": 4.5},
+    {"foreground": "steel", "background": "ink", "min": 4.5},
+    {"foreground": "text", "background": "navy", "min": 4.5},
+    {"foreground": "muted", "background": "navy", "min": 4.5},
+    {"foreground": "green", "background": "navy", "min": 4.5},
+    {"foreground": "cyan", "background": "navy", "min": 4.5},
+    {"foreground": "steel", "background": "navy", "min": 4.5}
+  ]
+}

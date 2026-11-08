@@ -13,6 +13,8 @@
 - Numbering chỉ dùng khi nguồn có thứ tự; lựa chọn song song dùng A/B hoặc không nhãn.
 - List được biểu diễn giữ đúng số item nguồn.
 - Contrast text/background đạt tối thiểu 4.5:1; layout không dồn vào 40% phía trên.
+- Mọi composition trong `Root.tsx` dùng `BrandFrame`; font được tải tại entrypoint và không có hex inline ngoài `brand.config.json`.
+- Chạy `check-brand-contrast.mjs` và `check-brand-usage.mjs`; không bỏ qua cặp màu hoặc composition lỗi.
 
 ## Motion QA
 
@@ -46,6 +48,7 @@ Tại mỗi điểm, kiểm tra text không đi trước voice quá 0 giây và 
 ## Master
 
 1. Render H.264/AAC, 1080×1920, 30 fps, CRF 16.
+   Dùng `--concurrency=1` cho master để ổn định font tiếng Việt trên mọi frame.
 2. Chạy `check-alpha-video.mjs` với master.
 3. Trích frame từ chính MP4 cuối tại cue và transition.
 4. Xem lại frame đã trích, không dựa vào ảnh preview cũ.

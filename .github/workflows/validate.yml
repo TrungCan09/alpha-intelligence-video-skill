@@ -25,8 +25,11 @@ jobs:
         run: |
           node scripts/check-storyboard.mjs tests/fixtures/storyboard.valid.json
           node scripts/check-contrast.mjs '#F9F9F9' '#050D1D'
+          node scripts/check-brand-contrast.mjs
+          node scripts/check-brand-usage.mjs
           if node scripts/check-storyboard.mjs tests/fixtures/storyboard.invalid.json; then exit 1; fi
           if node scripts/check-contrast.mjs '#081938' '#050D1D'; then exit 1; fi
+          if node scripts/check-brand-contrast.mjs --config tests/fixtures/brand.invalid.json; then exit 1; fi
       - name: Kiểm tra SFX generator
         run: node scripts/generate-sfx.mjs --out outputs/test-sfx
       - name: Cài starter
