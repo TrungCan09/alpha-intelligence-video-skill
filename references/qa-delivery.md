@@ -9,6 +9,10 @@
 - Không episode number, nguồn hoặc claim suy đoán.
 - Một voice chính; không music bed nếu chưa yêu cầu.
 - Parallel choice cùng hiện diện; stagger có lý do được ghi lại.
+- Main title hoàn tất trước supporting content; text đủ tối thiểu 1 giây/6 từ.
+- Numbering chỉ dùng khi nguồn có thứ tự; lựa chọn song song dùng A/B hoặc không nhãn.
+- List được biểu diễn giữ đúng số item nguồn.
+- Contrast text/background đạt tối thiểu 4.5:1; layout không dồn vào 40% phía trên.
 
 ## Motion QA
 
@@ -19,6 +23,7 @@ Render preview 540×960, rồi xem:
 - các chuỗi source → connector → target;
 - focus shift, freeze, split-screen và diagram;
 - cảnh có khoảng hold dài để phát hiện trạng thái “đơ”.
+- frame đầu 15 của scene và mọi khoảng 90 frame không có thay đổi thị giác.
 
 Tại mỗi điểm, kiểm tra text không đi trước voice quá 0 giây và đọc được không trễ quá 0,2 giây.
 
@@ -35,6 +40,7 @@ Tại mỗi điểm, kiểm tra text không đi trước voice quá 0 giây và 
 - Voice rõ, không bị peak/cắt đuôi.
 - SFX đi trước visual hit tối đa 2–3 frame và ở mức nền.
 - Không có SFX cho từng dòng chữ.
+- Footage dùng `OffthreadVideo`; captions nằm trong safe zone và active word đúng timestamp.
 - Duration composition đủ chứa toàn bộ voice và tail hợp lý.
 
 ## Master

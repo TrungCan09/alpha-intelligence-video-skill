@@ -1,9 +1,15 @@
-import React from 'react';
-import {AbsoluteFill, Easing, interpolate, useCurrentFrame, useVideoConfig} from 'remotion';
+import React, {useEffect, useState} from 'react';
+import {AbsoluteFill, Easing, continueRender, delayRender, interpolate, useCurrentFrame, useVideoConfig} from 'remotion';
 import {ALPHA_THEME, BRAND} from './theme';
 import {frameAt} from './timeline';
 
 export const easeOut = Easing.bezier(0.16, 1, 0.3, 1);
+
+export const FontGate: React.FC<React.PropsWithChildren> = ({children}) => {
+  const [handle] = useState(() => delayRender('Đợi font Alpha Intelligence'));
+  useEffect(() => { document.fonts.ready.then(() => continueRender(handle)); }, [handle]);
+  return <>{children}</>;
+};
 
 export const enter = (frame: number, cueSeconds: number, fps: number, duration = 12) =>
   interpolate(frame, [frameAt(cueSeconds, fps), frameAt(cueSeconds, fps) + duration], [0, 1], {

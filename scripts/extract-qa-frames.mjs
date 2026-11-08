@@ -23,6 +23,6 @@ for (const time of times) {
   const stamp = time.toFixed(3).replace('.', '_');
   const target = resolve(out, `${basename(video).replace(/\.[^.]+$/, '')}-${stamp}s.png`);
   const frame = Math.round(time * fps);
-  run(ffmpeg, ['-y', '-i', video, '-vf', `trim=start_frame=${frame}:end_frame=${frame + 1},scale=540:-2`, '-frames:v', '1', target]);
+  run(ffmpeg, ['-y', '-threads', '1', '-i', video, '-vf', `trim=start_frame=${frame}:end_frame=${frame + 1},scale=540:-2`, '-frames:v', '1', target]);
   console.log(target);
 }

@@ -12,6 +12,7 @@ Repository này tổng hợp độc lập hệ thống nhận diện, kinh nghi�
 - Branding, typography, safe zone và tagline nhất quán xuyên suốt series.
 - Mỗi scene có một motion concept giải thích nội dung.
 - Có starter Remotion và công cụ phân tích audio, kiểm tra invariant, trích frame QA.
+- Có motion/media primitives tự chứa: entrance/exit, Ken Burns, counter, spark, parallax, motion trail, footage và captions.
 
 ## Cài skill
 
@@ -47,6 +48,12 @@ npm run render:preview
 
 Starter có composition `AlphaIntelligenceStarter`, 1080×1920, 30 fps, theme, font, background stack, header, safe stage, glass card, gradient type và timeline theo giây.
 
+Composition `AlphaPrimitivesDemo` kiểm tra các pattern bổ sung:
+
+```bash
+npm run render:primitives-preview
+```
+
 ## Công cụ QA
 
 Phân tích audio và tạo cue template:
@@ -64,6 +71,19 @@ node scripts/estimate-voiceover.mjs --file script.txt --strict
 ```
 
 Ước lượng đã cộng nhịp nghỉ từ dấu câu; sau khi generate vẫn phải đo duration của file ElevenLabs thật.
+
+Kiểm tra storyboard và contrast:
+
+```bash
+node scripts/check-storyboard.mjs tests/fixtures/storyboard.valid.json
+node scripts/check-contrast.mjs '#F9F9F9' '#050D1D'
+```
+
+Tạo bộ SFX WAV tối giản khi dự án chưa có sound asset:
+
+```bash
+node scripts/generate-sfx.mjs --out assets/remotion-starter/public/sfx
+```
 
 Kiểm tra source và master:
 
@@ -89,6 +109,7 @@ Starter tổng hợp không có voice nên master mẫu không có audio. Với 
 - `references/`: branding, biên kịch ElevenLabs, content/timing, motion/sound và QA.
 - `assets/remotion-starter/`: starter kit code-native, không dữ liệu riêng tư.
 - `scripts/`: phân tích audio, invariant check và frame extraction.
+- `THIRD_PARTY_NOTICES.md`: nguồn tham khảo và attribution MIT.
 - `.github/workflows/validate.yml`: kiểm tra package, TypeScript và composition.
 
 ## Đóng góp

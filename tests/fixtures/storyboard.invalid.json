@@ -1,0 +1,18 @@
+{
+  "scenes": [
+    {
+      "id": "invalid-scene",
+      "start": 0,
+      "end": 2,
+      "titleReady": 0.8,
+      "supportStart": 0.2,
+      "onScreenWords": 30,
+      "displaySeconds": 2,
+      "parallelLabels": "01/02",
+      "list": {"sourceCount": 3, "items": ["Một", "Hai"]},
+      "episodeLabel": "Episode XX",
+      "episodeVerified": false,
+      "contentCentroidY": 0.25
+    }
+  ]
+}

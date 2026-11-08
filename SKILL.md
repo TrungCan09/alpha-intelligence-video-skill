@@ -10,10 +10,12 @@ Tạo video theo nguyên tắc: **voice và nội dung đã duyệt là nguồn 
 ## Định tuyến bắt buộc
 
 1. Đọc [hệ nhận diện](references/brand-system.md) cho mọi tác vụ.
-2. Nếu viết voice-over từ bài đăng hoặc văn bản thô, đọc [biên kịch ElevenLabs](references/script-elevenlabs.md), rồi đọc phần nguồn sự thật trong [nội dung và timing](references/content-timing.md).
-3. Nếu đã có script/voice và cần phân tích audio hoặc lập cue, đọc [nội dung và timing](references/content-timing.md).
-4. Nếu thiết kế/dựng/sửa animation hoặc sound, đọc [motion language](references/motion-language.md).
-5. Trước khi render hoặc bàn giao, đọc và thực hiện [QA và bàn giao](references/qa-delivery.md).
+2. Nếu chuyển bài viết thành script, storyboard hoặc on-screen text, đọc [bảo toàn nội dung nguồn](references/source-content-rules.md).
+3. Nếu viết voice-over từ bài đăng hoặc văn bản thô, đọc [biên kịch ElevenLabs](references/script-elevenlabs.md), rồi đọc phần nguồn sự thật trong [nội dung và timing](references/content-timing.md).
+4. Nếu đã có script/voice và cần phân tích audio hoặc lập cue, đọc [nội dung và timing](references/content-timing.md).
+5. Nếu thiết kế/dựng/sửa animation hoặc sound, đọc [motion language](references/motion-language.md) và [pattern Remotion cho Alpha](references/remotion-patterns-alpha.md).
+6. Nếu dùng ảnh, footage hoặc captions, đọc phần media trong [pattern Remotion cho Alpha](references/remotion-patterns-alpha.md).
+7. Trước khi render hoặc bàn giao, đọc và thực hiện [QA và bàn giao](references/qa-delivery.md).
 
 ## Workflow chuẩn
 
@@ -43,6 +45,9 @@ Tạo video theo nguyên tắc: **voice và nội dung đã duyệt là nguồn 
 
 - `scripts/analyze-audio.mjs`: duration, khoảng lặng và cue template.
 - `scripts/estimate-voiceover.mjs`: đếm từ và ước lượng duration có cộng nhịp nghỉ.
+- `scripts/check-storyboard.mjs`: kiểm tra title/support, thời gian đọc, danh sách, numbering và episode label.
+- `scripts/check-contrast.mjs`: kiểm tra contrast WCAG của cặp màu.
+- `scripts/generate-sfx.mjs`: tạo bộ SFX WAV tối giản, không cần tải asset.
 - `scripts/check-alpha-video.mjs`: kiểm tra source và master.
 - `scripts/extract-qa-frames.mjs`: trích frame tại cue và ±3 frame quanh transition.
 - `scripts/validate-package.mjs`: kiểm tra cấu trúc package.

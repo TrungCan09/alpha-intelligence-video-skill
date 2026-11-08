@@ -4,6 +4,8 @@
 
 Mỗi chuyển động phải trả lời được: **nó giúp người xem hiểu ý nào?** Nếu không trả lời được, bỏ chuyển động.
 
+Scene phải có chuyển động hoặc thay đổi focus có nghĩa trong 15 frame đầu. Nếu giữ quá 90 frame, phải có lý do đọc/nhấn rõ; nếu không, thêm một diễn tiến nội dung chứ không thêm decoration ngẫu nhiên.
+
 ## Một concept mỗi scene
 
 Chọn một động từ hình ảnh phù hợp nội dung: khóa, tách, hội tụ, so sánh, soi chiếu, dự đoán, kiểm chứng, nâng, đóng băng, mở lớp. Không áp dụng cùng cấu trúc reveal cho mọi scene.
@@ -42,6 +44,8 @@ Text và card không breathing liên tục. Chỉ decoration nền được chuy
 - Card/đồ họa xuyên qua chữ hoặc đè safe zone.
 - Đòn bẩy, trục, vòng tròn hoặc sơ đồ sai quan hệ hình học.
 - SFX spam khiến voice mất trọng tâm.
+- Emoji làm icon vì màu/glyph không tuân theme; dùng CSS/SVG hoặc asset đã kiểm tra.
+- Dùng `<Video>` cho footage thay vì `<OffthreadVideo>`.
 
 ## Kiểm tra sáng tạo
 

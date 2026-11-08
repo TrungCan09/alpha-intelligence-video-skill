@@ -1,0 +1,26 @@
+{
+  "scenes": [
+    {
+      "id": "hook",
+      "start": 0,
+      "end": 4,
+      "titleReady": 0.4,
+      "supportStart": 0.6,
+      "onScreenWords": 12,
+      "displaySeconds": 4,
+      "contentCentroidY": 0.5
+    },
+    {
+      "id": "comparison",
+      "start": 4,
+      "end": 9,
+      "titleReady": 4.4,
+      "supportStart": 4.6,
+      "onScreenWords": 18,
+      "displaySeconds": 5,
+      "parallelLabels": "A/B",
+      "list": {"sourceCount": 3, "items": ["Một", "Hai", "Ba"]},
+      "contentCentroidY": 0.56
+    }
+  ]
+}
