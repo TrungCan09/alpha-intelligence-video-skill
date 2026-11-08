@@ -24,17 +24,23 @@ jobs:
       - name: Kiểm tra storyboard và contrast
         run: |
           node scripts/check-storyboard.mjs tests/fixtures/storyboard.valid.json
-          node scripts/check-contrast.mjs '#F9F9F9' '#050D1D'
+          node scripts/check-contrast.mjs '#F9F9F9' '#081938'
           node scripts/check-brand-contrast.mjs
           node scripts/check-brand-usage.mjs
+          node scripts/check-brand-font.mjs
           if node scripts/check-storyboard.mjs tests/fixtures/storyboard.invalid.json; then exit 1; fi
-          if node scripts/check-contrast.mjs '#081938' '#050D1D'; then exit 1; fi
+          if node scripts/check-contrast.mjs '#365380' '#081938'; then exit 1; fi
           if node scripts/check-brand-contrast.mjs --config tests/fixtures/brand.invalid.json; then exit 1; fi
+          if node scripts/check-brand-usage.mjs --config tests/fixtures/brand.invalid-identity.json; then exit 1; fi
       - name: Kiểm tra SFX generator
         run: node scripts/generate-sfx.mjs --out outputs/test-sfx
       - name: Cài starter
         working-directory: assets/remotion-starter
         run: npm ci
+      - name: Kiểm tra installer font ngoài
+        run: |
+          node scripts/install-brand-font.mjs --file assets/remotion-starter/node_modules/@fontsource/montserrat/files/montserrat-vietnamese-800-normal.woff2 --project outputs/font-test-project
+          node scripts/check-brand-font.mjs --project outputs/font-test-project --require-cy
       - name: Typecheck
         working-directory: assets/remotion-starter
         run: npm run typecheck

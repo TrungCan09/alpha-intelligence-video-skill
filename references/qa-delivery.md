@@ -15,6 +15,7 @@
 - Contrast text/background đạt tối thiểu 4.5:1; layout không dồn vào 40% phía trên.
 - Mọi composition trong `Root.tsx` dùng `BrandFrame`; font được tải tại entrypoint và không có hex inline ngoài `brand.config.json`.
 - Chạy `check-brand-contrast.mjs` và `check-brand-usage.mjs`; không bỏ qua cặp màu hoặc composition lỗi.
+- Ghi rõ master dùng Cy Grotesk thật hay Montserrat fallback; nếu bắt buộc đúng Cy, chạy `check-brand-font.mjs --require-cy`.
 
 ## Motion QA
 
@@ -32,6 +33,7 @@ Tại mỗi điểm, kiểm tra text không đi trước voice quá 0 giây và 
 ## Typography QA tiếng Việt
 
 - Dấu không clipping hoặc nhảy khỏi dòng.
+- Scene dùng `brand-wide` hoặc `montserrat` có chủ đích; không tự đổi face theo dấu tiếng Việt.
 - Line-height đủ cho chữ hoa có dấu.
 - Không ngắt cụm như `TỰ TIN`, `DỰ ĐOÁN TỪ TIẾP THEO` hoặc từ đơn vô lý.
 - Không overlap giữa card, connector, beam, vòng tròn và chữ.

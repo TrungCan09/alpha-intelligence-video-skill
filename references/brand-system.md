@@ -1,6 +1,6 @@
 # Hệ nhận diện Alpha Intelligence
 
-File thực thi duy nhất cho token là `assets/remotion-starter/src/brand.config.json`. Không sao chép palette, font, kích thước hoặc tagline sang một theme riêng. `theme.ts` chỉ chuyển token JSON thành API dùng trong Remotion.
+Nguồn thực thi duy nhất là `assets/remotion-starter/src/brand.config.json`. Không tạo palette, font stack hoặc gradient song song trong scene.
 
 ## Bất biến thương hiệu
 
@@ -8,81 +8,65 @@ File thực thi duy nhất cho token là `assets/remotion-starter/src/brand.conf
 - Tagline: `Học sinh làm chủ AI và Vibecode`.
 - Tagline không thay đổi theo scene, chủ đề hoặc tiêu đề.
 
-## Màu
+## Typography
+
+| Role | Font | Weight | Cách dùng |
+|---|---|---:|---|
+| Brand display | Cy Grotesk V3 Wide | 800 | Hook/headline ngắn, rộng, tối đa khoảng ba dòng |
+| Hero hỗ trợ | Montserrat | 800 | Headline dài, diagram, card hoặc nội dung cần độ đọc cao |
+| Nội dung phụ | Montserrat | 700 | Tagline, caption, body và label |
+
+- Mỗi scene chọn rõ `face="brand-wide"` hoặc `face="montserrat"`; không tự đổi font theo dấu tiếng Việt.
+- `HeroText` mặc định Montserrat để fallback luôn ổn định. Code mới phải khai báo `face` có chủ đích.
+- `BrandWordmark` luôn dùng brand-wide: `Alpha` mang gradient blue, `Intelligence` mang gradient green.
+- Hero tối thiểu 80 px; body 48 px; label 32 px.
+- Line-height brand-wide 0.98, Montserrat hero 1.08, body 1.5. Luôn kiểm tra dấu mũ, ngã, hỏi và chữ hoa trong frame cuối.
+- Không ngắt cụm ý tự nhiên hoặc để một từ đơn rơi xuống dòng vô lý.
+
+### Font Cy Grotesk ngoài repository
+
+Repository công khai không phân phối Cy Grotesk. Người dùng có quyền sử dụng font tự cài file `.woff2` bằng:
+
+```bash
+node scripts/install-brand-font.mjs --file "D:/font/cy-grotesk-v3-wide.woff2"
+```
+
+File đích là `assets/remotion-starter/public/fonts/cy-grotesk-v3-wide.woff2` và đã bị Git bỏ qua. Khi file thiếu hoặc lỗi, `FontGate` cảnh báo một lần rồi dùng Montserrat 800. Dùng `node scripts/check-brand-font.mjs --require-cy` khi master bắt buộc phải dùng đúng Cy Grotesk.
+
+## Màu và vai trò
 
 | Token | Giá trị | Vai trò |
 |---|---:|---|
-| Ink | `#050D1D` | Nền sâu |
-| Navy | `#081938` | Mesh, card |
-| Hero green | `#20F669` | Trọng tâm chính |
-| Cyan | `#00FCFE` | Dữ liệu, connector |
-| Blue | `#263BE1` | Gradient phụ |
-| Steel | `#4FA8D5` | Nhãn, đường viền |
+| Canvas | `#081938` | Nền navy sâu chính |
+| Surface | `#1B2D57` | Card, mesh, vùng nâng |
+| Steel | `#365380` | Border, graphic, surface phụ |
 | Text | `#F9F9F9` | Chữ chính |
-| Muted | `#D7E3F4` | Chữ phụ |
+| Light blue | `#ACDDFA` | Chữ phụ, metadata |
+| Cyan | `#00FCFE` | Dữ liệu, connector |
+| Green | `#20F669` | Trọng tâm Intelligence |
+| Blue-lavender | `#263BE1` | Trọng tâm Alpha |
 
-Không thêm màu nổi bật mới nếu chưa có lý do nội dung. Mỗi frame tối đa một tiêu điểm glow.
+- Steel không dùng làm chữ trên canvas hoặc surface vì không đạt 4.5:1.
+- Màu không là tín hiệu duy nhất; lựa chọn và trạng thái cần thêm nhãn, hình dạng hoặc vị trí.
+- Mỗi frame tối đa một tiêu điểm glow. Body và label không dùng gradient.
+- Chỉ dùng cặp chữ–nền trong `allowedTextPairs`; chạy `check-brand-contrast.mjs` sau khi đổi token.
 
-### Vai trò ngữ nghĩa
+## Gradient khóa cứng
 
-| Vai trò | Token bắt buộc | Không dùng cho |
-|---|---|---|
-| Canvas | `ink` | Card hoặc chữ |
-| Surface | `navy` | Chữ chính |
-| Primary focus | `green` | Nhiều điểm nhấn cùng frame |
-| Data/relationship | `cyan` | Trang trí không mang nghĩa |
-| Secondary gradient | `blue` | Chữ body |
-| Metadata/border | `steel` | Hero chính |
-| Primary text | `text` | Chữ bị giảm nhấn |
-| Secondary text | `muted` | Chữ quá nhỏ hoặc trên nền sáng |
+- `alpha`: dọc 180°, `#F9F9F9` ở 0% → `#263BE1` ở 100%.
+- `intelligence`: dọc 180°, `#F9F9F9` ở 0% → `#20F669` ở 100%.
+- Không đổi stop thành 28%/122%, không đảo chiều và không trộn hai accent trong cùng một cụm chữ.
 
-Màu không được là tín hiệu duy nhất: lựa chọn, trạng thái và quan hệ phải có thêm nhãn, hình dạng hoặc vị trí. Chỉ các cặp chữ–nền khai báo trong `allowedTextPairs` mới được dùng. Chạy `node scripts/check-brand-contrast.mjs` sau khi đổi token; chữ thường phải đạt tối thiểu 4.5:1.
+## Khung hình và component
 
-## Typography
+- 1080×1920, 30 fps; safe zone 60/150/270 px.
+- Mọi composition dùng `BrandFrame`; font được tải tại entrypoint và chờ trong `FontGate`.
+- Dùng `HeroText`, `BrandWordmark`, `BodyText`, `MutedText`, `DataLabel`; không viết lại style chữ nếu role đã tồn tại.
+- Layer stack: background mesh → asset → graphics/type → grade → grain/vignette.
+- Hero visual robot–cube không thuộc phạm vi skill; chỉ dùng khi dự án cung cấp asset riêng.
 
-- Hero Latin: Montserrat 800.
-- Nội dung: Be Vietnam Pro 700.
-- Hero tiếng Việt có dấu: ưu tiên Be Vietnam Pro 700 nếu Montserrat gây lỗi dấu hoặc spacing.
-- Hero tối thiểu 80 px; nội dung 48 px; nhãn 32 px.
-- Không ép chữ Việt bằng line-height quá thấp. Kiểm tra riêng dấu mũ, dấu ngã, dấu hỏi và chữ hoa.
-- Không ngắt một cụm ý tự nhiên chỉ để lấp đầy chiều ngang. Dùng `white-space: nowrap` cho cụm khóa nếu vừa safe stage.
+## Bắt buộc trước bàn giao
 
-### Role và component
-
-| Role | Component | Font | Cỡ tối thiểu | Line-height |
-|---|---|---|---:|---:|
-| Hero | `HeroText` | Montserrat 800; tự chuyển Be Vietnam Pro 700 khi có dấu Việt | 80 px | 1.10 |
-| Nội dung | `BodyText` | Be Vietnam Pro 700 | 48 px | 1.50 |
-| Nội dung giảm nhấn | `MutedText` | Be Vietnam Pro 700 | 48 px | 1.50 |
-| Nhãn dữ liệu | `DataLabel` | Be Vietnam Pro 700 | 32 px | 1.25 |
-
-- Font chỉ được tải một lần tại `src/fonts.ts`, do `src/index.ts` import. `FontGate` phải gọi rõ `document.fonts.load()` cho Montserrat 800 và Be Vietnam Pro 700; không chỉ chờ `document.fonts.ready`.
-- Không dùng weight chưa được tải và không để trình duyệt tự tổng hợp weight.
-- Hero ngắn dùng `text-wrap: balance`; đoạn nội dung dùng `text-wrap: pretty`.
-- Tất cả composition phải đi qua `BrandFrame`, component này chờ font, dựng background, safe stage, header, grain và thứ tự layer chuẩn.
-- `fontMode="montserrat"` chỉ dùng cho hero Latin không dấu. `fontMode="vietnamese"` dùng khi cần khóa Be Vietnam Pro.
-
-## Khung hình
-
-- 1080×1920, 30 fps.
-- Safe zone: trái/phải 60 px, trên 150 px, dưới 270 px.
-- Header nằm trong safe zone và có khoảng thở rõ với nội dung.
-- Stack hình ảnh: background mesh → graphics/type → grade → grain → vignette.
-- Grain và mesh chỉ tạo chiều sâu, không cạnh tranh với chữ.
-
-## Gradient và glow
-
-- Gradient chữ: trắng→green hoặc trắng→blue; không trộn cả hai vô cớ.
-- Glow phải củng cố cấp bậc thị giác, không làm mờ biên chữ.
-- Chỉ hero concept hoặc trạng thái đang được voice nhấn mới nhận glow.
-- `HeroText` mặc định không glow. Chỉ đặt `focus` cho đúng một tiêu điểm đang được voice nhấn.
-- `white-green` là gradient chính; `white-blue` là gradient phụ. Body và label không dùng gradient.
-
-## Bắt buộc khi triển khai
-
-1. Bọc composition bằng `BrandFrame`.
-2. Dùng `HeroText`, `BodyText`, `MutedText` và `DataLabel`; không viết style chữ mới nếu role đã tồn tại.
-3. Lấy màu từ `ALPHA_THEME.colors`; không dùng hex inline.
-4. Giữ nguyên header và tagline từ `BRAND`.
-5. Chạy `check-brand-usage.mjs`, `check-brand-contrast.mjs` và `check-alpha-video.mjs` trước render.
-6. Render master với `--concurrency=1` để tránh lỗi glyph một-frame giữa các renderer; trích frame từ chính MP4 để xác nhận.
+1. Chạy `check-brand-usage.mjs`, `check-brand-contrast.mjs`, `check-brand-font.mjs` và `check-alpha-video.mjs`.
+2. Nếu thiết kế yêu cầu Cy Grotesk thật, chạy thêm `check-brand-font.mjs --require-cy`.
+3. Render `--concurrency=1`, trích frame từ MP4 và kiểm tra font, dấu tiếng Việt, gradient, glow và line break.

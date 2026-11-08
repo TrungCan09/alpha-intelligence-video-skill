@@ -14,7 +14,7 @@ const src = join(root, 'src');
 const sourceFiles = (await files(src)).filter((f) => ['.ts', '.tsx'].includes(extname(f)));
 const brandConfig = join(src, 'brand.config.json');
 const all = (await Promise.all([...sourceFiles, brandConfig].map((f) => readFile(f, 'utf8')))).join('\n');
-const must = ['CỘNG ĐỒNG ALPHA INTELLIGENCE', 'Học sinh làm chủ AI và Vibecode', '#050D1D', '#081938', '#20F669', '#00FCFE', '#263BE1', '#4FA8D5'];
+const must = ['CỘNG ĐỒNG ALPHA INTELLIGENCE', 'Học sinh làm chủ AI và Vibecode', '#081938', '#1B2D57', '#365380', '#F9F9F9', '#20F669', '#00FCFE', '#263BE1', '#ACDDFA', 'Cy Grotesk V3 Wide', 'Montserrat'];
 for (const token of must) (all.includes(token) ? passes : failures).push(`Có token bắt buộc: ${token}`);
 for (const token of ['width: 1080', 'height: 1920', 'fps: 30', '"x": 60', '"top": 150', '"bottom": 270']) (all.includes(token) ? passes : failures).push(`Có invariant: ${token}`);
 if (!all.includes('frameAt(')) failures.push('Timeline phải đổi giây sang frame qua frameAt().'); else passes.push('Timeline dùng frameAt().');

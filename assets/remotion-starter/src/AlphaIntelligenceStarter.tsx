@@ -2,14 +2,14 @@ import React from 'react';
 import {Sequence, useCurrentFrame, useVideoConfig} from 'remotion';
 import {ALPHA_THEME} from './theme';
 import {TIMELINE, frameAt} from './timeline';
-import {BrandFrame, GlassCard, GradientText, enter} from './primitives';
-import {DataLabel} from './typography';
+import {BrandFrame, GlassCard, enter} from './primitives';
+import {DataLabel, HeroText} from './typography';
 
 const Hook: React.FC = () => {
   const frame = useCurrentFrame(); const {fps} = useVideoConfig();
   const p = enter(frame, TIMELINE.cues.result, fps);
   return <div style={{marginTop: 340, opacity: p, transform: `translateY(${(1-p)*54}px) scale(${0.94+p*0.06})`}}>
-    <GradientText focus>KẾT QUẢ<br/>KHÔNG PHẢI<br/>NĂNG LỰC.</GradientText>
+    <HeroText face="brand-wide" gradient="intelligence" focus>KẾT QUẢ<br/>KHÔNG PHẢI<br/>NĂNG LỰC.</HeroText>
   </div>;
 };
 
@@ -20,7 +20,7 @@ const Mechanism: React.FC = () => {
   const line = enter(frame, TIMELINE.cues.connector - sceneStart, fps, 9);
   const target = enter(frame, TIMELINE.cues.target - sceneStart, fps);
   return <div style={{marginTop: 310}}>
-    <GradientText size={84}>MOTION PHẢI<br/>GIẢI THÍCH Ý.</GradientText>
+    <HeroText size={84} face="montserrat" gradient="intelligence">MOTION PHẢI<br/>GIẢI THÍCH Ý.</HeroText>
     <div style={{display: 'grid', gridTemplateColumns: '1fr 110px 1fr', alignItems: 'center', marginTop: 150}}>
       <div style={{opacity: source, transform: `translateX(${(1-source)*-36}px)`}}><GlassCard accent="cyan"><DataLabel tone="cyan">NGUỒN</DataLabel></GlassCard></div>
       <svg width="110" height="70" viewBox="0 0 110 70" style={{overflow: 'visible', opacity: line}}><path d="M4 35 H88" stroke={ALPHA_THEME.colors.cyan} strokeWidth="5" strokeDasharray="84" strokeDashoffset={84*(1-line)} /><path d="M82 20 L104 35 L82 50" fill="none" stroke={ALPHA_THEME.colors.cyan} strokeWidth="5" /></svg>

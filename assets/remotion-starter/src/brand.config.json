@@ -6,21 +6,27 @@
     "tagline": "Học sinh làm chủ AI và Vibecode"
   },
   "colors": {
-    "ink": "#050D1D",
-    "navy": "#081938",
+    "canvas": "#081938",
+    "surface": "#1B2D57",
+    "steel": "#365380",
+    "text": "#F9F9F9",
+    "lightBlue": "#ACDDFA",
     "green": "#20F669",
     "cyan": "#00FCFE",
-    "blue": "#263BE1",
-    "steel": "#4FA8D5",
-    "text": "#F9F9F9",
-    "muted": "#D7E3F4"
+    "blueLavender": "#263BE1"
   },
   "fonts": {
-    "hero": "Montserrat",
-    "vietnamese": "Be Vietnam Pro",
+    "brandWide": "Cy Grotesk V3 Wide",
+    "support": "Montserrat",
     "fallback": "sans-serif",
+    "brandWeight": 800,
     "heroWeight": 800,
-    "bodyWeight": 700
+    "bodyWeight": 700,
+    "brandAssetPath": "fonts/cy-grotesk-v3-wide.woff2"
+  },
+  "gradients": {
+    "alpha": {"angle": 180, "from": "text", "to": "blueLavender"},
+    "intelligence": {"angle": 180, "from": "text", "to": "green"}
   },
   "sizes": {
     "heroMin": 80,
@@ -33,15 +39,17 @@
     "bottom": 270
   },
   "allowedTextPairs": [
-    {"foreground": "text", "background": "ink", "min": 4.5},
-    {"foreground": "muted", "background": "ink", "min": 4.5},
-    {"foreground": "green", "background": "ink", "min": 4.5},
-    {"foreground": "cyan", "background": "ink", "min": 4.5},
-    {"foreground": "steel", "background": "ink", "min": 4.5},
-    {"foreground": "text", "background": "navy", "min": 4.5},
-    {"foreground": "muted", "background": "navy", "min": 4.5},
-    {"foreground": "green", "background": "navy", "min": 4.5},
-    {"foreground": "cyan", "background": "navy", "min": 4.5},
-    {"foreground": "steel", "background": "navy", "min": 4.5}
+    {"foreground": "text", "background": "canvas", "min": 4.5},
+    {"foreground": "lightBlue", "background": "canvas", "min": 4.5},
+    {"foreground": "green", "background": "canvas", "min": 4.5},
+    {"foreground": "cyan", "background": "canvas", "min": 4.5},
+    {"foreground": "text", "background": "surface", "min": 4.5},
+    {"foreground": "lightBlue", "background": "surface", "min": 4.5},
+    {"foreground": "green", "background": "surface", "min": 4.5},
+    {"foreground": "cyan", "background": "surface", "min": 4.5},
+    {"foreground": "text", "background": "steel", "min": 4.5},
+    {"foreground": "lightBlue", "background": "steel", "min": 4.5},
+    {"foreground": "green", "background": "steel", "min": 4.5},
+    {"foreground": "cyan", "background": "steel", "min": 4.5}
   ]
 }

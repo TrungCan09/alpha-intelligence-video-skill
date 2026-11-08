@@ -1,20 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import type {ReactNode} from 'react';
-import {AbsoluteFill, Easing, continueRender, delayRender, interpolate, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, Easing, cancelRender, continueRender, delayRender, interpolate, useCurrentFrame, useVideoConfig} from 'remotion';
 import {ALPHA_THEME, BRAND} from './theme';
 import {frameAt} from './timeline';
 import {HeroText} from './typography';
+import {loadAlphaFonts} from './fonts';
 
 export const easeOut = Easing.bezier(0.16, 1, 0.3, 1);
 
 export const FontGate: React.FC<React.PropsWithChildren> = ({children}) => {
   const [handle] = useState(() => delayRender('Đợi font Alpha Intelligence'));
   useEffect(() => {
-    Promise.all([
-      document.fonts.load('800 80px "Montserrat"'),
-      document.fonts.load('700 48px "Be Vietnam Pro"'),
-      document.fonts.ready,
-    ]).finally(() => continueRender(handle));
+    loadAlphaFonts()
+      .then(() => continueRender(handle))
+      .catch((error) => cancelRender(error instanceof Error ? error : new Error(String(error))));
   }, [handle]);
   return <>{children}</>;
 };
@@ -27,8 +26,8 @@ export const enter = (frame: number, cueSeconds: number, fps: number, duration =
 export const BackgroundStack: React.FC = () => {
   const frame = useCurrentFrame();
   const drift = Math.sin(frame / 70) * 18;
-  return <AbsoluteFill style={{background: ALPHA_THEME.colors.ink, overflow: 'hidden'}}>
-    <AbsoluteFill style={{background: `radial-gradient(circle at ${25 + drift / 12}% 18%, ${ALPHA_THEME.colors.navy} 0%, transparent 46%), radial-gradient(circle at 86% 78%, ${ALPHA_THEME.colors.blue}44 0%, transparent 42%)`}} />
+  return <AbsoluteFill style={{background: ALPHA_THEME.colors.canvas, overflow: 'hidden'}}>
+    <AbsoluteFill style={{background: `radial-gradient(circle at ${25 + drift / 12}% 18%, ${ALPHA_THEME.colors.surface} 0%, transparent 46%), radial-gradient(circle at 86% 78%, ${ALPHA_THEME.colors.blueLavender}44 0%, transparent 42%)`}} />
     <AbsoluteFill style={{opacity: 0.16, backgroundImage: `linear-gradient(${ALPHA_THEME.colors.steel}22 1px, transparent 1px), linear-gradient(90deg, ${ALPHA_THEME.colors.steel}22 1px, transparent 1px)`, backgroundSize: '90px 90px', transform: `perspective(700px) rotateX(62deg) translateY(${580 + drift}px) scale(1.7)`}} />
     <AbsoluteFill style={{background: 'radial-gradient(circle at center, transparent 45%, rgba(0,0,0,.48) 100%)'}} />
   </AbsoluteFill>;
@@ -38,13 +37,13 @@ export const GradeGrain: React.FC = () => <AbsoluteFill style={{pointerEvents: '
 
 export const SafeStage: React.FC<React.PropsWithChildren> = ({children}) => <AbsoluteFill style={{padding: `${ALPHA_THEME.safe.top}px ${ALPHA_THEME.safe.x}px ${ALPHA_THEME.safe.bottom}px`}}>{children}</AbsoluteFill>;
 
-export const BrandHeader: React.FC = () => <div style={{fontFamily: ALPHA_THEME.type.vietnamese, color: ALPHA_THEME.colors.muted, fontSize: 32, fontWeight: 700, lineHeight: 1.22, letterSpacing: 1.1}}>
-  <div aria-label={BRAND.header}>{BRAND.communityPrefix} <span style={{color: ALPHA_THEME.colors.steel}}>{BRAND.communityName}</span></div>
-  <div style={{fontSize: 32, marginTop: 8}}>{BRAND.tagline}</div>
+export const BrandHeader: React.FC = () => <div style={{fontFamily: ALPHA_THEME.type.support, color: ALPHA_THEME.colors.lightBlue, fontSize: 32, fontWeight: 700, lineHeight: 1.22, letterSpacing: 1.1}}>
+  <div aria-label={BRAND.header} style={{color: ALPHA_THEME.colors.text}}>{BRAND.communityPrefix} <span style={{color: ALPHA_THEME.colors.lightBlue}}>{BRAND.communityName}</span></div>
+  <div style={{fontSize: 32, marginTop: 8, color: ALPHA_THEME.colors.lightBlue}}>{BRAND.tagline}</div>
 </div>;
 
 export const BrandFrame: React.FC<React.PropsWithChildren<{assetLayer?: ReactNode; overlay?: ReactNode}>> = ({children, assetLayer, overlay}) => <FontGate>
-  <AbsoluteFill lang="vi" style={{background: ALPHA_THEME.colors.ink, color: ALPHA_THEME.colors.text, fontFamily: ALPHA_THEME.type.vietnamese, overflow: 'hidden', WebkitFontSmoothing: 'antialiased'}}>
+  <AbsoluteFill lang="vi" style={{background: ALPHA_THEME.colors.canvas, color: ALPHA_THEME.colors.text, fontFamily: ALPHA_THEME.type.support, overflow: 'hidden', WebkitFontSmoothing: 'antialiased'}}>
     <BackgroundStack />
     {assetLayer}
     <SafeStage><BrandHeader />{children}</SafeStage>
@@ -53,6 +52,6 @@ export const BrandFrame: React.FC<React.PropsWithChildren<{assetLayer?: ReactNod
   </AbsoluteFill>
 </FontGate>;
 
-export const GlassCard: React.FC<React.PropsWithChildren<{accent?: 'green' | 'cyan'}>> = ({children, accent = 'cyan'}) => <div style={{background: `${ALPHA_THEME.colors.navy}E8`, border: `2px solid ${ALPHA_THEME.colors[accent]}66`, borderRadius: 28, boxShadow: `0 18px 60px ${ALPHA_THEME.colors[accent]}18`, padding: '32px 36px'}}>{children}</div>;
+export const GlassCard: React.FC<React.PropsWithChildren<{accent?: 'green' | 'cyan'}>> = ({children, accent = 'cyan'}) => <div style={{background: `${ALPHA_THEME.colors.surface}E8`, border: `2px solid ${ALPHA_THEME.colors[accent]}66`, borderRadius: 28, boxShadow: `0 18px 60px ${ALPHA_THEME.colors[accent]}18`, padding: '32px 36px'}}>{children}</div>;
 
-export const GradientText: React.FC<React.PropsWithChildren<{size?: number; focus?: boolean}>> = ({children, size = 96, focus = false}) => <HeroText size={size} focus={focus}>{children}</HeroText>;
+export const GradientText: React.FC<React.PropsWithChildren<{size?: number; focus?: boolean}>> = ({children, size = 96, focus = false}) => <HeroText size={size} face="montserrat" gradient="intelligence" focus={focus}>{children}</HeroText>;

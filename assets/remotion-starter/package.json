@@ -1,6 +1,6 @@
 {
   "name": "alpha-intelligence-remotion-starter",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "private": true,
   "scripts": {
     "typecheck": "tsc --noEmit",
@@ -10,7 +10,6 @@
     "render:master": "remotion render src/index.ts AlphaIntelligenceStarter ../../outputs/alpha-starter-master.mp4 --codec=h264 --audio-codec=aac --crf=16 --concurrency=1"
   },
   "dependencies": {
-    "@fontsource/be-vietnam-pro": "5.2.8",
     "@fontsource/montserrat": "5.2.8",
     "@remotion/captions": "4.0.541",
     "@remotion/cli": "4.0.541",

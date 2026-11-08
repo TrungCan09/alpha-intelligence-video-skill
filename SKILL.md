@@ -49,6 +49,8 @@ Tạo video theo nguyên tắc: **voice và nội dung đã duyệt là nguồn 
 - `scripts/check-contrast.mjs`: kiểm tra contrast WCAG của cặp màu.
 - `scripts/check-brand-contrast.mjs`: kiểm tra toàn bộ ma trận chữ–nền được phép trong token thương hiệu.
 - `scripts/check-brand-usage.mjs`: bắt buộc BrandFrame, font entrypoint, typography role và ngăn hex inline.
+- `scripts/install-brand-font.mjs`: cài Cy Grotesk `.woff2` cục bộ mà không đưa font vào Git.
+- `scripts/check-brand-font.mjs`: kiểm tra Cy Grotesk; dùng `--require-cy` khi master bắt buộc đúng font gốc.
 - `scripts/generate-sfx.mjs`: tạo bộ SFX WAV tối giản, không cần tải asset.
 - `scripts/check-alpha-video.mjs`: kiểm tra source và master.
 - `scripts/extract-qa-frames.mjs`: trích frame tại cue và ±3 frame quanh transition.

@@ -1,6 +1,6 @@
 {
-  "colors": {"text": "#081938", "ink": "#050D1D"},
+  "colors": {"steel": "#365380", "canvas": "#081938"},
   "allowedTextPairs": [
-    {"foreground": "text", "background": "ink", "min": 4.5}
+    {"foreground": "steel", "background": "canvas", "min": 4.5}
   ]
 }

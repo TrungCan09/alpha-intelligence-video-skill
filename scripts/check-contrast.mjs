@@ -3,7 +3,7 @@ import {contrastRatio} from './lib/contrast.mjs';
 
 const [foreground, background] = process.argv.slice(2);
 if (!foreground || !background) {
-  console.error("Dùng: node scripts/check-contrast.mjs '#F9F9F9' '#050D1D'");
+  console.error("Dùng: node scripts/check-contrast.mjs '#F9F9F9' '#081938'");
   process.exit(1);
 }
 

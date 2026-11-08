@@ -35,3 +35,7 @@ SOFTWARE.
 ## Video production guidelines
 
 Các invariant về nội dung, timing, numbering, danh sách, safe zone và QA được tổng hợp từ `Video_skill.md` do người dùng cung cấp cho dự án này.
+
+## Brand fonts
+
+Repository không chứa hoặc phân phối Cy Grotesk V3 Wide. Skill chỉ định nghĩa cơ chế tải file font do người dùng tự cung cấp hợp pháp và fallback sang Montserrat.

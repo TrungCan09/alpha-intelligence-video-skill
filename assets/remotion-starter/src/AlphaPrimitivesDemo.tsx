@@ -5,7 +5,7 @@ import {BrandFrame} from './primitives';
 import {ALPHA_THEME} from './theme';
 import {AlphaCaptions, KenBurnsImage} from './media';
 import {CountUp, Entrance, MotionTrail, ParallaxLayer, RadialSpark} from './motion';
-import {HeroText} from './typography';
+import {BrandWordmark, HeroText} from './typography';
 
 const captions: Caption[] = [
   {text: ' Motion', startMs: 400, endMs: 900, timestampMs: 400, confidence: 1},
@@ -23,10 +23,11 @@ const MovingOrb: React.FC = () => {
 export const AlphaPrimitivesDemo: React.FC = () => {
   return <BrandFrame assetLayer={<div style={{position: 'absolute', inset: 0, opacity: 0.28}}><KenBurnsImage src={image} /></div>} overlay={<AlphaCaptions captions={captions} />}>
       <div style={{marginTop: 280}}>
-        <Entrance startSeconds={0.1}><HeroText size={82}>BỘ PATTERN<br/>TỰ CHỨA.</HeroText></Entrance>
-        <div style={{display: 'flex', alignItems: 'center', gap: 50, marginTop: 110}}>
+        <Entrance startSeconds={0.1}><BrandWordmark size={88} layout="inline" focus="intelligence" /></Entrance>
+        <Entrance startSeconds={0.35}><HeroText size={82} face="montserrat" gradient="alpha" style={{marginTop: 70}}>MONTSERRAT<br/>CHO NỘI DUNG.</HeroText></Entrance>
+        <div style={{display: 'flex', alignItems: 'center', gap: 50, marginTop: 80}}>
           <ParallaxLayer factor={0.35}><RadialSpark size={150} startSeconds={0.45} color="cyan" /></ParallaxLayer>
-          <div style={{fontFamily: ALPHA_THEME.type.vietnamese, fontWeight: 700, fontSize: 96, color: ALPHA_THEME.colors.text}}><CountUp target={100} startSeconds={0.5} suffix="%" /></div>
+          <div style={{fontFamily: ALPHA_THEME.type.support, fontWeight: 700, fontSize: 96, color: ALPHA_THEME.colors.text}}><CountUp target={100} startSeconds={0.5} suffix="%" /></div>
         </div>
       </div>
     <div style={{position: 'absolute', left: 110, top: 1050, width: 760, height: 60, overflow: 'hidden'}}><MotionTrail><MovingOrb /></MotionTrail></div>

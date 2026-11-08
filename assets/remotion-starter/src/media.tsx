@@ -17,7 +17,7 @@ export const AlphaCaptions: React.FC<{captions: Caption[]; combineWithinMs?: num
   const pages = useMemo(() => createTikTokStyleCaptions({captions, combineTokensWithinMilliseconds: combineWithinMs, breakOnSilenceAfterMilliseconds: 650}).pages, [captions, combineWithinMs]);
   const page = pages.find((candidate) => now >= candidate.startMs && now < candidate.startMs + candidate.durationMs);
   if (!page) return null;
-  return <div style={{position: 'absolute', left: ALPHA_THEME.safe.x, right: ALPHA_THEME.safe.x, top: '65%', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12, fontFamily: ALPHA_THEME.type.vietnamese, fontWeight: 700, fontSize: 52, lineHeight: 1.18, textAlign: 'center', textShadow: `0 4px 18px ${ALPHA_THEME.colors.ink}`}}>
+  return <div style={{position: 'absolute', left: ALPHA_THEME.safe.x, right: ALPHA_THEME.safe.x, top: '65%', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12, fontFamily: ALPHA_THEME.type.support, fontWeight: 700, fontSize: 52, lineHeight: 1.18, textAlign: 'center', textShadow: `0 4px 18px ${ALPHA_THEME.colors.canvas}`}}>
     {page.tokens.map((token, index) => {
       const active = now >= token.fromMs && now < token.toMs;
       return <span key={`${token.fromMs}-${index}`} style={{color: active ? ALPHA_THEME.colors.green : ALPHA_THEME.colors.text}}>{token.text.trim()}</span>;

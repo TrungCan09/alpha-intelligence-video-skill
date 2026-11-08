@@ -45,7 +45,7 @@ Khi video rút ngắn, ưu tiên bỏ câu rườm rà và ví dụ phụ; vẫn
 Kiểm tra contrast bằng:
 
 ```bash
-node scripts/check-contrast.mjs '#F9F9F9' '#050D1D'
+node scripts/check-contrast.mjs '#F9F9F9' '#081938'
 ```
 
 ## Episode và nhãn nhận diện

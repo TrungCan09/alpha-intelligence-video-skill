@@ -3,7 +3,7 @@ import {access, readFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 
 const root = resolve(process.argv[2] ?? '.');
-const required = ['SKILL.md', 'agents/openai.yaml', 'README.md', 'LICENSE', 'THIRD_PARTY_NOTICES.md', 'references/brand-system.md', 'references/source-content-rules.md', 'references/script-elevenlabs.md', 'references/content-timing.md', 'references/motion-language.md', 'references/remotion-patterns-alpha.md', 'references/qa-delivery.md', 'assets/remotion-starter/package.json', 'assets/remotion-starter/src/brand.config.json', 'assets/remotion-starter/src/fonts.ts', 'assets/remotion-starter/src/typography.tsx', 'assets/remotion-starter/src/motion.tsx', 'assets/remotion-starter/src/media.tsx', 'scripts/analyze-audio.mjs', 'scripts/estimate-voiceover.mjs', 'scripts/check-storyboard.mjs', 'scripts/check-contrast.mjs', 'scripts/check-brand-contrast.mjs', 'scripts/check-brand-usage.mjs', 'scripts/generate-sfx.mjs', 'scripts/check-alpha-video.mjs', 'scripts/extract-qa-frames.mjs', 'scripts/quick_validate.py', 'tests/fixtures/storyboard.valid.json', 'tests/fixtures/storyboard.invalid.json', 'tests/fixtures/brand.invalid.json'];
+const required = ['SKILL.md', 'agents/openai.yaml', 'README.md', 'LICENSE', 'THIRD_PARTY_NOTICES.md', 'references/brand-system.md', 'references/source-content-rules.md', 'references/script-elevenlabs.md', 'references/content-timing.md', 'references/motion-language.md', 'references/remotion-patterns-alpha.md', 'references/qa-delivery.md', 'assets/remotion-starter/package.json', 'assets/remotion-starter/src/brand.config.json', 'assets/remotion-starter/src/fonts.ts', 'assets/remotion-starter/src/typography.tsx', 'assets/remotion-starter/src/motion.tsx', 'assets/remotion-starter/src/media.tsx', 'scripts/analyze-audio.mjs', 'scripts/estimate-voiceover.mjs', 'scripts/check-storyboard.mjs', 'scripts/check-contrast.mjs', 'scripts/check-brand-contrast.mjs', 'scripts/check-brand-usage.mjs', 'scripts/check-brand-font.mjs', 'scripts/install-brand-font.mjs', 'scripts/generate-sfx.mjs', 'scripts/check-alpha-video.mjs', 'scripts/extract-qa-frames.mjs', 'scripts/quick_validate.py', 'tests/fixtures/storyboard.valid.json', 'tests/fixtures/storyboard.invalid.json', 'tests/fixtures/brand.invalid.json', 'tests/fixtures/brand.invalid-identity.json'];
 const errors = [];
 for (const file of required) { try { await access(resolve(root, file)); } catch { errors.push(`Thiếu ${file}`); } }
 const skill = await readFile(resolve(root, 'SKILL.md'), 'utf8');
@@ -22,6 +22,10 @@ for (const [condition, message] of [
   [brand.includes('Học sinh làm chủ AI và Vibecode'), 'Tagline cố định'],
   [brand.includes('brand.config.json') && brand.includes('BrandFrame') && brand.includes('HeroText'), 'Brand token và semantic components'],
   [brand.includes('allowedTextPairs') && brand.includes('4.5:1'), 'Ma trận contrast thương hiệu'],
+  [brand.includes('Cy Grotesk V3 Wide') && brand.includes('Montserrat') && brand.includes('fallback'), 'Cy Grotesk ngoài repository và fallback'],
+  [brand.includes('#1B2D57') && brand.includes('#365380') && brand.includes('#ACDDFA'), 'Palette branding gốc'],
+  [brand.includes('alpha') && brand.includes('intelligence') && brand.includes('180°'), 'Gradient Alpha và Intelligence'],
+  [brand.includes('robot–cube không thuộc phạm vi'), 'Hero visual ngoài phạm vi'],
   [sourceRules.includes('1 giây cho mỗi 6 từ') && sourceRules.includes('4.5:1'), 'Thời gian đọc và contrast'],
   [sourceRules.includes('A/B') && sourceRules.includes('01/02') && sourceRules.includes('số item'), 'Numbering và list integrity'],
   [sourceRules.includes('CTA') && sourceRules.includes('bài sau'), 'CTA và follow-up transition'],

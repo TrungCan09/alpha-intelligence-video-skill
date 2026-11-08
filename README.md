@@ -46,7 +46,16 @@ npm run compositions
 npm run render:preview
 ```
 
-Starter có composition `AlphaIntelligenceStarter`, 1080×1920, 30 fps, `brand.config.json`, font load tập trung, `BrandFrame`, typography role, background stack và timeline theo giây.
+Starter có composition `AlphaIntelligenceStarter`, 1080×1920, 30 fps, `brand.config.json`, `BrandFrame`, Cy Grotesk ngoài repository với Montserrat fallback, typography role, background stack và timeline theo giây.
+
+Nếu có quyền sử dụng Cy Grotesk V3 Wide, cài file `.woff2` cục bộ:
+
+```bash
+node scripts/install-brand-font.mjs --file "D:/font/cy-grotesk-v3-wide.woff2"
+node scripts/check-brand-font.mjs --require-cy
+```
+
+File font được Git bỏ qua và không nằm trong release công khai. Khi thiếu font, starter tự dùng Montserrat 800.
 
 Composition `AlphaPrimitivesDemo` kiểm tra các pattern bổ sung:
 
@@ -76,9 +85,10 @@ Kiểm tra storyboard và contrast:
 
 ```bash
 node scripts/check-storyboard.mjs tests/fixtures/storyboard.valid.json
-node scripts/check-contrast.mjs '#F9F9F9' '#050D1D'
+node scripts/check-contrast.mjs '#F9F9F9' '#081938'
 node scripts/check-brand-contrast.mjs
 node scripts/check-brand-usage.mjs
+node scripts/check-brand-font.mjs
 ```
 
 Tạo bộ SFX WAV tối giản khi dự án chưa có sound asset:

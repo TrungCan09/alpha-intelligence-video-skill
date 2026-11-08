@@ -2,16 +2,27 @@ import {Easing} from 'remotion';
 import brandConfig from './brand.config.json';
 
 export const ALPHA_THEME = {
-  colors: brandConfig.colors,
+  colors: {
+    ...brandConfig.colors,
+    // Alias tương thích trong v1.4; code mới dùng canvas/surface/blueLavender/lightBlue.
+    ink: brandConfig.colors.canvas,
+    navy: brandConfig.colors.surface,
+    blue: brandConfig.colors.blueLavender,
+    muted: brandConfig.colors.lightBlue,
+  },
   type: {
-    hero: `${brandConfig.fonts.hero}, ${brandConfig.fonts.vietnamese}, ${brandConfig.fonts.fallback}`,
-    vietnamese: `${brandConfig.fonts.vietnamese}, ${brandConfig.fonts.fallback}`,
+    brandWide: `"${brandConfig.fonts.brandWide}", ${brandConfig.fonts.support}, ${brandConfig.fonts.fallback}`,
+    support: `${brandConfig.fonts.support}, ${brandConfig.fonts.fallback}`,
+    hero: `${brandConfig.fonts.support}, ${brandConfig.fonts.fallback}`,
+    vietnamese: `${brandConfig.fonts.support}, ${brandConfig.fonts.fallback}`,
+    brandWeight: brandConfig.fonts.brandWeight,
     heroWeight: brandConfig.fonts.heroWeight,
     bodyWeight: brandConfig.fonts.bodyWeight,
     heroMin: brandConfig.sizes.heroMin,
     bodyMin: brandConfig.sizes.bodyMin,
     labelMin: brandConfig.sizes.labelMin,
   },
+  gradients: brandConfig.gradients,
   safe: brandConfig.safe,
   timing: {readableAfterCueSeconds: 0.2},
   motion: {
