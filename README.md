@@ -9,6 +9,9 @@ Repository này tổng hợp độc lập hệ thống nhận diện, kinh nghi�
 - Voice và nội dung đã duyệt là nguồn sự thật.
 - Khi chưa có script, tạo hai bản voice-over ElevenLabs dưới 2 phút: kể chuyện và siêu cô đọng.
 - Animation bám semantic cue, không chia timeline theo số chữ.
+- Storyboard dùng semantic beats; ambient motion không được tính thay cho diễn tiến nội dung.
+- Graphic quan hệ phải có `visualMeaning`; đường chuyển động đẹp nhưng không tự giải thích được sẽ bị validator từ chối.
+- Connector phải khai báo trục, anchors, end gap và layer order; scene phải xác nhận safe bounds, optical balance và dấu/glyph không clipping.
 - Branding, typography, safe zone và tagline được khóa bằng token, component ngữ nghĩa và validator.
 - Mỗi scene có một motion concept giải thích nội dung.
 - Có starter Remotion và công cụ phân tích audio, kiểm tra invariant, trích frame QA.
@@ -48,6 +51,8 @@ npm run render:preview
 
 Starter có composition `AlphaIntelligenceStarter`, 1080×1920, 30 fps, `brand.config.json`, `BrandFrame`, Cy Grotesk ngoài repository với Montserrat fallback, typography role, background stack và timeline theo giây.
 
+`AlphaMotionReference10s` là composition tham chiếu 10 giây cho nhịp `problem → prompt → answer`. Có thể truyền voice cục bộ bằng prop `voiceSrc`; thư mục `public/private/` được Git bỏ qua để không phát hành audio riêng tư.
+
 Nếu có quyền sử dụng Cy Grotesk V3 Wide, cài file `.woff2` cục bộ:
 
 ```bash
@@ -85,6 +90,7 @@ Kiểm tra storyboard và contrast:
 
 ```bash
 node scripts/check-storyboard.mjs tests/fixtures/storyboard.valid.json
+node scripts/audit-motion-density.mjs outputs/master.mp4 --storyboard assets/remotion-starter/src/reference-storyboard.json
 node scripts/check-contrast.mjs '#F9F9F9' '#081938'
 node scripts/check-brand-contrast.mjs
 node scripts/check-brand-usage.mjs

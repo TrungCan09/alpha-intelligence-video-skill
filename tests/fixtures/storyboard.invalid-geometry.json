@@ -1,0 +1,17 @@
+{
+  "fps": 30,
+  "scenes": [
+    {
+      "id": "misaligned-connector",
+      "start": 0,
+      "end": 3,
+      "motionConcept": "connect",
+      "layoutFamily": "vertical-flow",
+      "layoutChecks": {"safeBounds":true,"opticalBalance":true,"diacritics":true},
+      "beats": [
+        {"id":"source","kind":"semantic","cueStart":0,"visualHit":0.08,"readableBy":0.1,"action":"reveal","target":"source","onScreenText":"Nguồn"},
+        {"id":"arrow","kind":"semantic","cueStart":1,"visualHit":1.08,"readableBy":1.1,"action":"connect","target":"target","sourceBeatId":"source","visualMeaning":"Nguồn nối tới đích.","connector":{"axis":"","sourceAnchor":"bottom-center","targetAnchor":"top-center","endGapPx":0,"layerOrder":"above-card"}}
+      ]
+    }
+  ]
+}

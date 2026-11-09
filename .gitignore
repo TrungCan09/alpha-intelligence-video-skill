@@ -6,3 +6,4 @@ cue-template.json
 .DS_Store
 Thumbs.db
 assets/remotion-starter/public/fonts/cy-grotesk-v3-wide.woff2
+assets/remotion-starter/public/private/

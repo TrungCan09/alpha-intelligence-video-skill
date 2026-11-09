@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 import {access, readFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
+import {spawnSync} from 'node:child_process';
 
 const root = resolve(process.argv[2] ?? '.');
-const required = ['SKILL.md', 'agents/openai.yaml', 'README.md', 'LICENSE', 'THIRD_PARTY_NOTICES.md', 'references/brand-system.md', 'references/source-content-rules.md', 'references/script-elevenlabs.md', 'references/content-timing.md', 'references/motion-language.md', 'references/remotion-patterns-alpha.md', 'references/qa-delivery.md', 'assets/remotion-starter/package.json', 'assets/remotion-starter/src/brand.config.json', 'assets/remotion-starter/src/fonts.ts', 'assets/remotion-starter/src/typography.tsx', 'assets/remotion-starter/src/motion.tsx', 'assets/remotion-starter/src/media.tsx', 'scripts/analyze-audio.mjs', 'scripts/estimate-voiceover.mjs', 'scripts/check-storyboard.mjs', 'scripts/check-contrast.mjs', 'scripts/check-brand-contrast.mjs', 'scripts/check-brand-usage.mjs', 'scripts/check-brand-font.mjs', 'scripts/install-brand-font.mjs', 'scripts/generate-sfx.mjs', 'scripts/check-alpha-video.mjs', 'scripts/extract-qa-frames.mjs', 'scripts/quick_validate.py', 'tests/fixtures/storyboard.valid.json', 'tests/fixtures/storyboard.invalid.json', 'tests/fixtures/brand.invalid.json', 'tests/fixtures/brand.invalid-identity.json'];
+const required = ['SKILL.md', 'agents/openai.yaml', 'README.md', 'LICENSE', 'THIRD_PARTY_NOTICES.md', 'references/brand-system.md', 'references/source-content-rules.md', 'references/script-elevenlabs.md', 'references/content-timing.md', 'references/motion-language.md', 'references/remotion-patterns-alpha.md', 'references/qa-delivery.md', 'assets/remotion-starter/package.json', 'assets/remotion-starter/src/brand.config.json', 'assets/remotion-starter/src/fonts.ts', 'assets/remotion-starter/src/typography.tsx', 'assets/remotion-starter/src/motion.tsx', 'assets/remotion-starter/src/media.tsx', 'assets/remotion-starter/src/AlphaMotionReference10s.tsx', 'assets/remotion-starter/src/reference-storyboard.json', 'scripts/analyze-audio.mjs', 'scripts/estimate-voiceover.mjs', 'scripts/check-storyboard.mjs', 'scripts/audit-motion-density.mjs', 'scripts/check-contrast.mjs', 'scripts/check-brand-contrast.mjs', 'scripts/check-brand-usage.mjs', 'scripts/check-brand-font.mjs', 'scripts/install-brand-font.mjs', 'scripts/generate-sfx.mjs', 'scripts/check-alpha-video.mjs', 'scripts/extract-qa-frames.mjs', 'scripts/quick_validate.py', 'tests/fixtures/storyboard.valid.json', 'tests/fixtures/storyboard.invalid.json', 'tests/fixtures/storyboard.invalid-static.json', 'tests/fixtures/storyboard.invalid-sync.json', 'tests/fixtures/storyboard.invalid-connector.json', 'tests/fixtures/storyboard.invalid-ambiguous.json', 'tests/fixtures/storyboard.invalid-geometry.json', 'tests/fixtures/storyboard.invalid-voice-grounding.json', 'tests/fixtures/brand.invalid.json', 'tests/fixtures/brand.invalid-identity.json'];
 const errors = [];
 for (const file of required) { try { await access(resolve(root, file)); } catch { errors.push(`Thiếu ${file}`); } }
 const skill = await readFile(resolve(root, 'SKILL.md'), 'utf8');
@@ -35,9 +36,27 @@ for (const [condition, message] of [
   [elevenlabs.includes('Bạn có muốn tăng hay giảm thời lượng nói'), 'Câu hỏi tinh chỉnh cuối'],
   [timing.includes('Text không hiện trước semantic cue'), 'Sửa animation đi trước voice'],
   [timing.includes('Connector không đi trước nguồn'), 'Thứ tự connector theo nguồn'],
+  [timing.includes('Voice-grounding gate') && timing.includes('spokenText') && timing.includes('Không suy lời thoại'), 'Voice-grounding trước storyboard'],
   [patterns.includes('OffthreadVideo') && patterns.includes('AlphaCaptions') && patterns.includes('KenBurnsImage'), 'Media và captions primitives'],
   [motion.includes('15 frame đầu') && motion.includes('90 frame'), 'Scene pacing'],
+  [motion.includes('semantic beat') && motion.includes('ambient'), 'Semantic motion không bị thay bằng decoration'],
+  [motion.includes('Semantic legibility gate') && motion.includes('visualMeaning'), 'Graphic phải truyền đạt ý rõ ràng'],
+  [motion.includes('Hình học và cân bằng') && motion.includes('end gap') && motion.includes('Optical balance'), 'Connector geometry và cân bằng quang học'],
   [qa.includes('Dấu không clipping') && qa.includes('Không overlap'), 'QA tiếng Việt và overlap'],
 ]) if (!condition) errors.push(`Thiếu forward-test rule: ${message}`);
+
+const storyboardCases = [
+  ['tests/fixtures/storyboard.valid.json', true],
+  ['tests/fixtures/storyboard.invalid-static.json', false],
+  ['tests/fixtures/storyboard.invalid-sync.json', false],
+  ['tests/fixtures/storyboard.invalid-connector.json', false],
+  ['tests/fixtures/storyboard.invalid-ambiguous.json', false],
+  ['tests/fixtures/storyboard.invalid-geometry.json', false],
+  ['tests/fixtures/storyboard.invalid-voice-grounding.json', false],
+];
+for (const [fixture, shouldPass] of storyboardCases) {
+  const result = spawnSync(process.execPath, [resolve(root, 'scripts/check-storyboard.mjs'), resolve(root, fixture)], {encoding: 'utf8'});
+  if ((result.status === 0) !== shouldPass) errors.push(`Storyboard forward-test sai kỳ vọng: ${fixture}`);
+}
 if (errors.length) { errors.forEach((x) => console.error(`FAIL ${x}`)); process.exit(1); }
 console.log(`PASS Package hợp lệ: ${required.length} file bắt buộc.`);

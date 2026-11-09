@@ -7,6 +7,7 @@ export type AlphaFontStatus = {cyGroteskAvailable: boolean};
 
 let loadPromise: Promise<AlphaFontStatus> | undefined;
 let warned = false;
+const vietnameseFontProbe = 'CỘNG ĐỒNG ALPHA INTELLIGENCE Học sinh làm chủ AI và Vibecode Ă Â Ê Ô Ơ Ư Đ ă â ê ô ơ ư đ Ả Ẫ Ễ Ự ạ ả ấ ề ộ ớ ự CÂU TRẢ LỜI BẾ TẮC SUY NGHĨ';
 
 const warnFallback = () => {
   if (warned) return;
@@ -32,8 +33,8 @@ export const loadAlphaFonts = (): Promise<AlphaFontStatus> => {
   if (loadPromise) return loadPromise;
   loadPromise = (async () => {
     await Promise.all([
-      document.fonts.load('800 80px "Montserrat"'),
-      document.fonts.load('700 48px "Montserrat"'),
+      document.fonts.load('800 80px "Montserrat"', vietnameseFontProbe),
+      document.fonts.load('700 48px "Montserrat"', vietnameseFontProbe),
     ]);
     let cyGroteskAvailable = false;
     try {

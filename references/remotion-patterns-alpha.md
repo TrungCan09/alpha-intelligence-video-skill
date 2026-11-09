@@ -15,6 +15,19 @@
 
 Mọi scene phải có chuyển động có ý nghĩa trong 15 frame đầu. Nếu scene dài hơn 90 frame mà không có thay đổi thị giác hoặc focus shift, kiểm tra lại khoảng hold; không thêm chuyển động vô nghĩa chỉ để đạt quota.
 
+## Scene recipes có chủ đích
+
+- **Split/lock:** một trạng thái được khóa rồi tách để lộ mâu thuẫn; dùng cho “xong bài ≠ đã học”.
+- **Progressive assembly:** đối tượng được xây qua nhiều semantic beat; dùng cho quy trình, không dùng để stagger danh sách đồng cấp.
+- **Focus transfer:** A/B cùng hiện diện, ánh sáng và độ tương phản chuyển theo lời đọc.
+- **Source → connector → target:** connector chỉ draw sau nguồn và kết thúc khi target bắt đầu nhận trạng thái.
+- **Verification mismatch:** câu trả lời mượt xuất hiện trước, sau đó lớp kiểm chứng bóc ra phần sai hoặc thiếu nguồn.
+- **Freeze/depth shift:** giao diện đang chạy đóng băng và lùi chiều sâu khi voice yêu cầu dừng lại hoặc suy nghĩ.
+
+Không dùng recipe như template cứng. Mỗi scene vẫn phải khai báo motion concept, target thay đổi và lý do phù hợp với nội dung.
+
+Với ý “phản hồi xuất hiện ngay”, ưu tiên prompt → mũi tên/xung thẳng → response card được xây nhanh. Không thay bằng đường sóng và các chấm trôi nếu chúng không đại diện cho dữ liệu đã được định nghĩa.
+
 ## Ảnh và footage
 
 - `KenBurnsImage` dành cho still image: pan/zoom chậm, có easing và clamp. Đổi hướng giữa các ảnh liên tiếp.
@@ -43,6 +56,8 @@ npx remotion render src/index.ts <CompId> out/video.mp4 --browser-executable=<pa
 ```
 
 Ưu tiên `headless_shell` khi full Chrome báo old headless mode không còn hỗ trợ. Không hard-code đường dẫn máy cá nhân vào repository.
+
+Trên Windows, thêm `--disable-shared-memory-capture --gop=30` vào preview và master. Nếu không, Chrome capture hoặc chuỗi frame tham chiếu quá dài có thể tạo frame bị mất dải glyph dù still hoặc frame liền kề vẫn đúng. Luôn xác minh bằng một chuỗi PNG liên tiếp và frame trích từ MP4, không chỉ một ảnh duy nhất.
 
 ## Quy tắc xung đột đã khóa
 

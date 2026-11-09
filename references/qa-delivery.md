@@ -27,6 +27,12 @@ Render preview 540×960, rồi xem:
 - focus shift, freeze, split-screen và diagram;
 - cảnh có khoảng hold dài để phát hiện trạng thái “đơ”.
 - frame đầu 15 của scene và mọi khoảng 90 frame không có thay đổi thị giác.
+- mọi semantic beat phải làm thay đổi đúng target nội dung; mesh/particle/grain không được dùng để che long hold.
+- graphic quan hệ vượt semantic legibility gate: source, hướng, target và kết quả có thể hiểu từ clip ngắn mà không cần lời giải thích ngoài video.
+- connector đồng trục với source/target, còn end gap nhìn thấy được và không bị card che ở bất kỳ frame overshoot nào.
+- kiểm tra safe bounds và optical balance tại entrance, peak overshoot, hold và exit; không có card/glyph bị cắt mép.
+- exit của card/graphic không được đi xuyên qua brand header, tagline hoặc nhãn scene dù chỉ ở frame trung gian.
+- xem toàn bộ preview ở 1× và các đoạn nghi ngờ ở 0,5×, không chỉ kiểm tra still frame.
 
 Tại mỗi điểm, kiểm tra text không đi trước voice quá 0 giây và đọc được không trễ quá 0,2 giây.
 
@@ -37,7 +43,10 @@ Tại mỗi điểm, kiểm tra text không đi trước voice quá 0 giây và 
 - Line-height đủ cho chữ hoa có dấu.
 - Không ngắt cụm như `TỰ TIN`, `DỰ ĐOÁN TỪ TIẾP THEO` hoặc từ đơn vô lý.
 - Không overlap giữa card, connector, beam, vòng tròn và chữ.
+- Khoảng cách giữa các cụm liên quan không nhỏ hơn `layoutChecks.minGapPx` tại entrance, spring overshoot, hold và exit; nhãn trạng thái không được dính vào minh họa phía trên.
 - Không có chi tiết nền xuyên qua vùng đọc.
+- Hero gradient tiếng Việt phải chừa vùng glyph bằng `padding-block` tối thiểu `0.1em`; không đặt chính node chữ trong container `overflow: hidden`. Kiểm tra riêng các chữ `Ả`, `Ẫ`, `Ễ`, `Ự` tại entrance, hold và exit.
+- Trước `continueRender`, gọi `document.fonts.load()` với probe chứa glyph tiếng Việt cho từng weight thực dùng; probe mặc định không đủ để tải đúng unicode subset. Trích một chuỗi frame liên tiếp để phát hiện font-loading race, không chỉ một still.
 
 ## Audio QA
 
@@ -50,8 +59,11 @@ Tại mỗi điểm, kiểm tra text không đi trước voice quá 0 giây và 
 ## Master
 
 1. Render H.264/AAC, 1080×1920, 30 fps, CRF 16.
-   Dùng `--concurrency=1` cho master để ổn định font tiếng Việt trên mọi frame.
+   Dùng `--concurrency=1 --disable-shared-memory-capture --gop=30` cho master. Trên Windows, shared-memory capture hoặc GOP quá dài có thể làm mất các dải chữ/dấu ở một số frame khi phát hoặc seek dù layout nguồn đúng. GOP 30 tạo keyframe mỗi giây ở 30 fps mà không làm file phình như all-intra.
 2. Chạy `check-alpha-video.mjs` với master.
-3. Trích frame từ chính MP4 cuối tại cue và transition.
-4. Xem lại frame đã trích, không dựa vào ảnh preview cũ.
-5. Ghi rõ ngoại lệ nếu có; nếu không đạt, chưa bàn giao.
+3. Chạy `audit-motion-density.mjs` với storyboard đã duyệt.
+4. Trích frame từ chính MP4 cuối tại cue và transition.
+   Dùng output seek (`-i video -ss <time>`) thay vì filter `trim=start_frame`; `trim` có thể tạo frame lỗi giả với H.264 B-frames.
+   Trích thêm ít nhất 5 frame liên tiếp quanh một hero tiếng Việt có dấu. Nếu các dải glyph mất luân phiên, render lại với `--disable-shared-memory-capture --gop=30`; không chữa bằng đổi font hoặc nới layout khi PNG nguồn đã chứng minh lỗi capture/codec.
+5. Xem lại frame đã trích và playback, không dựa vào ảnh preview cũ.
+6. Ghi rõ ngoại lệ nếu có; nếu không đạt, chưa bàn giao.

@@ -1,0 +1,44 @@
+{
+  "fps": 30,
+  "hasVoice": true,
+  "voiceGrounding": {"source":"audio-transcription-reviewed","verified":true,"visualInference":false},
+  "scenes": [
+    {
+      "id":"problem-to-answer","start":0,"end":9.74,"motionConcept":"problem-to-prompt-to-answer","layoutFamily":"progressive-mechanism","layoutChecks":{"safeBounds":true,"opticalBalance":true,"diacritics":true,"minGapPx":24},
+      "beats":[
+        {"id":"problem","kind":"semantic","cueStart":0,"visualHit":0.08,"readableBy":0.18,"action":"assemble","target":"problem-stack","spokenText":"Bạn vừa nhận một bài tập khó.","onScreenText":"MỘT BÀI TẬP KHÓ"},
+        {"id":"blocked","kind":"focus","cueStart":1.92,"visualHit":1.98,"readableBy":2.1,"action":"lock","target":"blocked-state","spokenText":"Chưa biết bắt đầu từ đâu.","onScreenText":"BẾ TẮC"},
+        {"id":"prompt-shell","kind":"transition","cueStart":3.44,"visualHit":3.5,"readableBy":3.58,"action":"open","target":"prompt-shell","spokenText":"Bạn mở AI.","onScreenText":""},
+        {"id":"prompt-text","kind":"semantic","cueStart":4.94,"visualHit":5,"readableBy":5.12,"action":"reveal","target":"prompt-text","spokenText":"Hãy làm bài này giúp tôi.","onScreenText":"HÃY LÀM BÀI NÀY GIÚP TÔI"},
+        {"id":"send","kind":"semantic","cueStart":6.66,"visualHit":6.7,"readableBy":6.82,"action":"connect","target":"answer-card","sourceBeatId":"prompt-text","spokenText":"Câu trả lời xuất hiện ngay.","onScreenText":"","visualMeaning":"Xung có hướng đi thẳng từ prompt tới vùng phản hồi, sau đó nội dung xuất hiện nhanh.","connector":{"axis":"center-x","sourceAnchor":"bottom-center","targetAnchor":"top-center","endGapPx":22,"layerOrder":"between-cards"}},
+        {"id":"answer","kind":"semantic","cueStart":6.66,"visualHit":6.72,"readableBy":6.86,"action":"assemble","target":"answer-card","spokenText":"Câu trả lời xuất hiện ngay.","onScreenText":"CÂU TRẢ LỜI ĐẾN NHANH"},
+        {"id":"resolve","kind":"resolve","cueStart":8.4,"visualHit":8.46,"readableBy":8.58,"action":"lock","target":"answer-card","spokenText":"Bế tắc biến mất.","onScreenText":""}
+      ]
+    },
+    {
+      "id":"lesson-reveal","start":9.74,"end":13.58,"motionConcept":"uncover-learning","layoutFamily":"layered-card","layoutChecks":{"safeBounds":true,"opticalBalance":true,"diacritics":true,"minGapPx":24},
+      "beats":[
+        {"id":"lesson-start","kind":"transition","cueStart":9.74,"visualHit":9.8,"readableBy":9.9,"action":"reveal","target":"lesson-layer","spokenText":"Nhưng đôi khi...","onScreenText":"NHƯNG ĐÔI KHI"},
+        {"id":"lesson-core","kind":"semantic","cueStart":10.68,"visualHit":10.74,"readableBy":10.86,"action":"uncover","target":"learning-card","spokenText":"Đó chính là phần bài tập muốn bạn học cách xử lý.","onScreenText":"PHẦN BÀI TẬP MUỐN BẠN HỌC"},
+        {"id":"lesson-action","kind":"focus","cueStart":12.12,"visualHit":12.18,"readableBy":12.3,"action":"focus","target":"learning-action","spokenText":"Học cách xử lý.","onScreenText":"HỌC CÁCH XỬ LÝ"}
+      ]
+    },
+    {
+      "id":"learn-or-avoid","start":13.58,"end":17.88,"motionConcept":"compare-intent","layoutFamily":"split-choice","parallelLabels":"A/B","layoutChecks":{"safeBounds":true,"opticalBalance":true,"diacritics":true,"minGapPx":24},
+      "beats":[
+        {"id":"question-open","kind":"transition","cueStart":13.58,"visualHit":13.64,"readableBy":13.76,"action":"reveal","target":"both-choices","spokenText":"Vậy...","onScreenText":"BẠN ĐANG DÙNG AI ĐỂ"},
+        {"id":"study-focus","kind":"focus","cueStart":14.54,"visualHit":14.6,"readableBy":14.72,"action":"focus","target":"study-choice","spokenText":"Dùng AI để học.","onScreenText":"ĐỂ HỌC"},
+        {"id":"avoid-focus","kind":"focus","cueStart":15.92,"visualHit":15.98,"readableBy":16.1,"action":"focus","target":"avoid-choice","spokenText":"Hay để né việc học?","onScreenText":"NÉ VIỆC HỌC?"}
+      ]
+    },
+    {
+      "id":"still-thinking","start":17.88,"end":20.4,"motionConcept":"resolve-to-thinking","layoutFamily":"stacked-statement","layoutChecks":{"safeBounds":true,"opticalBalance":true,"diacritics":true,"minGapPx":24},
+      "beats":[
+        {"id":"thinking-open","kind":"transition","cueStart":17.88,"visualHit":17.94,"readableBy":18.06,"action":"reveal","target":"study-label","spokenText":"Dùng AI để học...","onScreenText":"DÙNG AI ĐỂ HỌC"},
+        {"id":"thinking-meaning","kind":"semantic","cueStart":19.14,"visualHit":19.2,"readableBy":19.32,"action":"reveal","target":"meaning-label","spokenText":"Nghĩa là...","onScreenText":"NGHĨA LÀ"},
+        {"id":"thinking-subject","kind":"semantic","cueStart":19.46,"visualHit":19.52,"readableBy":19.64,"action":"reveal","target":"thinking-subject","spokenText":"Bạn vẫn...","onScreenText":"BẠN VẪN"},
+        {"id":"thinking-resolve","kind":"resolve","cueStart":19.84,"visualHit":19.9,"readableBy":20.02,"action":"lock","target":"thinking-statement","spokenText":"Suy nghĩ.","onScreenText":"SUY NGHĨ"}
+      ]
+    }
+  ]
+}

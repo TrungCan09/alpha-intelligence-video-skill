@@ -19,27 +19,47 @@ Thứ tự ưu tiên: yêu cầu người dùng → script đã chốt → voice
 3. Nghe/đọc waveform và đánh dấu thời điểm **ý nghĩa bắt đầu được nói**.
 4. Khoảng lặng máy phát hiện chỉ là gợi ý; không phải semantic cue.
 
-## Cue sheet tối thiểu
+## Voice-grounding gate
+
+- Không suy lời thoại hoặc cue của đoạn tiếp theo từ frame, caption cũ, tên scene hay chủ đề chung.
+- Khi có voice nhưng chưa có transcript đã duyệt, phải tạo transcript từ chính audio, rà lại lỗi ASR theo ngữ cảnh, rồi mới lập storyboard.
+- Storyboard có voice khai báo `hasVoice: true`, `voiceGrounding.verified: true`, `voiceGrounding.visualInference: false`; mỗi beat phải lưu `spokenText` tương ứng.
+- Nếu chưa xác minh được lời nói, dừng ở cue draft; không tự tạo motion chỉ vì hình ảnh có vẻ phù hợp chủ đề.
+
+## Cue sheet và semantic beats
 
 ```json
 {
   "fps": 30,
   "durationSeconds": 12.34,
-  "cues": [
+  "scenes": [
     {
       "id": "hook",
       "start": 0.0,
       "end": 3.2,
-      "spoken": "Câu đang được nói",
-      "semanticCue": "ý cốt lõi bắt đầu",
-      "visualHit": 0.08,
-      "onScreenText": "Ý cô đọng",
-      "sfx": "hit-soft",
-      "reason": "Nhấn mâu thuẫn"
+      "motionConcept": "lock-and-split",
+      "layoutFamily": "centered-mechanism",
+      "beats": [
+        {
+          "id": "problem-lock",
+          "kind": "semantic",
+          "cueStart": 0.0,
+          "visualHit": 0.08,
+          "readableBy": 0.18,
+          "action": "lock",
+          "target": "problem-card",
+          "spoken": "Câu đang được nói",
+          "onScreenText": "Ý cô đọng",
+          "sfx": "hit-soft",
+          "reason": "Nhấn mâu thuẫn"
+        }
+      ]
     }
   ]
 }
 ```
+
+`kind` chỉ nhận `semantic`, `focus`, `resolve` hoặc `transition`. Particle, grain, mesh drift và breathing trang trí không được khai báo như beat.
 
 ## Quy tắc đồng bộ
 
@@ -48,7 +68,10 @@ Thứ tự ưu tiên: yêu cầu người dùng → script đã chốt → voice
 - Visual hit có thể đi sau âm vị đầu 0–3 frame để khớp cảm nhận, nhưng không được trễ 1–2 giây.
 - SFX nhẹ có thể bắt đầu trước visual hit 2–3 frame, không che voice.
 - Khi người dùng báo timestamp, kiểm tra tối thiểu ±1 giây và sửa cue nguồn, không vá offset cục bộ rải rác.
+- Nếu một câu được đọc thành các cụm tách nhịp, không cho toàn bộ on-screen phrase xuất hiện từ cụm đầu; tạo sub-cue cho từng phần mang nghĩa.
 - Giữa các ngắt câu, dành đủ thời gian cho exit/transition; không ép chữ chạy nhanh hơn voice.
+- Mỗi scene phải có semantic beat trong 15 frame đầu. Scene dài hơn 4 giây phải có ít nhất hai beat, trừ khi có `holdReason` phục vụ đọc hoặc nhấn.
+- Khoảng cách visual hit lớn hơn 90 frame cần `holdReason`; không dùng ambient motion để hợp thức hóa đoạn đơ.
 
 ## Song song và tuần tự
 

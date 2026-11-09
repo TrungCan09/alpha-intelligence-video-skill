@@ -1,0 +1,15 @@
+{
+  "fps": 30,
+  "scenes": [
+    {
+      "id": "orphan-connector",
+      "start": 0,
+      "end": 3,
+      "motionConcept": "connect",
+      "layoutFamily": "flow",
+      "beats": [
+        {"id":"arrow","kind":"semantic","cueStart":0,"visualHit":0.08,"readableBy":0.1,"action":"connect","target":"target-card","onScreenText":""}
+      ]
+    }
+  ]
+}

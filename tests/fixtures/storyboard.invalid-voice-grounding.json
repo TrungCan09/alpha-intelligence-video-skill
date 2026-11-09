@@ -1,0 +1,8 @@
+{
+  "fps":30,
+  "hasVoice":true,
+  "scenes":[{
+    "id":"guessed-from-visuals","start":0,"end":2,"motionConcept":"guess","layoutFamily":"hero","layoutChecks":{"safeBounds":true,"opticalBalance":true,"diacritics":true,"minGapPx":24},
+    "beats":[{"id":"guess","kind":"semantic","cueStart":0,"visualHit":0.08,"readableBy":0.18,"action":"reveal","target":"hero","onScreenText":"Ý suy đoán"}]
+  }]
+}

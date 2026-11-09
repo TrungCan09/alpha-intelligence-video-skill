@@ -1,0 +1,15 @@
+{
+  "fps": 30,
+  "scenes": [
+    {
+      "id": "early-animation",
+      "start": 0,
+      "end": 3,
+      "motionConcept": "assemble",
+      "layoutFamily": "mechanism",
+      "beats": [
+        {"id":"spoken-later","kind":"semantic","cueStart":1.2,"visualHit":0.7,"readableBy":1.5,"action":"assemble","target":"answer","onScreenText":"Đi trước voice"}
+      ]
+    }
+  ]
+}

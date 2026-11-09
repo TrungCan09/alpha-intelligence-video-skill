@@ -1,0 +1,15 @@
+{
+  "fps": 30,
+  "scenes": [
+    {
+      "id": "static-poster",
+      "start": 0,
+      "end": 8,
+      "motionConcept": "reveal",
+      "layoutFamily": "centered-card",
+      "beats": [
+        {"id":"only","kind":"semantic","cueStart":0,"visualHit":0.8,"readableBy":1.0,"action":"fade","target":"poster","onScreenText":"Một poster bị giữ quá lâu"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "fps": 30,
+  "hasVoice": true,
+  "voiceGrounding": {"source":"audio-transcription-reviewed","verified":true,"visualInference":false},
+  "scenes": [
+    {
+      "id":"problem-to-answer","start":0,"end":9.74,"motionConcept":"problem-to-prompt-to-answer","layoutFamily":"progressive-mechanism","layoutChecks":{"safeBounds":true,"opticalBalance":true,"diacritics":true,"minGapPx":24},
+      "beats":[
+        {"id":"problem","kind":"semantic","cueStart":0,"visualHit":0.08,"readableBy":0.18,"action":"assemble","target":"problem-stack","spokenText":"Bạn vừa nhận một bài tập khó.","onScreenText":"MỘT BÀI TẬP KHÓ"},
+        {"id":"blocked","kind":"focus","cueStart":1.92,"visualHit":1.98,"readableBy":2.1,"action":"lock","target":"blocked-state","spokenText":"Chưa biết bắt đầu từ đâu.","onScreenText":"BẾ TẮC"},
+        {"id":"prompt-shell","kind":"transition","cueStart":3.44,"visualHit":3.5,"readableBy":3.58,"action":"open","target":"prompt-shell","spokenText":"Bạn mở AI.","onScreenText":""},
+        {"id":"prompt-text","kind":"semantic","cueStart":4.94,"visualHit":5,"readableBy":5.12,"action":"reveal","target":"prompt-text","spokenText":"Hãy làm bài này giúp tôi.","onScreenText":"HÃY LÀM BÀI NÀY GIÚP TÔI"},
+        {"id":"send","kind":"semantic","cueStart":6.66,"visualHit":6.7,"readableBy":6.82,"action":"connect","target":"answer-card","sourceBeatId":"prompt-text","spokenText":"Câu trả lời xuất hiện ngay.","onScreenText":"","visualMeaning":"Xung có hướng đi thẳng từ prompt tới vùng phản hồi, sau đó nội dung xuất hiện nhanh.","connector":{"axis":"center-x","sourceAnchor":"bottom-center","targetAnchor":"top-center","endGapPx":22,"layerOrder":"between-cards"}},
+        {"id":"answer","kind":"semantic","cueStart":6.66,"visualHit":6.72,"readableBy":6.86,"action":"assemble","target":"answer-card","spokenText":"Câu trả lời xuất hiện ngay.","onScreenText":"CÂU TRẢ LỜI ĐẾN NHANH"},
+        {"id":"resolve","kind":"resolve","cueStart":8.4,"visualHit":8.46,"readableBy":8.58,"action":"lock","target":"answer-card","spokenText":"Bế tắc biến mất.","onScreenText":""}
+      ]
+    },
+    {
+      "id":"lesson-reveal-start","start":9.74,"end":10,"motionConcept":"uncover-learning","layoutFamily":"layered-card","layoutChecks":{"safeBounds":true,"opticalBalance":true,"diacritics":true,"minGapPx":24},
+      "beats":[
+        {"id":"lesson-start","kind":"transition","cueStart":9.74,"visualHit":9.8,"readableBy":9.9,"action":"reveal","target":"lesson-layer","spokenText":"Nhưng đôi khi...","onScreenText":"NHƯNG ĐÔI KHI"}
+      ]
+    }
+  ]
+}

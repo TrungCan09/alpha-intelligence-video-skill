@@ -22,9 +22,8 @@ const ffmpeg = await resolveMediaTool('ffmpeg');
 for (const time of times) {
   const stamp = time.toFixed(3).replace('.', '_');
   const target = resolve(out, `${basename(video).replace(/\.[^.]+$/, '')}-${stamp}s.png`);
-  const frame = Math.round(time * fps);
-  // Decode from the beginning so the extracted PNG reflects the exact encoded
-  // frame, including any one-frame render defect that QA must catch.
-  run(ffmpeg, ['-y', '-threads', '1', '-filter_threads', '1', '-i', video, '-vf', `trim=start_frame=${frame}:end_frame=${frame + 1},scale=540:-2`, '-frames:v', '1', target]);
+  // Output seeking after opening the input decodes to the requested timestamp
+  // accurately and avoids the trim-filter artifacts seen with H.264 B-frames.
+  run(ffmpeg, ['-y', '-threads', '1', '-i', video, '-ss', time.toFixed(6), '-vf', 'scale=540:-2', '-frames:v', '1', target]);
   console.log(target);
 }

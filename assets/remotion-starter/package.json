@@ -1,13 +1,15 @@
 {
   "name": "alpha-intelligence-remotion-starter",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "private": true,
   "scripts": {
     "typecheck": "tsc --noEmit",
     "compositions": "remotion compositions src/index.ts",
-    "render:preview": "remotion render src/index.ts AlphaIntelligenceStarter ../../outputs/alpha-starter-preview.mp4 --codec=h264 --crf=22 --scale=0.5 --concurrency=1",
-    "render:primitives-preview": "remotion render src/index.ts AlphaPrimitivesDemo ../../outputs/alpha-primitives-preview.mp4 --codec=h264 --crf=22 --scale=0.5 --concurrency=1",
-    "render:master": "remotion render src/index.ts AlphaIntelligenceStarter ../../outputs/alpha-starter-master.mp4 --codec=h264 --audio-codec=aac --crf=16 --concurrency=1"
+    "render:preview": "remotion render src/index.ts AlphaIntelligenceStarter ../../outputs/alpha-starter-preview.mp4 --codec=h264 --crf=22 --scale=0.5 --concurrency=1 --disable-shared-memory-capture --gop=30",
+    "render:primitives-preview": "remotion render src/index.ts AlphaPrimitivesDemo ../../outputs/alpha-primitives-preview.mp4 --codec=h264 --crf=22 --scale=0.5 --concurrency=1 --disable-shared-memory-capture --gop=30",
+    "render:reference": "remotion render src/index.ts AlphaMotionReference10s ../../outputs/alpha-motion-reference-10s.mp4 --codec=h264 --audio-codec=aac --crf=16 --concurrency=1 --disable-shared-memory-capture --gop=30 --props=../../outputs/reference-props.json --overwrite",
+    "render:reference20": "remotion render src/index.ts AlphaMotionReference20s ../../outputs/alpha-motion-reference-20s.mp4 --codec=h264 --audio-codec=aac --crf=16 --concurrency=1 --disable-shared-memory-capture --gop=30 --props=../../outputs/reference-20s-props.json --overwrite",
+    "render:master": "remotion render src/index.ts AlphaIntelligenceStarter ../../outputs/alpha-starter-master.mp4 --codec=h264 --audio-codec=aac --crf=16 --concurrency=1 --disable-shared-memory-capture --gop=30"
   },
   "dependencies": {
     "@fontsource/montserrat": "5.2.8",

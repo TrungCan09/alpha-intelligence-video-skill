@@ -1,0 +1,15 @@
+{
+  "fps": 30,
+  "scenes": [
+    {
+      "id": "ambiguous-flow",
+      "start": 0,
+      "end": 3,
+      "motionConcept": "abstract-flow",
+      "layoutFamily": "decorative-path",
+      "beats": [
+        {"id":"dots","kind":"semantic","cueStart":0,"visualHit":0.08,"readableBy":0.1,"action":"flow","target":"answer","onScreenText":""}
+      ]
+    }
+  ]
+}

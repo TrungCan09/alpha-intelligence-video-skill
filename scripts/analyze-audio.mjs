@@ -14,7 +14,15 @@ const audio = resolve(input);
 const ffprobe = await resolveMediaTool('ffprobe');
 const ffmpeg = await resolveMediaTool('ffmpeg');
 const durationSeconds = Number(run(ffprobe, ['-v', 'error', '-show_entries', 'format=duration', '-of', 'default=nw=1:nk=1', audio]).stdout.trim());
-const silence = run(ffmpeg, ['-hide_banner', '-i', audio, '-af', 'silencedetect=noise=-38dB:d=0.18', '-f', 'null', '-'], {encoding: 'utf8'}).stderr;
+const silence = run(ffmpeg, [
+  '-hide_banner',
+  '-i', audio,
+  '-map', '0:a:0',
+  '-vn',
+  '-af', 'silencedetect=noise=-38dB:d=0.18',
+  '-f', 'null',
+  '-',
+], {encoding: 'utf8'}).stderr;
 const starts = [...silence.matchAll(/silence_start: ([0-9.]+)/g)].map((m) => Number(m[1]));
 const ends = [...silence.matchAll(/silence_end: ([0-9.]+)/g)].map((m) => Number(m[1]));
 const silences = starts.map((start, i) => ({start, end: ends[i] ?? durationSeconds}));
