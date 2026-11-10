@@ -4,7 +4,7 @@
 
 - Header và tagline đúng nguyên văn.
 - Chỉ dùng palette và typography đã khóa.
-- Cue theo giây, đổi frame bằng `fps`.
+- Cue lấy từ `cue-sheet.lock.json`; production scene đổi cue sang frame bằng `fps`.
 - Không có magic frame rải trong scene.
 - Không episode number, nguồn hoặc claim suy đoán.
 - Một voice chính; không music bed nếu chưa yêu cầu.
@@ -61,9 +61,10 @@ Tại mỗi điểm, kiểm tra text không đi trước voice quá 0 giây và 
 1. Render H.264/AAC, 1080×1920, 30 fps, CRF 16.
    Dùng `--concurrency=1 --disable-shared-memory-capture --gop=30` cho master. Trên Windows, shared-memory capture hoặc GOP quá dài có thể làm mất các dải chữ/dấu ở một số frame khi phát hoặc seek dù layout nguồn đúng. GOP 30 tạo keyframe mỗi giây ở 30 fps mà không làm file phình như all-intra.
 2. Chạy `check-alpha-video.mjs` với master.
-3. Chạy `audit-motion-density.mjs` với storyboard đã duyệt.
-4. Trích frame từ chính MP4 cuối tại cue và transition.
+3. Render `qaMode="semantic"`; chạy `audit-motion-density.mjs` với `video-plan.json`.
+4. Chạy `check-cue-lock`, `check-timeline-binding`, `check-scene-diversity`; tạo QA pack và duyệt từng cue.
+5. Trích frame từ chính MP4 cuối tại cue −0,1s, cue, cue +0,2s, giữa câu và transition.
    Dùng output seek (`-i video -ss <time>`) thay vì filter `trim=start_frame`; `trim` có thể tạo frame lỗi giả với H.264 B-frames.
    Trích thêm ít nhất 5 frame liên tiếp quanh một hero tiếng Việt có dấu. Nếu các dải glyph mất luân phiên, render lại với `--disable-shared-memory-capture --gop=30`; không chữa bằng đổi font hoặc nới layout khi PNG nguồn đã chứng minh lỗi capture/codec.
-5. Xem lại frame đã trích và playback, không dựa vào ảnh preview cũ.
-6. Ghi rõ ngoại lệ nếu có; nếu không đạt, chưa bàn giao.
+6. Xem lại frame đã trích và playback 1×/0,5×, không dựa vào ảnh preview cũ.
+7. Chỉ `finalize-master.mjs` được tạo master sau khi report hợp lệ. Ghi rõ ngoại lệ; nếu không đạt, chưa bàn giao.

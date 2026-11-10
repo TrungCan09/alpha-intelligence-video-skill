@@ -2,6 +2,6 @@ interface:
   display_name: "Alpha Intelligence Video"
   short_description: "Tạo video ngắn đúng nhận diện Alpha Intelligence"
   brand_color: "#20F669"
-  default_prompt: "Dùng $alpha-intelligence-video-skill để tạo hoặc chỉnh sửa video Alpha Intelligence, bám semantic cue của voice và hoàn tất QA trước khi bàn giao."
+  default_prompt: "Dùng $alpha-intelligence-video-skill để tạo video Alpha Intelligence bằng pipeline v2: chạy Faster Whisper trên voice, khóa cue từ ASR, dựng bằng scene registry, render semantic QA và chỉ xuất master khi mọi gate đạt."
 policy:
   allow_implicit_invocation: true

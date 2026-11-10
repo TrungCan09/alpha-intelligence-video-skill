@@ -1,0 +1,6 @@
+{
+  "integerFloat": 0.0,
+  "decimal": 103.079,
+  "unicode": "Đã rà soát",
+  "nested": {"truth": true, "nothing": null, "items": [1.0, 2.5]}
+}

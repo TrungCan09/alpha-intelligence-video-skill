@@ -1,12 +1,13 @@
 #!/usr/bin/env node
-import {access, readFile} from 'node:fs/promises';
+import {access, readFile, stat} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {spawnSync} from 'node:child_process';
 
 const root = resolve(process.argv[2] ?? '.');
-const required = ['SKILL.md', 'agents/openai.yaml', 'README.md', 'LICENSE', 'THIRD_PARTY_NOTICES.md', 'references/brand-system.md', 'references/source-content-rules.md', 'references/script-elevenlabs.md', 'references/content-timing.md', 'references/motion-language.md', 'references/remotion-patterns-alpha.md', 'references/qa-delivery.md', 'assets/remotion-starter/package.json', 'assets/remotion-starter/src/brand.config.json', 'assets/remotion-starter/src/fonts.ts', 'assets/remotion-starter/src/typography.tsx', 'assets/remotion-starter/src/motion.tsx', 'assets/remotion-starter/src/media.tsx', 'assets/remotion-starter/src/AlphaMotionReference10s.tsx', 'assets/remotion-starter/src/reference-storyboard.json', 'scripts/analyze-audio.mjs', 'scripts/estimate-voiceover.mjs', 'scripts/check-storyboard.mjs', 'scripts/audit-motion-density.mjs', 'scripts/check-contrast.mjs', 'scripts/check-brand-contrast.mjs', 'scripts/check-brand-usage.mjs', 'scripts/check-brand-font.mjs', 'scripts/install-brand-font.mjs', 'scripts/generate-sfx.mjs', 'scripts/check-alpha-video.mjs', 'scripts/extract-qa-frames.mjs', 'scripts/quick_validate.py', 'tests/fixtures/storyboard.valid.json', 'tests/fixtures/storyboard.invalid.json', 'tests/fixtures/storyboard.invalid-static.json', 'tests/fixtures/storyboard.invalid-sync.json', 'tests/fixtures/storyboard.invalid-connector.json', 'tests/fixtures/storyboard.invalid-ambiguous.json', 'tests/fixtures/storyboard.invalid-geometry.json', 'tests/fixtures/storyboard.invalid-voice-grounding.json', 'tests/fixtures/brand.invalid.json', 'tests/fixtures/brand.invalid-identity.json'];
+const required = ['SKILL.md', 'agents/openai.yaml', 'README.md', 'LICENSE', 'THIRD_PARTY_NOTICES.md', 'requirements-asr.txt', 'references/brand-system.md', 'references/source-content-rules.md', 'references/script-elevenlabs.md', 'references/content-timing.md', 'references/motion-language.md', 'references/remotion-patterns-alpha.md', 'references/qa-delivery.md', 'references/pipeline-v2.md', 'references/scene-recipes.md', 'references/migration-v2.md', 'assets/reference/alpha-video-v2-reference.mp4', 'assets/reference/alpha-video-v2-contact-sheet.png', 'assets/remotion-starter/package.json', 'assets/remotion-starter/src/brand.config.json', 'assets/remotion-starter/src/fonts.ts', 'assets/remotion-starter/src/typography.tsx', 'assets/remotion-starter/src/motion.tsx', 'assets/remotion-starter/src/media.tsx', 'assets/remotion-starter/src/AlphaVideoV2.tsx', 'assets/remotion-starter/src/cue-timeline.ts', 'assets/remotion-starter/src/scene-recipes.tsx', 'assets/remotion-starter/src/scene-registry.tsx', 'assets/remotion-starter/src/transcript.lock.json', 'assets/remotion-starter/src/cue-sheet.lock.json', 'assets/remotion-starter/src/video-plan.json', 'scripts/transcribe-audio.py', 'scripts/lock-reviewed-transcript.mjs', 'scripts/build-cue-lock.mjs', 'scripts/check-cue-lock.mjs', 'scripts/check-timeline-binding.mjs', 'scripts/check-scene-diversity.mjs', 'scripts/build-qa-pack.mjs', 'scripts/check-qa-report.mjs', 'scripts/finalize-master.mjs', 'scripts/build-contact-sheet.mjs', 'scripts/test-v2-pipeline.mjs', 'scripts/analyze-audio.mjs', 'scripts/estimate-voiceover.mjs', 'scripts/check-storyboard.mjs', 'scripts/audit-motion-density.mjs', 'scripts/check-contrast.mjs', 'scripts/check-brand-contrast.mjs', 'scripts/check-brand-usage.mjs', 'scripts/check-brand-font.mjs', 'scripts/install-brand-font.mjs', 'scripts/generate-sfx.mjs', 'scripts/check-alpha-video.mjs', 'scripts/extract-qa-frames.mjs', 'scripts/quick_validate.py', 'tests/fixtures/canonical-hash.json', 'tests/fixtures/storyboard.valid.json', 'tests/fixtures/storyboard.invalid.json', 'tests/fixtures/storyboard.invalid-static.json', 'tests/fixtures/storyboard.invalid-sync.json', 'tests/fixtures/storyboard.invalid-connector.json', 'tests/fixtures/storyboard.invalid-ambiguous.json', 'tests/fixtures/storyboard.invalid-geometry.json', 'tests/fixtures/storyboard.invalid-voice-grounding.json', 'tests/fixtures/brand.invalid.json', 'tests/fixtures/brand.invalid-identity.json'];
 const errors = [];
 for (const file of required) { try { await access(resolve(root, file)); } catch { errors.push(`Thiếu ${file}`); } }
+try { if ((await stat(resolve(root, 'assets/reference/alpha-video-v2-reference.mp4'))).size >= 8 * 1024 * 1024) errors.push('Reference MP4 phải nhỏ hơn 8 MB.'); } catch {}
 const skill = await readFile(resolve(root, 'SKILL.md'), 'utf8');
 if (!skill.startsWith('---\nname: alpha-intelligence-video-skill\ndescription:')) errors.push('Frontmatter SKILL.md không hợp lệ.');
 if ((skill.match(/^---$/gm) ?? []).length < 2) errors.push('SKILL.md thiếu frontmatter đóng.');
@@ -19,6 +20,8 @@ const timing = await readFile(resolve(root, 'references/content-timing.md'), 'ut
 const motion = await readFile(resolve(root, 'references/motion-language.md'), 'utf8');
 const patterns = await readFile(resolve(root, 'references/remotion-patterns-alpha.md'), 'utf8');
 const qa = await readFile(resolve(root, 'references/qa-delivery.md'), 'utf8');
+const pipeline = await readFile(resolve(root, 'references/pipeline-v2.md'), 'utf8');
+const recipes = await readFile(resolve(root, 'references/scene-recipes.md'), 'utf8');
 for (const [condition, message] of [
   [brand.includes('Học sinh làm chủ AI và Vibecode'), 'Tagline cố định'],
   [brand.includes('brand.config.json') && brand.includes('BrandFrame') && brand.includes('HeroText'), 'Brand token và semantic components'],
@@ -43,6 +46,10 @@ for (const [condition, message] of [
   [motion.includes('Semantic legibility gate') && motion.includes('visualMeaning'), 'Graphic phải truyền đạt ý rõ ràng'],
   [motion.includes('Hình học và cân bằng') && motion.includes('end gap') && motion.includes('Optical balance'), 'Connector geometry và cân bằng quang học'],
   [qa.includes('Dấu không clipping') && qa.includes('Không overlap'), 'QA tiếng Việt và overlap'],
+  [skill.includes('Faster Whisper') && skill.includes('cue-sheet.lock.json') && skill.includes('qaMode="semantic"'), 'Pipeline v2 bắt buộc trong SKILL.md'],
+  [pipeline.includes('Không chứa timestamp') || pipeline.includes('không chứa timestamp'), 'Video plan không nhập timestamp'],
+  [pipeline.includes('finalize-master') && pipeline.includes('build-qa-pack'), 'QA gate và finalizer v2'],
+  [recipes.includes('Chín recipe') && recipes.includes('không quá 3 giây'), 'Scene registry và pacing'],
 ]) if (!condition) errors.push(`Thiếu forward-test rule: ${message}`);
 
 const storyboardCases = [
@@ -58,5 +65,7 @@ for (const [fixture, shouldPass] of storyboardCases) {
   const result = spawnSync(process.execPath, [resolve(root, 'scripts/check-storyboard.mjs'), resolve(root, fixture)], {encoding: 'utf8'});
   if ((result.status === 0) !== shouldPass) errors.push(`Storyboard forward-test sai kỳ vọng: ${fixture}`);
 }
+const v2 = spawnSync(process.execPath, [resolve(root, 'scripts/test-v2-pipeline.mjs'), root], {encoding: 'utf8'});
+if (v2.status !== 0) errors.push(`V2 regression suite thất bại: ${v2.stderr || v2.stdout}`);
 if (errors.length) { errors.forEach((x) => console.error(`FAIL ${x}`)); process.exit(1); }
 console.log(`PASS Package hợp lệ: ${required.length} file bắt buộc.`);

@@ -17,6 +17,10 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
+      - name: Cài ASR runtime (không tải model)
+        run: |
+          python -m pip install -r requirements-asr.txt
+          python scripts/transcribe-audio.py --help
       - name: Kiểm tra package
         run: node scripts/validate-package.mjs
       - name: Kiểm tra skill schema
@@ -32,6 +36,12 @@ jobs:
           if node scripts/check-contrast.mjs '#365380' '#081938'; then exit 1; fi
           if node scripts/check-brand-contrast.mjs --config tests/fixtures/brand.invalid.json; then exit 1; fi
           if node scripts/check-brand-usage.mjs --config tests/fixtures/brand.invalid-identity.json; then exit 1; fi
+      - name: Kiểm tra pipeline v2
+        run: |
+          node scripts/check-cue-lock.mjs assets/remotion-starter/src/transcript.lock.json assets/remotion-starter/src/cue-sheet.lock.json
+          node scripts/check-scene-diversity.mjs assets/remotion-starter/src/video-plan.json
+          node scripts/check-timeline-binding.mjs assets/remotion-starter
+          node scripts/test-v2-pipeline.mjs .
       - name: Kiểm tra SFX generator
         run: node scripts/generate-sfx.mjs --out outputs/test-sfx
       - name: Cài starter
@@ -47,3 +57,13 @@ jobs:
       - name: Liệt kê composition
         working-directory: assets/remotion-starter
         run: npm run compositions
+      - name: Render reference v2 và contact sheet
+        working-directory: assets/remotion-starter
+        run: |
+          npm run render:v2:reference
+          npm run render:v2:contact-sheet
+          npm run render:v2:semantic
+          node ../../scripts/audit-motion-density.mjs ../../outputs/alpha-video-v2-semantic.mp4 --storyboard src/video-plan.json
+          test $(stat -c%s ../reference/alpha-video-v2-reference.mp4) -lt 8388608
+          node ../../scripts/build-qa-pack.mjs ../reference/alpha-video-v2-reference.mp4 src/cue-sheet.lock.json --out ../../outputs/qa-ci
+          if node ../../scripts/check-qa-report.mjs ../../outputs/qa-ci/report.json --video ../reference/alpha-video-v2-reference.mp4 --cue-lock src/cue-sheet.lock.json; then exit 1; fi

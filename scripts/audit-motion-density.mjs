@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import {readFile} from 'node:fs/promises';
-import {resolve} from 'node:path';
+import {dirname, resolve} from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {inflateSync} from 'node:zlib';
 import {resolveMediaTool} from './lib/media-tools.mjs';
@@ -93,19 +93,32 @@ if (!deltas.length) {
 }
 const sampleSeconds = 1 / fps;
 let longest = 0; let current = 0;
-for (const delta of deltas) {
-  if (delta < threshold) { current += sampleSeconds; longest = Math.max(longest, current); } else current = 0;
+const lowMotionRuns = []; let runStart = 0;
+for (const [index, delta] of deltas.entries()) {
+  if (delta < threshold) { if (current === 0) runStart = index / fps; current += sampleSeconds; longest = Math.max(longest, current); }
+  else { if (current > 0) lowMotionRuns.push({start: runStart, end: (index + 1) / fps, duration: current}); current = 0; }
 }
+if (current > 0) lowMotionRuns.push({start: runStart, end: decoded.length / fps, duration: current});
 const beats = storyboard.scenes.flatMap((scene) => scene.beats ?? []);
-const semanticCoverage = beats.filter((beat) => ['semantic', 'focus', 'resolve'].includes(beat.kind)).length;
-const allowedHold = storyboard.scenes.some((scene) => scene.holdReason);
+// v1 storyboards classified beats with `kind`; v2 plans contain semantic
+// beats by construction and bind every beat to a cue id.
+const semanticCoverage = beats.filter((beat) => beat.cueId && (!beat.kind || ['semantic', 'focus', 'resolve'].includes(beat.kind))).length;
+let cueLock = null;
+const cueLockPath = value('--cue-lock', resolve(dirname(resolve(storyboardPath)), 'cue-sheet.lock.json'));
+try { cueLock = JSON.parse(await readFile(resolve(cueLockPath), 'utf8')); } catch {}
+const cueMap = new Map((cueLock?.cues ?? []).map((cue) => [cue.id, cue]));
+const allowedHolds = storyboard.scenes.filter((scene) => scene.holdReason).map((scene) => ({
+  start: Number.isFinite(scene.start) ? scene.start : cueMap.get(scene.startCueId)?.start,
+  end: Number.isFinite(scene.end) ? scene.end : cueMap.get(scene.endCueId)?.end,
+})).filter((interval) => Number.isFinite(interval.start) && Number.isFinite(interval.end));
+const unexplainedRuns = lowMotionRuns.filter((run) => run.duration > 3 && !allowedHolds.some((hold) => run.start >= hold.start - 0.05 && run.end <= hold.end + 0.05));
 console.log(`INFO ${deltas.length} mẫu hình, semantic beats=${semanticCoverage}, longest-low-motion=${longest.toFixed(2)}s.`);
 if (semanticCoverage < 2) {
   console.error('FAIL Video không có đủ semantic beats được khai báo.');
   process.exit(1);
 }
-if (longest > 3.0 && !allowedHold) {
-  console.error('FAIL Có khoảng gần như đứng hình vượt 90 frame mà không có holdReason.');
+if (unexplainedRuns.length) {
+  console.error(`FAIL Có khoảng gần như đứng hình vượt 90 frame ngoài holdReason: ${unexplainedRuns.map((run) => `${run.start.toFixed(2)}–${run.end.toFixed(2)}s`).join(', ')}.`);
   process.exit(1);
 }
 console.log('PASS Motion density không có long hold vô nghĩa theo ngưỡng hiện tại.');

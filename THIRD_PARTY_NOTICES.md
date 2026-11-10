@@ -39,3 +39,7 @@ Các invariant về nội dung, timing, numbering, danh sách, safe zone và QA 
 ## Brand fonts
 
 Repository không chứa hoặc phân phối Cy Grotesk V3 Wide. Skill chỉ định nghĩa cơ chế tải file font do người dùng tự cung cấp hợp pháp và fallback sang Montserrat.
+
+## ASR runtime
+
+Pipeline v2 dùng [`faster-whisper`](https://github.com/SYSTRAN/faster-whisper) 1.2.1 và [`CTranslate2`](https://github.com/OpenNMT/CTranslate2) 4.8.5 làm dependency cài ngoài. Repository không đóng gói model Whisper hoặc weight của model; model được tải cục bộ theo lựa chọn của người dùng.

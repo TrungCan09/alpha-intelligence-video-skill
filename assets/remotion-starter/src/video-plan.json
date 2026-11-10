@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 2,
+  "fps": 30,
+  "voiceOnlySegments": [],
+  "scenes": [
+    {
+      "id": "problem",
+      "recipe": "problem-resolve",
+      "startCueId": "problem-arrives",
+      "endCueId": "problem-arrives",
+      "motionConcept": "stack-and-lock",
+      "layoutFamily": "centered-stack",
+      "beats": [{"id": "arrive", "cueId": "problem-arrives", "segmentIds": ["seg-001"], "action": "assemble", "target": "problem-stack", "onScreenText": "BÀI TẬP KHÓ", "visualMeaning": "Các thẻ câu hỏi hội tụ thành một bài tập khó cần xử lý."}]
+    },
+    {
+      "id": "prompt",
+      "recipe": "prompt-response",
+      "startCueId": "open-ai",
+      "endCueId": "open-ai",
+      "motionConcept": "send-request",
+      "layoutFamily": "vertical-flow",
+      "beats": [{"id": "send", "cueId": "open-ai", "segmentIds": ["seg-002"], "action": "connect", "target": "prompt-card", "onScreenText": "MỞ AI → GỬI YÊU CẦU", "visualMeaning": "Yêu cầu đi từ người học tới AI theo một luồng có hướng."}]
+    },
+    {
+      "id": "answer",
+      "recipe": "cause-effect",
+      "startCueId": "answer-fast",
+      "endCueId": "answer-fast",
+      "motionConcept": "cause-to-result",
+      "layoutFamily": "split-transform",
+      "beats": [{"id": "answer", "cueId": "answer-fast", "segmentIds": ["seg-003"], "action": "transform", "target": "answer-card", "onScreenText": "CÂU TRẢ LỜI ĐẾN NHANH", "visualMeaning": "Prompt chuyển trực tiếp thành câu trả lời hoàn chỉnh."}]
+    },
+    {
+      "id": "thinking",
+      "recipe": "freeze-question",
+      "startCueId": "keep-thinking",
+      "endCueId": "learning-starts",
+      "motionConcept": "freeze-and-focus",
+      "layoutFamily": "hero-question",
+      "beats": [
+        {"id": "freeze", "cueId": "keep-thinking", "segmentIds": ["seg-004"], "action": "freeze", "target": "interface", "onScreenText": "HỌC THẬT SỰ BẮT ĐẦU", "visualMeaning": "Giao diện dừng lại để tạo khoảng chuyển từ nhận đáp án sang học chủ động."},
+        {"id": "think", "cueId": "learning-starts", "segmentIds": ["seg-005"], "action": "focus", "target": "thinking-word", "onScreenText": "BẠN VẪN SUY NGHĨ", "visualMeaning": "Trọng tâm chuyển rõ sang hoạt động suy nghĩ của người học."}
+      ]
+    }
+  ]
+}

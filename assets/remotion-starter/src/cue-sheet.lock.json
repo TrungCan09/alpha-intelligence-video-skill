@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 2,
+  "fps": 30,
+  "audioSha256": "1111111111111111111111111111111111111111111111111111111111111111",
+  "transcriptSha256": "98aa308bd062e42688b60bdf8acd3094a6c67c865066b20ac19a1e856da10fa8",
+  "durationSeconds": 12,
+  "maxCueLagSeconds": 0.2,
+  "maxCumulativeDriftSeconds": 0.25,
+  "cues": [
+    {
+      "id": "problem-arrives",
+      "sceneId": "problem",
+      "beatId": "arrive",
+      "segmentIds": [
+        "seg-001"
+      ],
+      "start": 0,
+      "end": 2,
+      "visualHit": 0,
+      "readableBy": 0.18,
+      "spokenText": "Một bài tập khó vừa xuất hiện.",
+      "onScreenText": "BÀI TẬP KHÓ",
+      "action": "assemble",
+      "target": "problem-stack",
+      "visualMeaning": "Các thẻ câu hỏi hội tụ thành một bài tập khó cần xử lý."
+    },
+    {
+      "id": "open-ai",
+      "sceneId": "prompt",
+      "beatId": "send",
+      "segmentIds": [
+        "seg-002"
+      ],
+      "start": 2,
+      "end": 5,
+      "visualHit": 2,
+      "readableBy": 2.18,
+      "spokenText": "Bạn mở AI và gửi yêu cầu.",
+      "onScreenText": "MỞ AI → GỬI YÊU CẦU",
+      "action": "connect",
+      "target": "prompt-card",
+      "visualMeaning": "Yêu cầu đi từ người học tới AI theo một luồng có hướng."
+    },
+    {
+      "id": "answer-fast",
+      "sceneId": "answer",
+      "beatId": "answer",
+      "segmentIds": [
+        "seg-003"
+      ],
+      "start": 5,
+      "end": 8,
+      "visualHit": 5,
+      "readableBy": 5.18,
+      "spokenText": "Câu trả lời đến rất nhanh.",
+      "onScreenText": "CÂU TRẢ LỜI ĐẾN NHANH",
+      "action": "transform",
+      "target": "answer-card",
+      "visualMeaning": "Prompt chuyển trực tiếp thành câu trả lời hoàn chỉnh."
+    },
+    {
+      "id": "keep-thinking",
+      "sceneId": "thinking",
+      "beatId": "freeze",
+      "segmentIds": [
+        "seg-004"
+      ],
+      "start": 8,
+      "end": 10,
+      "visualHit": 8,
+      "readableBy": 8.18,
+      "spokenText": "Nhưng học thật sự bắt đầu",
+      "onScreenText": "HỌC THẬT SỰ BẮT ĐẦU",
+      "action": "freeze",
+      "target": "interface",
+      "visualMeaning": "Giao diện dừng lại để tạo khoảng chuyển từ nhận đáp án sang học chủ động."
+    },
+    {
+      "id": "learning-starts",
+      "sceneId": "thinking",
+      "beatId": "think",
+      "segmentIds": [
+        "seg-005"
+      ],
+      "start": 10,
+      "end": 12,
+      "visualHit": 10,
+      "readableBy": 10.18,
+      "spokenText": "khi bạn vẫn suy nghĩ.",
+      "onScreenText": "BẠN VẪN SUY NGHĨ",
+      "action": "focus",
+      "target": "thinking-word",
+      "visualMeaning": "Trọng tâm chuyển rõ sang hoạt động suy nghĩ của người học."
+    }
+  ],
+  "voiceOnlySegments": [],
+  "cueSheetSha256": "ec6c24ec6149b94487c7b8adcfe58afd9c8290e0dc657ba0d53c3863dbe70bc8"
+}

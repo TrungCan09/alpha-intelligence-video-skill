@@ -7,3 +7,7 @@ cue-template.json
 Thumbs.db
 assets/remotion-starter/public/fonts/cy-grotesk-v3-wide.woff2
 assets/remotion-starter/public/private/
+tests/private/
+*.local.lock.json
+__pycache__/
+*.pyc

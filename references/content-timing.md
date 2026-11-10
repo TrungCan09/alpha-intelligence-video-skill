@@ -12,12 +12,12 @@ Thứ tự ưu tiên: yêu cầu người dùng → script đã chốt → voice
 - On-screen text là bản cô đọng, không chép toàn bộ voice.
 - Kết thúc bằng hành động hoặc câu hỏi mở sang bài sau; không suy đoán số bài.
 
-## Đo voice
+## Đo voice và khóa transcript
 
-1. Đo duration bằng ffprobe, không dựa vào tên file hoặc script.
-2. Dùng silence detection để tìm ứng viên ranh giới.
-3. Nghe/đọc waveform và đánh dấu thời điểm **ý nghĩa bắt đầu được nói**.
-4. Khoảng lặng máy phát hiện chỉ là gợi ý; không phải semantic cue.
+1. Chạy Faster Whisper `small` trở lên với word timestamps và VAD.
+2. Đo duration/audio hash từ file thật; không dựa vào tên file hoặc script.
+3. Nghe lại và sửa chính tả transcript, nhưng không tự sửa timestamp.
+4. Silence detection chỉ dùng chẩn đoán; không được thay ASR hoặc chia cue theo khoảng lặng.
 
 ## Voice-grounding gate
 
@@ -26,32 +26,28 @@ Thứ tự ưu tiên: yêu cầu người dùng → script đã chốt → voice
 - Storyboard có voice khai báo `hasVoice: true`, `voiceGrounding.verified: true`, `voiceGrounding.visualInference: false`; mỗi beat phải lưu `spokenText` tương ứng.
 - Nếu chưa xác minh được lời nói, dừng ở cue draft; không tự tạo motion chỉ vì hình ảnh có vẻ phù hợp chủ đề.
 
-## Cue sheet và semantic beats
+## Video plan và semantic beats
 
 ```json
 {
-  "fps": 30,
-  "durationSeconds": 12.34,
+  "schemaVersion": 2,
   "scenes": [
     {
       "id": "hook",
-      "start": 0.0,
-      "end": 3.2,
+      "startCueId": "problem-lock",
+      "endCueId": "problem-lock",
+      "recipe": "problem-resolve",
       "motionConcept": "lock-and-split",
       "layoutFamily": "centered-mechanism",
       "beats": [
         {
           "id": "problem-lock",
-          "kind": "semantic",
-          "cueStart": 0.0,
-          "visualHit": 0.08,
-          "readableBy": 0.18,
+          "cueId": "problem-lock",
+          "segmentIds": ["seg-001"],
           "action": "lock",
           "target": "problem-card",
-          "spoken": "Câu đang được nói",
           "onScreenText": "Ý cô đọng",
-          "sfx": "hit-soft",
-          "reason": "Nhấn mâu thuẫn"
+          "visualMeaning": "Các phần tử rời khóa thành một vấn đề rõ ràng."
         }
       ]
     }
@@ -59,7 +55,7 @@ Thứ tự ưu tiên: yêu cầu người dùng → script đã chốt → voice
 }
 ```
 
-`kind` chỉ nhận `semantic`, `focus`, `resolve` hoặc `transition`. Particle, grain, mesh drift và breathing trang trí không được khai báo như beat.
+Video plan tuyệt đối không chứa timestamp số. `build-cue-lock.mjs` lấy `start`, `end`, `visualHit` và `readableBy` từ segment ASR. Particle, grain, mesh drift và breathing trang trí không được khai báo như beat.
 
 ## Quy tắc đồng bộ
 
@@ -67,7 +63,7 @@ Thứ tự ưu tiên: yêu cầu người dùng → script đã chốt → voice
 - Trạng thái đọc được hoàn chỉnh chậm nhất 0,2 giây sau cue, trừ khi chính quá trình tạo chữ là nội dung đang được giải thích.
 - Visual hit có thể đi sau âm vị đầu 0–3 frame để khớp cảm nhận, nhưng không được trễ 1–2 giây.
 - SFX nhẹ có thể bắt đầu trước visual hit 2–3 frame, không che voice.
-- Khi người dùng báo timestamp, kiểm tra tối thiểu ±1 giây và sửa cue nguồn, không vá offset cục bộ rải rác.
+- Khi người dùng báo timestamp, kiểm tra tối thiểu ±1 giây và sửa mapping segment/cue nguồn rồi build lại lock, không vá offset cục bộ rải rác.
 - Nếu một câu được đọc thành các cụm tách nhịp, không cho toàn bộ on-screen phrase xuất hiện từ cụm đầu; tạo sub-cue cho từng phần mang nghĩa.
 - Giữa các ngắt câu, dành đủ thời gian cho exit/transition; không ép chữ chạy nhanh hơn voice.
 - Mỗi scene phải có semantic beat trong 15 frame đầu. Scene dài hơn 4 giây phải có ít nhất hai beat, trừ khi có `holdReason` phục vụ đọc hoặc nhấn.

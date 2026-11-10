@@ -4,6 +4,10 @@ from pathlib import Path
 import re
 import sys
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+
 root = Path(sys.argv[1] if len(sys.argv) > 1 else ".").resolve()
 skill = root / "SKILL.md"
 errors = []

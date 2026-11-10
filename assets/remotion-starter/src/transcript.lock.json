@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 2,
+  "sourceAudio": {
+    "fileName": "synthetic-reference.wav",
+    "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "durationSeconds": 12,
+  "engine": {
+    "name": "faster-whisper",
+    "version": "1.2.1",
+    "model": "small",
+    "language": "vi",
+    "device": "fixture",
+    "computeType": "fixture",
+    "wordTimestamps": true,
+    "vad": true
+  },
+  "reviewed": true,
+  "segments": [
+    {"id": "seg-001", "start": 0, "end": 2, "text": "Một bài tập khó vừa xuất hiện.", "words": []},
+    {"id": "seg-002", "start": 2, "end": 5, "text": "Bạn mở AI và gửi yêu cầu.", "words": []},
+    {"id": "seg-003", "start": 5, "end": 8, "text": "Câu trả lời đến rất nhanh.", "words": []},
+    {"id": "seg-004", "start": 8, "end": 10, "text": "Nhưng học thật sự bắt đầu", "words": []},
+    {"id": "seg-005", "start": 10, "end": 12, "text": "khi bạn vẫn suy nghĩ.", "words": []}
+  ],
+  "transcriptSha256": "98aa308bd062e42688b60bdf8acd3094a6c67c865066b20ac19a1e856da10fa8"
+}
