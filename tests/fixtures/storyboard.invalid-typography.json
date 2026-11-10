@@ -1,0 +1,22 @@
+{
+  "fps": 30,
+  "scenes": [
+    {
+      "id": "broken-vietnamese-hero",
+      "start": 0,
+      "end": 3,
+      "titleReady": 0.4,
+      "supportStart": 0.5,
+      "onScreenWords": 8,
+      "displaySeconds": 3,
+      "contentCentroidY": 0.52,
+      "motionConcept": "reveal",
+      "layoutFamily": "centered-hero",
+      "layoutChecks": {"safeBounds":true,"opticalBalance":true,"diacritics":false,"minGapPx":24,"overshootBounds":false,"connectorClearance":true},
+      "typographyChecks": {"fontLoadVerified":false,"lineBreaksReviewed":false,"glyphProbe":"CAU TRA LOI"},
+      "beats": [
+        {"id":"hero","kind":"semantic","cueStart":0,"visualHit":0.08,"readableBy":0.18,"action":"reveal","target":"hero","onScreenText":"CÂU TRẢ LỜI TỰ TIN?"}
+      ]
+    }
+  ]
+}

@@ -3,8 +3,7 @@ import {cp, mkdtemp, mkdir, readFile, rm, writeFile} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join, resolve} from 'node:path';
 import {spawnSync} from 'node:child_process';
-import {cueHash} from './lib/lock-utils.mjs';
-import {sha256Value} from './lib/lock-utils.mjs';
+import {cueHash, sha256File, sha256Value} from './lib/lock-utils.mjs';
 
 const root = resolve(process.argv[2] ?? '.');
 const temp = await mkdtemp(join(tmpdir(), 'alpha-v2-tests-'));
@@ -23,6 +22,7 @@ try {
   await cp(join(source, 'transcript.lock.json'), transcriptPath); await cp(join(source, 'cue-sheet.lock.json'), cuePath); await cp(join(source, 'video-plan.json'), planPath);
   run('check-cue-lock.mjs', [transcriptPath, cuePath], true, 'valid cue lock');
   run('check-scene-diversity.mjs', [planPath], true, 'valid scene diversity');
+  run('check-knowledge-pack.mjs', [root], true, 'valid knowledge pack');
 
   const invalids = [];
   const audioHash = await load(cuePath); audioHash.audioSha256 = 'f'.repeat(64); audioHash.cueSheetSha256 = cueHash(audioHash); invalids.push(['audio-hash', null, audioHash]);
@@ -41,5 +41,29 @@ try {
   run('check-timeline-binding.mjs', [project], false, 'magic timestamp');
 
   const slow = await load(planPath); slow.scenes[0].endCueId = 'answer-fast'; const slowPath = join(temp, 'video-plan.json'); await save(slowPath, slow); run('check-scene-diversity.mjs', [slowPath], false, 'long semantic hold');
-  console.log('PASS V2 regression suite: hash, transcript, segment, drift, spoken text, recipe, magic timing và long hold đều bị chặn.');
+
+  const video = resolve(root, 'assets/reference/alpha-video-v2-reference.mp4');
+  const cueLock = await load(cuePath);
+  const qaPath = join(temp, 'qa-report.json');
+  const qa = {
+    schemaVersion: 2,
+    sourceVideo: 'alpha-video-v2-reference.mp4',
+    videoSha256: await sha256File(video),
+    cueSheetSha256: cueLock.cueSheetSha256,
+    reviewedUntilSeconds: cueLock.durationSeconds,
+    reviewer: 'regression',
+    reviewedAt: '2026-01-01T00:00:00.000Z',
+    playback1x: true,
+    playback05x: true,
+    cues: cueLock.cues.map((cue) => ({cueId: cue.id, oldIdeaExited: true, expectedStateVisible: true, readable: true, noClippingOrOverlap: true, visualMeaningClear: true, lessonIds: [], notes: ''})),
+  };
+  await save(qaPath, qa);
+  run('check-qa-report.mjs', [qaPath, '--video', video, '--cue-lock', cuePath], true, 'valid QA lesson report');
+  qa.cues[0].readable = false;
+  await save(qaPath, qa);
+  run('check-qa-report.mjs', [qaPath, '--video', video, '--cue-lock', cuePath], false, 'QA fail thiếu lesson ID');
+  qa.cues[0].lessonIds = ['NOPE-999'];
+  await save(qaPath, qa);
+  run('check-qa-report.mjs', [qaPath, '--video', video, '--cue-lock', cuePath], false, 'QA lesson ID không tồn tại');
+  console.log('PASS V2.1 regression suite: knowledge, hash, transcript, segment, drift, spoken text, recipe, magic timing và long hold đều bị chặn.');
 } finally { await rm(temp, {recursive: true, force: true}); }

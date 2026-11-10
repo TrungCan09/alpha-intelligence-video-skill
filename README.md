@@ -4,6 +4,8 @@ Skill tiếng Việt để sản xuất video ngắn cho **Cộng đồng Alpha 
 
 Repository này tổng hợp độc lập hệ thống nhận diện, kinh nghiệm timing và các lỗi motion đã được kiểm chứng trong quá trình sản xuất. Không chứa voice, bài viết hay tài sản riêng tư; không sao chép nguyên văn skill bên thứ ba.
 
+Từ v2.1, kinh nghiệm sản xuất được lưu thành lesson ID trong `knowledge/lessons.json`. Skill chỉ đọc category liên quan tới tác vụ, không đọc lại toàn bộ lịch sử chat và không phụ thuộc archive riêng tư.
+
 ## Điểm cốt lõi
 
 - Voice và nội dung đã duyệt là nguồn sự thật.
@@ -17,6 +19,7 @@ Repository này tổng hợp độc lập hệ thống nhận diện, kinh nghi�
 - Mỗi scene có một motion concept giải thích nội dung.
 - Có chín scene recipe thực thi, semantic-only render, QA pack và master finalizer.
 - Có motion/media primitives tự chứa: entrance/exit, Ken Burns, counter, spark, parallax, motion trail, footage và captions.
+- Knowledge pack truy vết `lỗi → nguyên nhân → quy tắc → enforcement → cách sửa`, kèm privacy scan và visual-review gate trung thực.
 
 ## Cài skill
 
@@ -56,13 +59,14 @@ Xem reference công khai trước khi chọn recipe:
 
 - `assets/reference/alpha-video-v2-reference.mp4` — 12 giây, không voice/tài sản riêng tư, dưới 8 MB.
 - `assets/reference/alpha-video-v2-contact-sheet.png` — trích trực tiếp từ MP4.
+- `assets/reference/alpha-lessons-contact-sheet.png` — cặp ví dụ tổng hợp đạt/không đạt, không dùng dữ liệu người dùng.
 
 `AlphaMotionReference10s` là composition tham chiếu 10 giây cho nhịp `problem → prompt → answer`. Có thể truyền voice cục bộ bằng prop `voiceSrc`; thư mục `public/private/` được Git bỏ qua để không phát hành audio riêng tư.
 
 Nếu có quyền sử dụng Cy Grotesk V3 Wide, cài file `.woff2` cục bộ:
 
 ```bash
-node scripts/install-brand-font.mjs --file "D:/font/cy-grotesk-v3-wide.woff2"
+node scripts/install-brand-font.mjs --file "path/to/cy-grotesk-v3-wide.woff2"
 node scripts/check-brand-font.mjs --require-cy
 ```
 
@@ -108,7 +112,7 @@ node scripts/check-qa-report.mjs outputs/qa/report.json
 Phân tích audio và tạo cue template:
 
 ```bash
-node scripts/analyze-audio.mjs "D:/duong dan co khoang trang/voice.mp3" --fps 30 --out cues.json
+node scripts/analyze-audio.mjs "path/with spaces/voice.mp3" --fps 30 --out cues.json
 ```
 
 Khoảng lặng chỉ là thông tin chẩn đoán. Với production v2, timing luôn đến từ ASR lock.
@@ -160,21 +164,26 @@ Starter tổng hợp không có voice nên master mẫu không có audio. Với 
 
 ```bash
 node scripts/test-v2-pipeline.mjs .
+node scripts/check-knowledge-pack.mjs .
+node scripts/test-knowledge-pack.mjs .
 node scripts/validate-package.mjs
 python scripts/quick_validate.py .
 ```
 
-Regression suite bắt audio hash sai, transcript thay đổi, segment mất, drift, spoken text lệch, magic timestamp, recipe lặp và semantic hold dài.
+Regression suite bắt audio hash sai, transcript thay đổi, segment mất, drift, spoken text lệch, magic timestamp, recipe lặp, semantic hold dài, typography thiếu kiểm chứng và knowledge/privacy lỗi.
 
 ## Cấu trúc
 
 - `SKILL.md`: entrypoint và workflow.
 - `references/`: branding, biên kịch ElevenLabs, content/timing, motion/sound và QA.
+- `knowledge/lessons.json`: registry bài học ẩn danh và liên kết enforcement.
 - `assets/remotion-starter/`: starter kit code-native và source composition reference.
 - `assets/reference/`: MP4/contact sheet công khai tổng hợp.
 - `scripts/`: ASR, cue locking, validators, QA pack và finalizer.
 - `THIRD_PARTY_NOTICES.md`: nguồn tham khảo và attribution MIT.
 - `.github/workflows/validate.yml`: kiểm tra package, TypeScript và composition.
+
+Evidence gốc có thể được lưu cục bộ tại `private/chat-research/`; thư mục này bị Git ignore và không được production hoặc CI đọc.
 
 ## Đóng góp
 

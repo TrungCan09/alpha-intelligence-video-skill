@@ -8,6 +8,7 @@ Thumbs.db
 assets/remotion-starter/public/fonts/cy-grotesk-v3-wide.woff2
 assets/remotion-starter/public/private/
 tests/private/
+private/chat-research/
 *.local.lock.json
 __pycache__/
 *.pyc

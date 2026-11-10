@@ -28,6 +28,7 @@ Render preview 540×960, rồi xem:
 - cảnh có khoảng hold dài để phát hiện trạng thái “đơ”.
 - frame đầu 15 của scene và mọi khoảng 90 frame không có thay đổi thị giác.
 - mọi semantic beat phải làm thay đổi đúng target nội dung; mesh/particle/grain không được dùng để che long hold.
+- khi đánh dấu một cue không đạt, QA report phải ghi ít nhất một `lessonIds` hợp lệ từ `knowledge/lessons.json`; không dùng ghi chú tự do thay cho phân loại lỗi.
 - graphic quan hệ vượt semantic legibility gate: source, hướng, target và kết quả có thể hiểu từ clip ngắn mà không cần lời giải thích ngoài video.
 - connector đồng trục với source/target, còn end gap nhìn thấy được và không bị card che ở bất kỳ frame overshoot nào.
 - kiểm tra safe bounds và optical balance tại entrance, peak overshoot, hold và exit; không có card/glyph bị cắt mép.

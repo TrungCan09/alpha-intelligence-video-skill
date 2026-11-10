@@ -12,7 +12,8 @@
       "contentCentroidY": 0.5,
       "motionConcept": "lock",
       "layoutFamily": "centered-hero",
-      "layoutChecks": {"safeBounds":true,"opticalBalance":true,"diacritics":true,"minGapPx":24},
+      "layoutChecks": {"safeBounds":true,"opticalBalance":true,"diacritics":true,"minGapPx":24,"overshootBounds":true,"connectorClearance":true},
+      "typographyChecks": {"fontLoadVerified":true,"lineBreaksReviewed":true,"glyphProbe":"Ả Ẫ Ễ Ự ?"},
       "beats": [
         {"id":"hook-hit","kind":"semantic","cueStart":0,"visualHit":0.08,"readableBy":0.18,"action":"lock","target":"hero","onScreenText":"Ý chính"},
         {"id":"hook-resolve","kind":"resolve","cueStart":2.2,"visualHit":2.28,"readableBy":2.38,"action":"split","target":"hero","onScreenText":"Mâu thuẫn"}
@@ -31,7 +32,8 @@
       "contentCentroidY": 0.56,
       "motionConcept": "compare",
       "layoutFamily": "split-screen",
-      "layoutChecks": {"safeBounds":true,"opticalBalance":true,"diacritics":true,"minGapPx":24},
+      "layoutChecks": {"safeBounds":true,"opticalBalance":true,"diacritics":true,"minGapPx":24,"overshootBounds":true,"connectorClearance":true},
+      "typographyChecks": {"fontLoadVerified":true,"lineBreaksReviewed":true,"glyphProbe":"Ả Ẫ Ễ Ự ?"},
       "beats": [
         {"id":"compare-hit","kind":"semantic","cueStart":4,"visualHit":4.08,"readableBy":4.18,"action":"reveal","target":"both-panels","onScreenText":"A và B"},
         {"id":"focus-b","kind":"focus","cueStart":6.4,"visualHit":6.48,"readableBy":6.58,"action":"focus","target":"panel-b","onScreenText":"Khác biệt"}

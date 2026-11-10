@@ -15,6 +15,17 @@ Voice và nội dung đã duyệt là nguồn sự thật. Không dùng lịch s
 4. Dựng motion: đọc [scene recipes](references/scene-recipes.md), [motion language](references/motion-language.md) và [Remotion patterns](references/remotion-patterns-alpha.md).
 5. Render/bàn giao: đọc [QA](references/qa-delivery.md) và [migration v2](references/migration-v2.md) nếu dự án bắt đầu từ v1.
 
+## Bộ nhớ sản xuất v2.1
+
+Không đọc toàn bộ lịch sử chat hoặc toàn bộ knowledge pack. Chỉ nạp phần liên quan tới việc đang làm:
+
+- Dựng storyboard: đọc các mục `semantic-motion`, `scene-rhythm`, `layout` trong [production lessons](references/production-lessons.md) và tra [failure catalog](references/failure-catalog.md) khi gặp triệu chứng tương ứng.
+- Sửa timing: chỉ đọc `voice-sync` trong production lessons cùng [content timing](references/content-timing.md).
+- Sửa hình ảnh: đọc `layout`, `typography` và [Alpha taste profile](references/alpha-taste-profile.md).
+- QA master: lấy lesson ID liên quan từ `knowledge/lessons.json`, recipe đã dùng và lỗi validator; không nạp lesson không liên quan.
+
+`knowledge/lessons.json` là registry truy vết, không phải prompt phải đọc hết. Chat archive, screenshot gốc, voice và đường dẫn máy không bao giờ là dependency production.
+
 ## Pipeline production bắt buộc
 
 1. Chạy `transcribe-audio.py` bằng Faster Whisper `small` trở lên. Nếu ASR/model không hoạt động, **dừng trước storyboard**; không ước lượng cue bằng số chữ hoặc khoảng lặng.

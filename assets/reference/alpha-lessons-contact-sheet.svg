@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#050D1D"/><stop offset="1" stop-color="#081938"/></linearGradient>
+    <linearGradient id="hero" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#F9F9F9"/><stop offset="1" stop-color="#20F669"/></linearGradient>
+    <style>text{font-family:Montserrat,Arial,sans-serif;fill:#F9F9F9}.h{font-size:42px;font-weight:800}.k{font-size:28px;font-weight:700}.s{font-size:22px;fill:#ACDDFA}.bad{stroke:#ff6b7a}.good{stroke:#20F669}.card{fill:#1B2D57;stroke-width:3}.axis{stroke:#00FCFE;stroke-width:10;stroke-linecap:round}.muted{opacity:.38}</style>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <text x="70" y="75" class="h">ALPHA PRODUCTION LESSONS — SYNTHETIC CONTACT SHEET</text>
+  <text x="70" y="115" class="s">Ví dụ tổng hợp, không chứa chat, voice, screenshot hoặc tài sản người dùng.</text>
+
+  <g transform="translate(70 165)">
+    <rect width="700" height="330" rx="28" fill="#081938" stroke="#365380"/>
+    <text x="28" y="52" class="k">LAY-001 · CONNECTOR</text>
+    <text x="28" y="90" class="s">KHÔNG ĐẠT — lệch trục, đầu mũi tên bị che</text>
+    <rect x="50" y="130" width="220" height="100" rx="20" class="card bad"/>
+    <rect x="430" y="185" width="220" height="100" rx="20" class="card bad"/>
+    <path d="M270 180 C340 120 390 260 455 230" fill="none" stroke="#ff6b7a" stroke-width="10"/>
+    <text x="100" y="190" class="k">NGUỒN</text><text x="485" y="245" class="k">ĐÍCH</text>
+  </g>
+  <g transform="translate(830 165)">
+    <rect width="700" height="330" rx="28" fill="#081938" stroke="#365380"/>
+    <text x="28" y="52" class="k">LAY-001 · CONNECTOR</text>
+    <text x="28" y="90" class="s">ĐẠT — chung axis, end gap rõ, source → target</text>
+    <rect x="60" y="145" width="220" height="100" rx="20" class="card good"/>
+    <rect x="420" y="145" width="220" height="100" rx="20" class="card good"/>
+    <line x1="300" y1="195" x2="392" y2="195" class="axis"/>
+    <path d="M382 175 L405 195 L382 215" fill="none" class="axis"/>
+    <text x="110" y="205" class="k">NGUỒN</text><text x="475" y="205" class="k">ĐÍCH</text>
+  </g>
+
+  <g transform="translate(70 545)">
+    <rect width="700" height="365" rx="28" fill="#081938" stroke="#365380"/>
+    <text x="28" y="52" class="k">TYP-001/002 · GLYPH &amp; LINE BREAK</text>
+    <text x="28" y="90" class="s">KHÔNG ĐẠT — dấu bị cắt, cụm nghĩa bị tách</text>
+    <clipPath id="clip"><rect x="40" y="190" width="620" height="60"/></clipPath>
+    <g clip-path="url(#clip)" transform="translate(0 -18)"><text x="45" y="215" class="h" font-size="78">CÂU TRẢ</text></g>
+    <text x="45" y="290" class="h">LỜI TỰ</text><text x="45" y="340" class="h">TIN?</text>
+  </g>
+  <g transform="translate(830 545)">
+    <rect width="700" height="365" rx="28" fill="#081938" stroke="#365380"/>
+    <text x="28" y="52" class="k">SEM-001 · DIRECT MEANING</text>
+    <text x="28" y="90" class="s">ĐẠT — trạng thái trước/sau giải thích “đáp án đến ngay”</text>
+    <rect x="50" y="135" width="250" height="145" rx="22" class="card" stroke="#00FCFE"/>
+    <text x="85" y="195" class="s">PROMPT</text><text x="85" y="235" class="k">BÀI TẬP KHÓ</text>
+    <path d="M330 205 H400" fill="none" class="axis"/><path d="M390 185 L415 205 L390 225" fill="none" class="axis"/>
+    <rect x="440" y="135" width="210" height="145" rx="22" class="card good"/>
+    <text x="475" y="195" class="s">SNAP / LOCK</text><text x="475" y="238" class="k" fill="url(#hero)">ĐÁP ÁN</text>
+  </g>
+</svg>

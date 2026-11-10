@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "skillVersion": "2.1.0",
+  "lessons": [
+    {
+      "id": "SYNC-001",
+      "category": "voice-sync",
+      "symptom": "Text hoặc animation xuất hiện trước voice, hoặc hoàn tất quá muộn so với ý đang được nói.",
+      "rootCause": "Storyboard dùng timestamp ước lượng hoặc visual hit không bị ràng buộc với semantic cue.",
+      "rule": "Visual hit không đi trước cue; text phải đọc được chậm nhất 0,2 giây sau cue.",
+      "remediation": "Lấy cue từ ASR lock, chuyển beat sang cue ID và chỉnh entrance thay vì dịch timestamp thủ công.",
+      "enforcement": "regression",
+      "relatedScripts": ["scripts/check-storyboard.mjs", "scripts/check-cue-lock.mjs"],
+      "relatedFixtures": ["tests/fixtures/storyboard.invalid-sync.json"],
+      "referenceSection": "references/production-lessons.md#sync-001"
+    },
+    {
+      "id": "SEM-001",
+      "category": "semantic-motion",
+      "symptom": "Graphic chuyển động đẹp nhưng người xem không hiểu nó minh họa điều gì.",
+      "rootCause": "Motion được chọn theo hình thức thay vì quan hệ source, action, target và kết quả.",
+      "rule": "Graphic quan hệ phải có visualMeaning rõ và tự giải thích được trong clip ngắn.",
+      "remediation": "Đổi sang biểu diễn trực tiếp hơn; bỏ đường cong, node hoặc quỹ đạo không mã hóa quan hệ cụ thể.",
+      "enforcement": "regression",
+      "relatedScripts": ["scripts/check-storyboard.mjs"],
+      "relatedFixtures": ["tests/fixtures/storyboard.invalid-ambiguous.json"],
+      "referenceSection": "references/production-lessons.md#sem-001"
+    },
+    {
+      "id": "SEM-002",
+      "category": "semantic-motion",
+      "symptom": "Scene có nhiều chuyển động nhưng thay đổi không khớp nội dung voice.",
+      "rootCause": "Ambient animation bị tính nhầm là semantic progression.",
+      "rule": "Mỗi beat phải đổi đúng target nội dung và giải thích điều người xem hiểu thêm.",
+      "remediation": "Render semantic mode, bỏ decoration và thiết kế lại state change theo cue.",
+      "enforcement": "visual-review",
+      "relatedScripts": ["scripts/build-qa-pack.mjs", "scripts/check-qa-report.mjs"],
+      "relatedFixtures": ["assets/reference/alpha-lessons-contact-sheet.svg"],
+      "referenceSection": "references/production-lessons.md#sem-002"
+    },
+    {
+      "id": "RHY-001",
+      "category": "scene-rhythm",
+      "symptom": "Scene mở đầu thiếu dứt khoát hoặc giữ một poster quá lâu.",
+      "rootCause": "Không có semantic change trong 15 frame đầu hoặc khoảng giữa hai beat vượt 90 frame.",
+      "rule": "Mở scene bằng thay đổi có nghĩa trong 15 frame; hold quá 90 frame phải có lý do đọc hoặc nhấn rõ.",
+      "remediation": "Thêm diễn tiến nội dung theo voice, không thêm particle hoặc breathing để che đoạn đơ.",
+      "enforcement": "regression",
+      "relatedScripts": ["scripts/check-storyboard.mjs", "scripts/audit-motion-density.mjs"],
+      "relatedFixtures": ["tests/fixtures/storyboard.invalid-static.json"],
+      "referenceSection": "references/production-lessons.md#rhy-001"
+    },
+    {
+      "id": "RHY-002",
+      "category": "scene-rhythm",
+      "symptom": "Nhiều scene lặp cùng reveal, bố cục hoặc motion concept nên video nhàm chán.",
+      "rootCause": "Recipe được dùng như template hình thức thay vì chọn theo động từ nội dung.",
+      "rule": "Không lặp recipe ở hai scene liên tiếp, quá hai lần trong video hoặc lặp đồng thời motionConcept và layoutFamily.",
+      "remediation": "Giữ nội dung, đổi động từ hình ảnh hoặc layout family của ít nhất một scene.",
+      "enforcement": "validator",
+      "relatedScripts": ["scripts/check-scene-diversity.mjs", "scripts/check-storyboard.mjs"],
+      "relatedFixtures": ["assets/remotion-starter/src/video-plan.json"],
+      "referenceSection": "references/production-lessons.md#rhy-002"
+    },
+    {
+      "id": "LAY-001",
+      "category": "layout",
+      "symptom": "Mũi tên xuất hiện sớm, lệch trục, bị card che hoặc không nối rõ source với target.",
+      "rootCause": "Connector được căn bằng mắt và không khai báo source beat, anchor, end gap hoặc layer order.",
+      "rule": "Connector chỉ xuất hiện cùng hoặc sau source, dùng chung axis và dừng trước target tối thiểu 8 px.",
+      "remediation": "Dùng named anchors, sourceBeatId và layer giữa card; kiểm tra entrance, overshoot và hold.",
+      "enforcement": "regression",
+      "relatedScripts": ["scripts/check-storyboard.mjs"],
+      "relatedFixtures": ["tests/fixtures/storyboard.invalid-connector.json", "tests/fixtures/storyboard.invalid-geometry.json"],
+      "referenceSection": "references/production-lessons.md#lay-001"
+    },
+    {
+      "id": "LAY-002",
+      "category": "layout",
+      "symptom": "Card, label, beam, vòng tròn hoặc text chồng lên nhau khi animation overshoot.",
+      "rootCause": "Layout chỉ được kiểm tra ở frame cuối và dùng absolute positioning cho phần tử có quan hệ trực tiếp.",
+      "rule": "Kiểm tra bounding box tại entrance, peak overshoot, hold và exit; cụm liên quan dùng flow với gap tối thiểu 16 px.",
+      "remediation": "Đưa cụm vào grid hoặc flex, tăng gap và giảm spring overshoot trước khi giảm cỡ chữ.",
+      "enforcement": "visual-review",
+      "relatedScripts": ["scripts/build-qa-pack.mjs", "scripts/check-qa-report.mjs"],
+      "relatedFixtures": ["assets/reference/alpha-lessons-contact-sheet.svg"],
+      "referenceSection": "references/production-lessons.md#lay-002"
+    },
+    {
+      "id": "LAY-003",
+      "category": "layout",
+      "symptom": "Bố cục mất cân bằng, dồn lên trên hoặc khoảng âm không hợp lý.",
+      "rootCause": "Căn toán học được dùng thay cho đánh giá optical weight của chữ, card và glow.",
+      "rule": "Nội dung không dồn vào 40% trên; optical balance phải được duyệt tại các trạng thái chính.",
+      "remediation": "Điều chỉnh scale, khoảng âm và trọng tâm thay vì thêm decoration để lấp chỗ trống.",
+      "enforcement": "visual-review",
+      "relatedScripts": ["scripts/build-qa-pack.mjs", "scripts/check-qa-report.mjs"],
+      "relatedFixtures": ["assets/reference/alpha-lessons-contact-sheet.svg"],
+      "referenceSection": "references/production-lessons.md#lay-003"
+    },
+    {
+      "id": "TYP-001",
+      "category": "typography",
+      "symptom": "Dấu tiếng Việt, đặc biệt Ả, Ẫ, Ễ, Ự hoặc dấu hỏi bị cắt hay nhảy giữa frame.",
+      "rootCause": "Line-height, overflow, unicode font preload hoặc video capture không phù hợp.",
+      "rule": "Hero có dấu phải chừa glyph padding, không đặt text node trong overflow hidden và preload đúng unicode subset.",
+      "remediation": "Kiểm tra chuỗi frame liên tiếp; phân biệt lỗi layout với font-loading hoặc GOP/capture trước khi đổi font.",
+      "enforcement": "visual-review",
+      "relatedScripts": ["scripts/build-qa-pack.mjs", "scripts/check-qa-report.mjs"],
+      "relatedFixtures": ["tests/fixtures/storyboard.invalid-typography.json", "assets/reference/alpha-lessons-contact-sheet.svg"],
+      "referenceSection": "references/production-lessons.md#typ-001"
+    },
+    {
+      "id": "TYP-002",
+      "category": "typography",
+      "symptom": "Một từ hoặc cụm nghĩa bị xuống dòng vô duyên.",
+      "rootCause": "Line break phụ thuộc auto-wrap thay vì được duyệt theo cụm nghĩa tiếng Việt.",
+      "rule": "Hero line break phải được khóa theo cụm nghĩa và duyệt ở đúng font production.",
+      "remediation": "Tách dòng bằng cấu trúc semantic span; điều chỉnh measure trước khi giảm kích thước chữ.",
+      "enforcement": "visual-review",
+      "relatedScripts": ["scripts/build-qa-pack.mjs", "scripts/check-qa-report.mjs"],
+      "relatedFixtures": ["tests/fixtures/storyboard.invalid-typography.json", "assets/reference/alpha-lessons-contact-sheet.svg"],
+      "referenceSection": "references/production-lessons.md#typ-002"
+    },
+    {
+      "id": "BRD-001",
+      "category": "branding",
+      "symptom": "Header, tagline, font role, palette hoặc gradient lệch nhận diện Alpha Intelligence.",
+      "rootCause": "Scene tạo theme cục bộ hoặc hard-code màu và typography.",
+      "rule": "Mọi composition dùng BrandFrame, brand.config.json và typography roles đã khóa.",
+      "remediation": "Loại token inline, dùng component semantic và chạy brand validators.",
+      "enforcement": "validator",
+      "relatedScripts": ["scripts/check-brand-usage.mjs", "scripts/check-brand-contrast.mjs", "scripts/check-brand-font.mjs"],
+      "relatedFixtures": ["tests/fixtures/brand.invalid.json", "tests/fixtures/brand.invalid-identity.json"],
+      "referenceSection": "references/production-lessons.md#brd-001"
+    },
+    {
+      "id": "SND-001",
+      "category": "sound",
+      "symptom": "SFX, flash hoặc transition lặp dày làm voice mất trọng tâm.",
+      "rootCause": "Mỗi thay đổi chữ đều được coi là một hit âm thanh.",
+      "rule": "Chỉ đặt SFX tại semantic hit quan trọng; không click từng chữ, token hoặc card.",
+      "remediation": "Giữ voice 1.0, bỏ hit trùng và duyệt playback 1× trước khi thêm âm thanh mới.",
+      "enforcement": "visual-review",
+      "relatedScripts": ["scripts/build-qa-pack.mjs", "scripts/check-qa-report.mjs"],
+      "relatedFixtures": ["assets/reference/alpha-video-v2-reference.mp4"],
+      "referenceSection": "references/production-lessons.md#snd-001"
+    },
+    {
+      "id": "DEL-001",
+      "category": "delivery",
+      "symptom": "Source hoặc preview đúng nhưng MP4 master vẫn lỗi glyph, timing hay codec.",
+      "rootCause": "QA dựa trên frame nguồn hoặc ảnh cũ thay vì đầu ra cuối.",
+      "rule": "Chỉ bàn giao sau khi QA pack được trích từ chính candidate/master và finalizer chạy đủ gate.",
+      "remediation": "Render lại với capture/GOP đã khóa, trích frame quanh cue và xác minh H.264/AAC bằng media validator.",
+      "enforcement": "validator",
+      "relatedScripts": ["scripts/check-alpha-video.mjs", "scripts/build-qa-pack.mjs", "scripts/finalize-master.mjs"],
+      "relatedFixtures": ["assets/reference/alpha-video-v2-reference.mp4"],
+      "referenceSection": "references/production-lessons.md#del-001"
+    }
+  ]
+}

@@ -28,6 +28,12 @@ for (const [index, scene] of scenes.entries()) {
   if (!scene.layoutFamily) errors.push(`${id}: thiếu layoutFamily.`);
   if (!scene.layoutChecks?.safeBounds || !scene.layoutChecks?.opticalBalance || !scene.layoutChecks?.diacritics) errors.push(`${id}: thiếu xác nhận safeBounds, opticalBalance hoặc diacritics.`);
   if (!(scene.layoutChecks?.minGapPx >= 16)) errors.push(`${id}: layoutChecks.minGapPx phải tối thiểu 16 px để tránh các cụm liên quan dính nhau khi overshoot.`);
+  if (scene.layoutChecks?.overshootBounds === false || scene.layoutChecks?.connectorClearance === false) errors.push(`${id}: overshootBounds hoặc connectorClearance chưa đạt.`);
+  const typography = scene.typographyChecks;
+  if (typography) {
+    if (!typography.fontLoadVerified || !typography.lineBreaksReviewed) errors.push(`${id}: thiếu xác nhận font load hoặc semantic line breaks.`);
+    for (const glyph of ['Ả', 'Ẫ', 'Ễ', 'Ự', '?']) if (!String(typography.glyphProbe ?? '').includes(glyph)) errors.push(`${id}: glyphProbe thiếu ${glyph}.`);
+  }
   const beats = scene.beats ?? [];
   if (!beats.length) errors.push(`${id}: thiếu semantic beats.`);
   const sorted = [...beats].sort((a, b) => a.cueStart - b.cueStart);
