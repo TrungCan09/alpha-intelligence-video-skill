@@ -11,15 +11,15 @@
       "endCueId": "problem-arrives",
       "conceptId": "problem-direct",
       "renderMode": "graph",
-      "layout": {"family":"radial","gap":30,"opticalBalance":"hero centered below brand header"},
+      "layout": {"family":"freeform","gap":32,"opticalBalance":"one dominant headline with a compact three-card evidence row"},
       "beats": [{"id":"problem","cueId":"problem-arrives","segmentIds":["seg-001"],"action":"assemble","target":"problem-title","onScreenText":"BÀI TẬP KHÓ","visualMeaning":"Các mảnh câu hỏi hội tụ thành một vấn đề rõ."}],
       "motionGraph": {
         "cameraPattern": "push",
         "elements": [
-          {"id":"fragment-a","kind":"card","text":"?","tone":"cyan","role":"support"},
-          {"id":"fragment-b","kind":"shape","tone":"blue","role":"decoration"},
-          {"id":"fragment-c","kind":"card","text":"?","tone":"muted","role":"support"},
-          {"id":"problem-title","kind":"text","text":"BÀI TẬP KHÓ","tone":"green","role":"hero"}
+          {"id":"fragment-a","kind":"card","text":"ĐÃ THỬ","tone":"cyan","role":"support","x":40,"y":210,"width":260},
+          {"id":"fragment-b","kind":"card","text":"VẪN CHƯA RA","tone":"blue","role":"support","x":330,"y":210,"width":360},
+          {"id":"fragment-c","kind":"card","text":"ĐANG KẸT","tone":"muted","role":"support","x":720,"y":210,"width":220},
+          {"id":"problem-title","kind":"text","text":"BÀI TẬP\nKHÓ","tone":"green","role":"hero","x":40,"y":450,"width":900}
         ],
         "operations": [
           {"id":"assemble-problem","cueId":"problem-arrives","operator":"assemble","targetIds":["fragment-a","fragment-b","fragment-c","problem-title"],"direction":"in","visualMeaning":"Các mảnh rời hội tụ và khóa thành một bài tập khó."},
@@ -33,7 +33,7 @@
       "endCueId": "answer-fast",
       "conceptId": "response-type",
       "renderMode": "graph",
-      "layout": {"family":"stage","gap":42,"opticalBalance":"large type centered with scan rail below"},
+      "layout": {"family":"freeform","gap":32,"opticalBalance":"prompt card and answer payoff share one leading edge"},
       "beats": [
         {"id":"prompt","cueId":"open-ai","segmentIds":["seg-002"],"action":"enter","target":"prompt-word","onScreenText":"PROMPT","visualMeaning":"Prompt xuất hiện như trạng thái đầu vào."},
         {"id":"answer","cueId":"answer-fast","segmentIds":["seg-003"],"action":"morph","target":"answer-word","onScreenText":"ĐÁP ÁN ĐẾN NHANH","visualMeaning":"Prompt quét qua frame và khóa thành đáp án hoàn chỉnh."}
@@ -41,9 +41,9 @@
       "motionGraph": {
         "cameraPattern": "track",
         "elements": [
-          {"id":"prompt-word","kind":"text","text":"PROMPT","tone":"cyan","role":"hero"},
-          {"id":"scan-rail","kind":"shape","tone":"cyan","role":"support"},
-          {"id":"answer-word","kind":"text","text":"ĐÁP ÁN\nĐẾN NHANH","tone":"green","role":"hero"}
+          {"id":"prompt-word","kind":"card","text":"HÃY GIÚP TÔI\nGIẢI BÀI NÀY","tone":"cyan","role":"hero","x":40,"y":170,"width":880},
+          {"id":"scan-rail","kind":"shape","tone":"cyan","role":"support","x":40,"y":470,"width":880,"height":8},
+          {"id":"answer-word","kind":"text","text":"ĐÁP ÁN\nĐẾN NHANH","tone":"green","role":"hero","x":40,"y":610,"width":880}
         ],
         "operations": [
           {"id":"enter-prompt","cueId":"open-ai","operator":"enter","targetIds":["prompt-word","scan-rail"],"direction":"right","visualMeaning":"Đầu vào được đặt rõ trước khi hệ thống tạo kết quả."},

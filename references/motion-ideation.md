@@ -18,6 +18,8 @@ Chấm thang 1–5: semantic clarity 40%, voice alignment 20%, brand fit 15%, no
 
 Chạy `check-concept-exploration.mjs`, sau đó mới ghi `referenceReviewedAt` và xem micro-reference theo primitive. Reference chỉ cải thiện execution; không thay visual thesis đã khóa bằng bản sao mẫu.
 
+Sau khi chọn concept, viết art-direction note gồm: entry point, shared alignment edges, primary group, secondary group, intended stage occupancy và phần tử bị cấm vì có nguy cơ thành placeholder. Note này được dùng trong taste gate sau render; không thay thế semantic score.
+
 ## Khi nào graph, custom hoặc legacy
 
 - `graph`: quan hệ có thể diễn đạt bằng element + layout + cue-bound operator.

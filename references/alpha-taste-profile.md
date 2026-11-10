@@ -28,4 +28,24 @@
 - Chữ xuất hiện trước voice để “chuẩn bị cảnh”.
 - Scene có pixel chuyển động nhưng semantic state không thay đổi.
 
+## Taste gate bắt buộc sau render
+
+Schema, timing và novelty pass không có nghĩa là thiết kế đã đạt. Duyệt contact sheet từ MP4 thật theo bốn nhóm sau; nếu một nhóm là `major issue`, phải sửa layout hoặc visual thesis rồi rerender:
+
+- **Balance:** cụm chính đủ trọng lượng thị giác; không dồn lên trên hoặc để nửa dưới trống vô cớ.
+- **Whitespace:** khoảng trống phải gom nhóm và dẫn mắt; không có icon, dấu hỏi, dot hoặc card đứng cô lập.
+- **Hierarchy:** mỗi frame có đúng một entry point; graphic phụ không nặng hơn headline hoặc semantic payoff.
+- **Gestalt:** nguồn, connector và đích tạo thành một cụm đọc được; phần tử cùng chức năng chia sẻ treatment và shared edges.
+
+Mặc định, nội dung chính nên sử dụng khoảng 45–65% safe stage theo chiều cao ở trạng thái hoàn tất. Đây là ngưỡng review, không phải luật tuyệt đối: được phép thấp hơn khi `visualMeaning` cần khoảng âm, nhưng phải ghi lý do. Khoảng cách giữa hai nhóm phải ít nhất gấp đôi khoảng cách nội bộ của một nhóm.
+
+Không chấp nhận các dấu hiệu “placeholder đã animate”:
+
+- Dấu hỏi hoặc hình học chung chung thay cho một trạng thái cụ thể có thể viết thành chữ.
+- Một từ như `PROMPT`, `AI`, `TOKEN` đứng một mình với thanh sáng để lấp khung hình.
+- Card rỗng, progress line hoặc dot không có source, target hoặc state rõ ràng.
+- Blur hoặc opacity làm ý cũ giống lỗi render thay vì trạng thái giảm nhấn có chủ đích.
+
+Trong vòng critique đầu tiên, luôn hỏi: “Nếu tắt motion và nhìn frame payoff, đây đã là một key visual hoàn chỉnh chưa?” Nếu chưa, không được chữa bằng thêm particle, glow hoặc camera.
+
 Contact sheet tổng hợp tại `assets/reference/alpha-lessons-contact-sheet.svg` minh họa các cặp đạt/không đạt mà không dùng dữ liệu người dùng.

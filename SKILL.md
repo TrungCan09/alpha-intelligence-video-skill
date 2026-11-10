@@ -12,7 +12,7 @@ Voice và nội dung đã duyệt là nguồn sự thật. Không dùng lịch s
 1. Luôn đọc [pipeline v3](references/pipeline-v3.md) và [hệ nhận diện](references/brand-system.md).
 2. Viết script: đọc [bảo toàn nguồn](references/source-content-rules.md) và [ElevenLabs](references/script-elevenlabs.md).
 3. Phân tích voice/cue: đọc [content timing](references/content-timing.md).
-4. Trước khi xem reference, đọc [motion ideation](references/motion-ideation.md), tạo ba concept/scene và khóa draft.
+4. Trước khi xem reference, đọc [motion ideation](references/motion-ideation.md) cùng [Alpha taste profile](references/alpha-taste-profile.md), tạo ba concept/scene và khóa draft.
 5. Sau khi khóa draft mới đọc đúng nhóm trong `knowledge/motion-vocabulary.json`, [motion grammar](references/motion-grammar-v3.md), [motion language](references/motion-language.md) và micro-reference liên quan.
 6. Render/bàn giao: đọc [QA](references/qa-delivery.md). Dự án cũ đọc [migration v3](references/migration-v3.md).
 
