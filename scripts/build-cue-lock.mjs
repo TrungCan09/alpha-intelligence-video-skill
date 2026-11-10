@@ -19,7 +19,7 @@ const errors = [];
 if (transcript.schemaVersion !== 2) errors.push('Transcript phải dùng schemaVersion 2.');
 if (transcript.transcriptSha256 !== transcriptHash(transcript)) errors.push('transcriptSha256 không khớp nội dung transcript.');
 if (!transcript.reviewed) errors.push('Transcript phải được rà soát và đặt reviewed=true trước khi khóa cue.');
-if (plan.schemaVersion !== 2) errors.push('Video plan phải dùng schemaVersion 2.');
+if (![2, 3].includes(plan.schemaVersion)) errors.push('Video plan phải dùng schemaVersion 2 hoặc 3.');
 const segments = new Map((transcript.segments ?? []).map((segment) => [segment.id, segment]));
 const usedSegments = new Set();
 const cues = [];

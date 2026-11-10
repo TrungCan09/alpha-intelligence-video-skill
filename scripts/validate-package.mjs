@@ -5,9 +5,18 @@ import {spawnSync} from 'node:child_process';
 
 const root = resolve(process.argv[2] ?? '.');
 const required = ['SKILL.md', 'agents/openai.yaml', 'README.md', 'LICENSE', 'THIRD_PARTY_NOTICES.md', 'requirements-asr.txt', 'knowledge/lessons.json', 'references/production-lessons.md', 'references/failure-catalog.md', 'references/alpha-taste-profile.md', 'references/brand-system.md', 'references/source-content-rules.md', 'references/script-elevenlabs.md', 'references/content-timing.md', 'references/motion-language.md', 'references/remotion-patterns-alpha.md', 'references/qa-delivery.md', 'references/pipeline-v2.md', 'references/scene-recipes.md', 'references/migration-v2.md', 'assets/reference/alpha-video-v2-reference.mp4', 'assets/reference/alpha-video-v2-contact-sheet.png', 'assets/reference/alpha-lessons-contact-sheet.svg', 'assets/reference/alpha-lessons-contact-sheet.png', 'assets/remotion-starter/package.json', 'assets/remotion-starter/src/brand.config.json', 'assets/remotion-starter/src/fonts.ts', 'assets/remotion-starter/src/typography.tsx', 'assets/remotion-starter/src/motion.tsx', 'assets/remotion-starter/src/media.tsx', 'assets/remotion-starter/src/AlphaVideoV2.tsx', 'assets/remotion-starter/src/cue-timeline.ts', 'assets/remotion-starter/src/scene-recipes.tsx', 'assets/remotion-starter/src/scene-registry.tsx', 'assets/remotion-starter/src/transcript.lock.json', 'assets/remotion-starter/src/cue-sheet.lock.json', 'assets/remotion-starter/src/video-plan.json', 'scripts/transcribe-audio.py', 'scripts/lock-reviewed-transcript.mjs', 'scripts/build-cue-lock.mjs', 'scripts/check-cue-lock.mjs', 'scripts/check-timeline-binding.mjs', 'scripts/check-scene-diversity.mjs', 'scripts/check-knowledge-pack.mjs', 'scripts/test-knowledge-pack.mjs', 'scripts/build-qa-pack.mjs', 'scripts/check-qa-report.mjs', 'scripts/finalize-master.mjs', 'scripts/build-contact-sheet.mjs', 'scripts/test-v2-pipeline.mjs', 'scripts/analyze-audio.mjs', 'scripts/estimate-voiceover.mjs', 'scripts/check-storyboard.mjs', 'scripts/audit-motion-density.mjs', 'scripts/check-contrast.mjs', 'scripts/check-brand-contrast.mjs', 'scripts/check-brand-usage.mjs', 'scripts/check-brand-font.mjs', 'scripts/install-brand-font.mjs', 'scripts/generate-sfx.mjs', 'scripts/check-alpha-video.mjs', 'scripts/extract-qa-frames.mjs', 'scripts/quick_validate.py', 'tests/fixtures/canonical-hash.json', 'tests/fixtures/storyboard.valid.json', 'tests/fixtures/storyboard.invalid.json', 'tests/fixtures/storyboard.invalid-static.json', 'tests/fixtures/storyboard.invalid-sync.json', 'tests/fixtures/storyboard.invalid-connector.json', 'tests/fixtures/storyboard.invalid-ambiguous.json', 'tests/fixtures/storyboard.invalid-geometry.json', 'tests/fixtures/storyboard.invalid-typography.json', 'tests/fixtures/storyboard.invalid-voice-grounding.json', 'tests/fixtures/brand.invalid.json', 'tests/fixtures/brand.invalid-identity.json'];
+required.push(
+  'knowledge/motion-vocabulary.json', 'references/motion-ideation.md', 'references/motion-grammar-v3.md', 'references/pipeline-v3.md', 'references/migration-v3.md',
+  'assets/reference/alpha-video-v3-reference.mp4', 'assets/reference/alpha-video-v3-contact-sheet.png',
+  'assets/remotion-starter/src/AlphaVideoV3.tsx', 'assets/remotion-starter/src/concept-candidates.json', 'assets/remotion-starter/src/video-plan.v3.json',
+  'assets/remotion-starter/src/motion-graph-renderer.tsx', 'assets/remotion-starter/src/custom-scenes.tsx', 'assets/remotion-starter/src/custom-scene-manifests.json', 'assets/remotion-starter/src/scene-registry-v3.tsx',
+  'scripts/check-concept-exploration.mjs', 'scripts/check-reference-order.mjs', 'scripts/check-motion-graph.mjs', 'scripts/check-motion-novelty.mjs',
+  'scripts/check-custom-scene.mjs', 'scripts/check-v3-plan.mjs', 'scripts/migrate-plan-v2-to-v3.mjs', 'scripts/test-v3-pipeline.mjs'
+);
 const errors = [];
 for (const file of required) { try { await access(resolve(root, file)); } catch { errors.push(`Thiếu ${file}`); } }
 try { if ((await stat(resolve(root, 'assets/reference/alpha-video-v2-reference.mp4'))).size >= 8 * 1024 * 1024) errors.push('Reference MP4 phải nhỏ hơn 8 MB.'); } catch {}
+try { if ((await stat(resolve(root, 'assets/reference/alpha-video-v3-reference.mp4'))).size >= 8 * 1024 * 1024) errors.push('Reference MP4 v3 phải nhỏ hơn 8 MB.'); } catch {}
 const skill = await readFile(resolve(root, 'SKILL.md'), 'utf8');
 if (!skill.startsWith('---\nname: alpha-intelligence-video-skill\ndescription:')) errors.push('Frontmatter SKILL.md không hợp lệ.');
 if ((skill.match(/^---$/gm) ?? []).length < 2) errors.push('SKILL.md thiếu frontmatter đóng.');
@@ -46,7 +55,8 @@ for (const [condition, message] of [
   [motion.includes('Semantic legibility gate') && motion.includes('visualMeaning'), 'Graphic phải truyền đạt ý rõ ràng'],
   [motion.includes('Hình học và cân bằng') && motion.includes('end gap') && motion.includes('Optical balance'), 'Connector geometry và cân bằng quang học'],
   [qa.includes('Dấu không clipping') && qa.includes('Không overlap'), 'QA tiếng Việt và overlap'],
-  [skill.includes('Faster Whisper') && skill.includes('cue-sheet.lock.json') && skill.includes('qaMode="semantic"'), 'Pipeline v2 bắt buộc trong SKILL.md'],
+  [skill.includes('Faster Whisper') && skill.includes('cue-sheet.lock.json') && skill.includes('qaMode="semantic"'), 'Pipeline voice-grounded bắt buộc trong SKILL.md'],
+  [skill.includes('ba concept') && skill.includes('motion graph') && skill.includes('custom TSX'), 'Motion ideation v3 trong SKILL.md'],
   [pipeline.includes('Không chứa timestamp') || pipeline.includes('không chứa timestamp'), 'Video plan không nhập timestamp'],
   [pipeline.includes('finalize-master') && pipeline.includes('build-qa-pack'), 'QA gate và finalizer v2'],
   [recipes.includes('Chín recipe') && recipes.includes('không quá 3 giây'), 'Scene registry và pacing'],
@@ -72,5 +82,7 @@ const knowledge = spawnSync(process.execPath, [resolve(root, 'scripts/check-know
 if (knowledge.status !== 0) errors.push(`Knowledge pack thất bại: ${knowledge.stderr || knowledge.stdout}`);
 const knowledgeTests = spawnSync(process.execPath, [resolve(root, 'scripts/test-knowledge-pack.mjs'), root], {encoding: 'utf8'});
 if (knowledgeTests.status !== 0) errors.push(`Knowledge regression thất bại: ${knowledgeTests.stderr || knowledgeTests.stdout}`);
+const v3 = spawnSync(process.execPath, [resolve(root, 'scripts/test-v3-pipeline.mjs'), root], {encoding: 'utf8'});
+if (v3.status !== 0) errors.push(`V3 regression suite thất bại: ${v3.stderr || v3.stdout}`);
 if (errors.length) { errors.forEach((x) => console.error(`FAIL ${x}`)); process.exit(1); }
 console.log(`PASS Package hợp lệ: ${required.length} file bắt buộc.`);

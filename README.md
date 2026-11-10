@@ -1,23 +1,23 @@
 # Alpha Intelligence Video Skill
 
-Skill tiếng Việt để sản xuất video ngắn cho **Cộng đồng Alpha Intelligence** bằng pipeline tái lập: bài viết → script → voice → Faster Whisper → cue lock → scene registry → Remotion → semantic QA → master.
+Skill tiếng Việt để sản xuất video ngắn cho **Cộng đồng Alpha Intelligence** bằng pipeline tái lập: bài viết → script → voice → Faster Whisper → cue lock → ba concept/scene → motion graph hoặc custom TSX → semantic QA → master.
 
 Repository này tổng hợp độc lập hệ thống nhận diện, kinh nghiệm timing và các lỗi motion đã được kiểm chứng trong quá trình sản xuất. Không chứa voice, bài viết hay tài sản riêng tư; không sao chép nguyên văn skill bên thứ ba.
 
-Từ v2.1, kinh nghiệm sản xuất được lưu thành lesson ID trong `knowledge/lessons.json`. Skill chỉ đọc category liên quan tới tác vụ, không đọc lại toàn bộ lịch sử chat và không phụ thuộc archive riêng tư.
+Từ v3.0, skill không chọn template làm điểm xuất phát. Mỗi scene phải khám phá ba luận đề thị giác độc lập, chấm điểm semantic clarity trước khi xem reference, rồi mới biên dịch thành motion graph hoặc custom TSX. Kinh nghiệm sản xuất vẫn được truy xuất chọn lọc qua lesson ID; không đọc lại toàn bộ lịch sử chat.
 
 ## Điểm cốt lõi
 
 - Voice và nội dung đã duyệt là nguồn sự thật.
 - Khi chưa có script, tạo hai bản voice-over ElevenLabs dưới 2 phút: kể chuyện và siêu cô đọng.
 - Audio là nguồn timing duy nhất. Faster Whisper `small` trở lên là gate bắt buộc khi đã có voice.
-- `video-plan.json` không chứa timestamp; composition, storyboard và QA dùng chung `cue-sheet.lock.json`.
+- `video-plan.v3.json` không chứa timestamp; composition, storyboard và QA dùng chung `cue-sheet.lock.json`.
 - Storyboard dùng semantic beats; ambient motion không được tính thay cho diễn tiến nội dung.
 - Graphic quan hệ phải có `visualMeaning`; đường chuyển động đẹp nhưng không tự giải thích được sẽ bị validator từ chối.
 - Connector phải khai báo trục, anchors, end gap và layer order; scene phải xác nhận safe bounds, optical balance và dấu/glyph không clipping.
 - Branding, typography, safe zone và tagline được khóa bằng token, component ngữ nghĩa và validator.
-- Mỗi scene có một motion concept giải thích nội dung.
-- Có chín scene recipe thực thi, semantic-only render, QA pack và master finalizer.
+- Mỗi scene có đúng ba concept direct/metaphorical/typography; concept được chọn phải đạt semantic clarity tối thiểu 4/5.
+- Motion graph là đường mặc định; custom TSX là escape hatch có manifest; chín recipe v2 chỉ còn dùng cho migration/fallback có lý do.
 - Có motion/media primitives tự chứa: entrance/exit, Ken Burns, counter, spark, parallax, motion trail, footage và captions.
 - Knowledge pack truy vết `lỗi → nguyên nhân → quy tắc → enforcement → cách sửa`, kèm privacy scan và visual-review gate trung thực.
 
@@ -53,9 +53,9 @@ npm run compositions
 npm run render:preview
 ```
 
-Starter có composition `AlphaVideoV2`, 1080×1920, 30 fps, `brand.config.json`, `BrandFrame`, Cy Grotesk ngoài repository với Montserrat fallback, typography role và scene registry JSON-driven.
+Starter có composition `AlphaVideoV3`, 1080×1920, 30 fps, `brand.config.json`, `BrandFrame`, Cy Grotesk ngoài repository với Montserrat fallback, motion graph renderer và custom scene registry.
 
-Xem reference công khai trước khi chọn recipe:
+Không xem reference trước vòng ideation đầu tiên. Sau khi khóa draft concept, dùng micro-reference để cải thiện execution mà không thay visual thesis.
 
 - `assets/reference/alpha-video-v2-reference.mp4` — 12 giây, không voice/tài sản riêng tư, dưới 8 MB.
 - `assets/reference/alpha-video-v2-contact-sheet.png` — trích trực tiếp từ MP4.
@@ -78,17 +78,19 @@ Composition `AlphaPrimitivesDemo` kiểm tra các pattern bổ sung:
 npm run render:primitives-preview
 ```
 
-## Pipeline v2
+## Pipeline v3
 
 ```bash
 python -m pip install -r requirements-asr.txt
 python scripts/transcribe-audio.py "voice.mp3" --model small --language vi --out transcript.lock.json
 # nghe lại, sửa chính tả nhưng không sửa timestamp
 node scripts/lock-reviewed-transcript.mjs transcript.lock.json --confirm-reviewed
-node scripts/build-cue-lock.mjs transcript.lock.json video-plan.json --out cue-sheet.lock.json
+node scripts/check-concept-exploration.mjs concept-candidates.json
+node scripts/check-reference-order.mjs concept-candidates.json video-plan.v3.json
+node scripts/build-cue-lock.mjs transcript.lock.json video-plan.v3.json --out cue-sheet.lock.json
 node scripts/check-cue-lock.mjs transcript.lock.json cue-sheet.lock.json --audio voice.mp3
 node scripts/check-timeline-binding.mjs assets/remotion-starter
-node scripts/check-scene-diversity.mjs video-plan.json
+node scripts/check-v3-plan.mjs video-plan.v3.json concept-candidates.json cue-sheet.lock.json
 ```
 
 Nếu ASR/model không chạy, pipeline dừng trước storyboard. Không có fallback chia cue theo số chữ hoặc khoảng lặng.
@@ -97,11 +99,11 @@ Render candidate và semantic-only QA:
 
 ```bash
 cd assets/remotion-starter
-npm run render:v2:candidate
-npm run render:v2:semantic
+npm run render:v3:candidate
+npm run render:v3:semantic
 cd ../..
-node scripts/audit-motion-density.mjs outputs/alpha-video-v2-semantic.mp4 --storyboard assets/remotion-starter/src/video-plan.json
-node scripts/build-qa-pack.mjs outputs/alpha-video-v2-candidate.mp4 assets/remotion-starter/src/cue-sheet.lock.json --out outputs/qa
+node scripts/audit-motion-density.mjs outputs/alpha-video-v3-semantic.mp4 --storyboard assets/remotion-starter/src/video-plan.v3.json
+node scripts/build-qa-pack.mjs outputs/alpha-video-v3-candidate.mp4 assets/remotion-starter/src/cue-sheet.lock.json --out outputs/qa
 node scripts/check-qa-report.mjs outputs/qa/report.json
 ```
 

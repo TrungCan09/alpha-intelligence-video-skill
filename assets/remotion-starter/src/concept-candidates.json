@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 3,
+  "draftLockedAt": "2026-01-01T00:00:00.000Z",
+  "referenceReviewedAt": "2026-01-01T00:01:00.000Z",
+  "sceneConceptSets": [
+    {
+      "sceneId": "v3-problem",
+      "semanticGoal": "Biểu diễn một bài tập khó vừa xuất hiện và cần được xử lý.",
+      "spokenMeaning": "Một bài tập khó vừa xuất hiện.",
+      "selectedConceptId": "problem-direct",
+      "selectionRationale": "Các mảnh câu hỏi hội tụ thành một khối vấn đề là cách đọc nhanh và rõ nhất trong hai giây.",
+      "candidates": [
+        {"id":"problem-direct","approach":"direct","visualThesis":"Các mảnh câu hỏi hội tụ và khóa thành một bài tập khó.","motionVerbs":["assemble","focus"],"stateSequence":["mảnh rời","hội tụ","khóa trạng thái"],"layoutFamily":"radial","primitiveFamilies":["card","shape","text"],"visualMeaning":"Người xem thấy nhiều phần chưa rõ hội tụ thành một vấn đề cụ thể.","risks":["card chồng khi overshoot"],"scores":{"semanticClarity":5,"voiceAlignment":5,"brandFit":5,"novelty":4,"feasibility":5}},
+        {"id":"problem-metaphor","approach":"metaphorical","visualThesis":"Một mê cung khép lại quanh dấu hỏi trung tâm.","motionVerbs":["draw","freeze"],"stateSequence":["đường mở","mê cung khép","dấu hỏi bị khóa"],"layoutFamily":"radial-maze","primitiveFamilies":["shape","connector"],"visualMeaning":"Mê cung biểu đạt trạng thái bế tắc trước bài tập khó.","risks":["ẩn dụ có thể mất thời gian giải mã"],"scores":{"semanticClarity":4,"voiceAlignment":4,"brandFit":4,"novelty":5,"feasibility":3},"rejectionReason":"Hai giây không đủ để người xem đọc đúng ẩn dụ mê cung."},
+        {"id":"problem-type","approach":"typography","visualThesis":"Các từ BÀI, TẬP, KHÓ va vào nhau thành một headline nặng.","motionVerbs":["merge","morph"],"stateSequence":["từ rời","va chạm","headline"],"layoutFamily":"type-stage","primitiveFamilies":["text","mask"],"visualMeaning":"Trọng lượng typography làm cảm giác bài tập trở nên khó và nặng.","risks":["dấu tiếng Việt khi mask"],"scores":{"semanticClarity":4,"voiceAlignment":5,"brandFit":5,"novelty":4,"feasibility":4},"rejectionReason":"Concept trực tiếp dễ đọc hơn ở hook cực ngắn."}
+      ]
+    },
+    {
+      "sceneId": "v3-response",
+      "semanticGoal": "Cho thấy người học gửi yêu cầu và câu trả lời đến quá nhanh.",
+      "spokenMeaning": "Bạn mở AI, gửi yêu cầu và câu trả lời đến rất nhanh.",
+      "selectedConceptId": "response-type",
+      "selectionRationale": "Typography biến đổi từ PROMPT thành ĐÁP ÁN diễn đạt tốc độ mà không cần một sơ đồ template mới.",
+      "candidates": [
+        {"id":"response-direct","approach":"direct","visualThesis":"Prompt đi theo connector thẳng vào response card.","motionVerbs":["draw","assemble"],"stateSequence":["prompt","truyền","response"],"layoutFamily":"axis-flow","primitiveFamilies":["card","connector"],"visualMeaning":"Yêu cầu đi từ người học tới câu trả lời theo luồng có hướng.","risks":["gần recipe prompt-response v2"],"scores":{"semanticClarity":5,"voiceAlignment":5,"brandFit":5,"novelty":2,"feasibility":5},"rejectionReason":"Quá giống fingerprint của renderer v2."},
+        {"id":"response-metaphor","approach":"metaphorical","visualThesis":"Một máy ép biến prompt thô thành khối đáp án hoàn chỉnh.","motionVerbs":["compress","morph"],"stateSequence":["prompt thô","ép","khối hoàn chỉnh"],"layoutFamily":"machine-stage","primitiveFamilies":["shape","card"],"visualMeaning":"Quá trình bị rút ngắn thành một kết quả hoàn chỉnh tức thời.","risks":["máy ép có thể làm nội dung nặng nề"],"scores":{"semanticClarity":4,"voiceAlignment":4,"brandFit":4,"novelty":5,"feasibility":3},"rejectionReason":"Ẩn dụ tốn nhiều hình học hơn thời lượng cho phép."},
+        {"id":"response-type","approach":"typography","visualThesis":"PROMPT kéo giãn, quét qua frame và snap thành ĐÁP ÁN.","motionVerbs":["scan","morph","focus"],"stateSequence":["PROMPT","quét nhanh","ĐÁP ÁN khóa"],"layoutFamily":"type-stage","primitiveFamilies":["text","mask","shape"],"visualMeaning":"Một cụm chữ biến đổi tức thời thành kết quả, làm rõ tốc độ phản hồi.","risks":["mask có thể cắt dấu"],"scores":{"semanticClarity":5,"voiceAlignment":5,"brandFit":5,"novelty":5,"feasibility":4}}
+      ]
+    },
+    {
+      "sceneId": "v3-thinking",
+      "semanticGoal": "Chuyển trọng tâm từ nhận đáp án sang việc người học tiếp tục suy nghĩ.",
+      "spokenMeaning": "Nhưng học thật sự bắt đầu khi bạn vẫn suy nghĩ.",
+      "selectedConceptId": "thinking-metaphor",
+      "selectionRationale": "Một ngưỡng chuyển trạng thái cần choreography riêng để tạo payoff khác hoàn toàn hai graph scene trước.",
+      "candidates": [
+        {"id":"thinking-direct","approach":"direct","visualThesis":"Response card lùi lại, chữ SUY NGHĨ tiến lên.","motionVerbs":["pull","focus"],"stateSequence":["response chính","response lùi","thinking chính"],"layoutFamily":"depth-stage","primitiveFamilies":["card","text","camera"],"visualMeaning":"Trọng tâm trực tiếp chuyển từ đầu ra AI sang hoạt động của người học.","risks":["dễ giống freeze-question v2"],"scores":{"semanticClarity":5,"voiceAlignment":5,"brandFit":5,"novelty":3,"feasibility":5},"rejectionReason":"Quá gần fingerprint freeze-question cũ."},
+        {"id":"thinking-metaphor","approach":"metaphorical","visualThesis":"Một vạch ngưỡng mở ra, đáp án dừng phía sau còn tư duy bước qua phía trước.","motionVerbs":["freeze","split","camera"],"stateSequence":["đáp án trôi","ngưỡng xuất hiện","tư duy vượt ngưỡng"],"layoutFamily":"threshold-stage","primitiveFamilies":["shape","text","camera"],"visualMeaning":"Người học phải bước qua ngưỡng nhận đáp án để bắt đầu học thật sự.","risks":["cần custom choreography để ngưỡng dễ hiểu"],"scores":{"semanticClarity":5,"voiceAlignment":5,"brandFit":5,"novelty":5,"feasibility":4}},
+        {"id":"thinking-type","approach":"typography","visualThesis":"ĐÁP ÁN bị gạch mờ, SUY NGHĨ tự viết tiếp thành headline.","motionVerbs":["verify","draw","focus"],"stateSequence":["đáp án","gạch giảm nhấn","suy nghĩ hoàn tất"],"layoutFamily":"editorial-type","primitiveFamilies":["text","connector"],"visualMeaning":"Typography cho thấy đáp án chưa phải điểm kết thúc của việc học.","risks":["gạch dễ thành decoration"],"scores":{"semanticClarity":4,"voiceAlignment":5,"brandFit":5,"novelty":4,"feasibility":4},"rejectionReason":"Custom threshold tạo payoff không gian mạnh hơn."}
+      ]
+    }
+  ]
+}

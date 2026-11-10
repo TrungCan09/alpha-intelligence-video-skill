@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 3,
+  "fps": 30,
+  "conceptDraftLockedAt": "2026-01-01T00:00:00.000Z",
+  "referenceReviewedAt": "2026-01-01T00:01:00.000Z",
+  "voiceOnlySegments": [],
+  "scenes": [
+    {
+      "id": "v3-problem",
+      "startCueId": "problem-arrives",
+      "endCueId": "problem-arrives",
+      "conceptId": "problem-direct",
+      "renderMode": "graph",
+      "layout": {"family":"radial","gap":30,"opticalBalance":"hero centered below brand header"},
+      "beats": [{"id":"problem","cueId":"problem-arrives","segmentIds":["seg-001"],"action":"assemble","target":"problem-title","onScreenText":"BÀI TẬP KHÓ","visualMeaning":"Các mảnh câu hỏi hội tụ thành một vấn đề rõ."}],
+      "motionGraph": {
+        "cameraPattern": "push",
+        "elements": [
+          {"id":"fragment-a","kind":"card","text":"?","tone":"cyan","role":"support"},
+          {"id":"fragment-b","kind":"shape","tone":"blue","role":"decoration"},
+          {"id":"fragment-c","kind":"card","text":"?","tone":"muted","role":"support"},
+          {"id":"problem-title","kind":"text","text":"BÀI TẬP KHÓ","tone":"green","role":"hero"}
+        ],
+        "operations": [
+          {"id":"assemble-problem","cueId":"problem-arrives","operator":"assemble","targetIds":["fragment-a","fragment-b","fragment-c","problem-title"],"direction":"in","visualMeaning":"Các mảnh rời hội tụ và khóa thành một bài tập khó."},
+          {"id":"camera-problem","cueId":"problem-arrives","operator":"camera","targetIds":["problem-title"],"direction":"in","amount":0.04,"visualMeaning":"Camera tiến nhẹ để khóa trọng tâm vào vấn đề."}
+        ]
+      }
+    },
+    {
+      "id": "v3-response",
+      "startCueId": "open-ai",
+      "endCueId": "answer-fast",
+      "conceptId": "response-type",
+      "renderMode": "graph",
+      "layout": {"family":"stage","gap":42,"opticalBalance":"large type centered with scan rail below"},
+      "beats": [
+        {"id":"prompt","cueId":"open-ai","segmentIds":["seg-002"],"action":"enter","target":"prompt-word","onScreenText":"PROMPT","visualMeaning":"Prompt xuất hiện như trạng thái đầu vào."},
+        {"id":"answer","cueId":"answer-fast","segmentIds":["seg-003"],"action":"morph","target":"answer-word","onScreenText":"ĐÁP ÁN ĐẾN NHANH","visualMeaning":"Prompt quét qua frame và khóa thành đáp án hoàn chỉnh."}
+      ],
+      "motionGraph": {
+        "cameraPattern": "track",
+        "elements": [
+          {"id":"prompt-word","kind":"text","text":"PROMPT","tone":"cyan","role":"hero"},
+          {"id":"scan-rail","kind":"shape","tone":"cyan","role":"support"},
+          {"id":"answer-word","kind":"text","text":"ĐÁP ÁN\nĐẾN NHANH","tone":"green","role":"hero"}
+        ],
+        "operations": [
+          {"id":"enter-prompt","cueId":"open-ai","operator":"enter","targetIds":["prompt-word","scan-rail"],"direction":"right","visualMeaning":"Đầu vào được đặt rõ trước khi hệ thống tạo kết quả."},
+          {"id":"morph-answer","cueId":"answer-fast","operator":"morph","targetIds":["answer-word"],"direction":"in","visualMeaning":"Đầu vào chuyển rất nhanh thành một đáp án hoàn chỉnh."},
+          {"id":"scan-answer","cueId":"answer-fast","operator":"scan","targetIds":["scan-rail"],"direction":"right","visualMeaning":"Một nhịp quét ngắn nhấn mạnh tốc độ phản hồi."}
+        ]
+      }
+    },
+    {
+      "id": "v3-thinking",
+      "startCueId": "keep-thinking",
+      "endCueId": "learning-starts",
+      "conceptId": "thinking-metaphor",
+      "renderMode": "custom",
+      "customComponentId": "thinking-threshold",
+      "layout": {"family":"stage","gap":36,"opticalBalance":"threshold divides output behind and learner action foreground"},
+      "beats": [
+        {"id":"threshold","cueId":"keep-thinking","segmentIds":["seg-004"],"action":"freeze","target":"answer-layer","onScreenText":"HỌC THẬT SỰ BẮT ĐẦU","visualMeaning":"Đáp án dừng phía sau một ngưỡng chuyển trạng thái."},
+        {"id":"thinking","cueId":"learning-starts","segmentIds":["seg-005"],"action":"focus","target":"thinking-layer","onScreenText":"KHI BẠN VẪN SUY NGHĨ","visualMeaning":"Tư duy vượt ngưỡng và trở thành tiêu điểm phía trước."}
+      ]
+    }
+  ]
+}

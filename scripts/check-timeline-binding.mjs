@@ -15,7 +15,7 @@ const walk = async (directory) => {
 };
 const files = await walk(src);
 const errors = [];
-const production = files.filter((file) => /AlphaVideoV2|scene-recipes|scene-registry|cue-timeline|[\\/]scenes[\\/]/.test(file));
+const production = files.filter((file) => /AlphaVideoV[23]|scene-recipes|scene-registry|motion-graph-renderer|custom-scenes|cue-timeline|[\\/]scenes[\\/]/.test(file));
 if (!production.length) errors.push('Thiếu production composition v2.');
 const combined = (await Promise.all(production.map((file) => readFile(file, 'utf8')))).join('\n');
 for (const token of ['cue-sheet.lock.json', 'cueStart(', 'useCueProgress(']) if (!combined.includes(token)) errors.push(`Production timeline thiếu binding: ${token}`);

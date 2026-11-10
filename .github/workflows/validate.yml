@@ -46,6 +46,12 @@ jobs:
           node scripts/check-scene-diversity.mjs assets/remotion-starter/src/video-plan.json
           node scripts/check-timeline-binding.mjs assets/remotion-starter
           node scripts/test-v2-pipeline.mjs .
+      - name: Kiểm tra motion ideation pipeline v3
+        run: |
+          node scripts/check-concept-exploration.mjs assets/remotion-starter/src/concept-candidates.json
+          node scripts/check-reference-order.mjs assets/remotion-starter/src/concept-candidates.json assets/remotion-starter/src/video-plan.v3.json
+          node scripts/check-v3-plan.mjs assets/remotion-starter/src/video-plan.v3.json assets/remotion-starter/src/concept-candidates.json assets/remotion-starter/src/cue-sheet.lock.json
+          node scripts/test-v3-pipeline.mjs .
       - name: Kiểm tra SFX generator
         run: node scripts/generate-sfx.mjs --out outputs/test-sfx
       - name: Cài starter
@@ -71,3 +77,11 @@ jobs:
           test $(stat -c%s ../reference/alpha-video-v2-reference.mp4) -lt 8388608
           node ../../scripts/build-qa-pack.mjs ../reference/alpha-video-v2-reference.mp4 src/cue-sheet.lock.json --out ../../outputs/qa-ci
           if node ../../scripts/check-qa-report.mjs ../../outputs/qa-ci/report.json --video ../reference/alpha-video-v2-reference.mp4 --cue-lock src/cue-sheet.lock.json; then exit 1; fi
+      - name: Render reference v3 và semantic audit
+        working-directory: assets/remotion-starter
+        run: |
+          npm run render:v3:reference
+          npm run render:v3:contact-sheet
+          npm run render:v3:semantic
+          node ../../scripts/audit-motion-density.mjs ../../outputs/alpha-video-v3-semantic.mp4 --storyboard src/video-plan.v3.json
+          test $(stat -c%s ../reference/alpha-video-v3-reference.mp4) -lt 8388608

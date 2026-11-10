@@ -7,6 +7,7 @@ import {TIMELINE} from './timeline';
 import {AlphaMotionReference10s} from './AlphaMotionReference10s';
 import {REFERENCE_TIMELINE} from './reference-timeline';
 import {AlphaVideoV2, V2_CUE_SHEET} from './AlphaVideoV2';
+import {AlphaVideoV3, V3_CUE_SHEET} from './AlphaVideoV3';
 
 export const Root: React.FC = () => <>
   <Composition id="AlphaIntelligenceStarter" component={AlphaIntelligenceStarter} width={VIDEO.width} height={VIDEO.height} fps={VIDEO.fps} durationInFrames={Math.ceil(TIMELINE.durationSeconds * VIDEO.fps)} />
@@ -15,4 +16,6 @@ export const Root: React.FC = () => <>
   <Composition id="AlphaMotionReference20s" component={AlphaMotionReference10s} width={VIDEO.width} height={VIDEO.height} fps={VIDEO.fps} durationInFrames={Math.ceil(REFERENCE_TIMELINE.durationSeconds * VIDEO.fps)} defaultProps={{voiceSrc: undefined}} />
   <Composition id="AlphaVideoV2" component={AlphaVideoV2} width={VIDEO.width} height={VIDEO.height} fps={VIDEO.fps} durationInFrames={Math.ceil(V2_CUE_SHEET.durationSeconds * VIDEO.fps)} defaultProps={{voiceSrc: undefined, qaMode: 'full'}} />
   <Composition id="AlphaVideoV2Semantic" component={AlphaVideoV2} width={VIDEO.width} height={VIDEO.height} fps={VIDEO.fps} durationInFrames={Math.ceil(V2_CUE_SHEET.durationSeconds * VIDEO.fps)} defaultProps={{voiceSrc: undefined, qaMode: 'semantic'}} />
+  <Composition id="AlphaVideoV3" component={AlphaVideoV3} width={VIDEO.width} height={VIDEO.height} fps={VIDEO.fps} durationInFrames={Math.ceil(V3_CUE_SHEET.durationSeconds * VIDEO.fps)} defaultProps={{voiceSrc: undefined, qaMode: 'full'}} />
+  <Composition id="AlphaVideoV3Semantic" component={AlphaVideoV3} width={VIDEO.width} height={VIDEO.height} fps={VIDEO.fps} durationInFrames={Math.ceil(V3_CUE_SHEET.durationSeconds * VIDEO.fps)} defaultProps={{voiceSrc: undefined, qaMode: 'semantic'}} />
 </>;

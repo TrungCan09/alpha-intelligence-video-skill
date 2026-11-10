@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "skillVersion": "2.1.0",
+  "skillVersion": "3.0.0",
   "lessons": [
     {
       "id": "SYNC-001",

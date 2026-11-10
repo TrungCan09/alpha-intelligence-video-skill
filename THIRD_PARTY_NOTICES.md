@@ -42,4 +42,4 @@ Repository không chứa hoặc phân phối Cy Grotesk V3 Wide. Skill chỉ đ�
 
 ## ASR runtime
 
-Pipeline v2 dùng [`faster-whisper`](https://github.com/SYSTRAN/faster-whisper) 1.2.1 và [`CTranslate2`](https://github.com/OpenNMT/CTranslate2) 4.8.5 làm dependency cài ngoài. Repository không đóng gói model Whisper hoặc weight của model; model được tải cục bộ theo lựa chọn của người dùng.
+Pipeline voice-grounded v2/v3 dùng [`faster-whisper`](https://github.com/SYSTRAN/faster-whisper) 1.2.1 và [`CTranslate2`](https://github.com/OpenNMT/CTranslate2) 4.8.5 làm dependency cài ngoài. Repository không đóng gói model Whisper hoặc weight của model; model được tải cục bộ theo lựa chọn của người dùng.

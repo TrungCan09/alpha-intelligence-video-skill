@@ -16,7 +16,13 @@ const exists = async (path) => { try { await access(resolve(root, path)); return
 
 const data = JSON.parse(await readFile(knowledgePath, 'utf8'));
 if (data.schemaVersion !== 1) errors.push('knowledge/lessons.json phải dùng schemaVersion 1.');
-if (data.skillVersion !== '2.1.0') errors.push('Knowledge pack phải khai skillVersion 2.1.0.');
+if (data.skillVersion !== '3.0.0') errors.push('Knowledge pack phải khai skillVersion 3.0.0.');
+
+const vocabulary = JSON.parse(await readFile(resolve(root, 'knowledge/motion-vocabulary.json'), 'utf8'));
+if (vocabulary.schemaVersion !== 1 || !Array.isArray(vocabulary.groups) || vocabulary.groups.length < 8) errors.push('Motion vocabulary v3 phải có ít nhất 8 nhóm hợp lệ.');
+for (const group of vocabulary.groups ?? []) {
+  for (const field of ['id', 'meaning', 'useWhen', 'avoidWhen', 'operators', 'parameters', 'qaRisks']) if (group[field] == null) errors.push(`Vocabulary ${group.id ?? '<missing>'}: thiếu ${field}.`);
+}
 if (!Array.isArray(data.lessons) || !data.lessons.length) errors.push('Knowledge pack không có lesson.');
 
 const ids = new Set();
