@@ -53,6 +53,8 @@ jobs:
           node scripts/check-v3-plan.mjs assets/remotion-starter/src/video-plan.v3.json assets/remotion-starter/src/concept-candidates.json assets/remotion-starter/src/cue-sheet.lock.json
           node scripts/test-v3-pipeline.mjs .
           node scripts/test-visual-review.mjs .
+          node scripts/test-production-reference.mjs .
+          node scripts/check-production-release.mjs .
       - name: Kiểm tra SFX generator
         run: node scripts/generate-sfx.mjs --out outputs/test-sfx
       - name: Cài starter

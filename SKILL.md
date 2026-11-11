@@ -1,6 +1,6 @@
 ---
 name: alpha-intelligence-video-skill
-description: "Tạo, chỉnh sửa và tự kiểm định video ngắn cho Cộng đồng Alpha Intelligence bằng pipeline voice-grounded, motion ideation và visual critic: Faster Whisper, ba concept mỗi scene, motion graph/custom TSX, frame audit, AI review và master gate. Tự động dùng khi yêu cầu nhắc đến video Alpha Intelligence, đồng bộ animation với voice, sửa timing, tiếng Việt, overlap hoặc làm motion bớt template."
+description: "Tạo, chỉnh sửa và tự kiểm định video ngắn cho Cộng đồng Alpha Intelligence bằng pipeline voice-grounded, motion ideation, production reference và visual critic. Dùng khi làm video Alpha Intelligence, đồng bộ animation với voice, sửa timing, tiếng Việt, overlap hoặc làm motion bớt template."
 ---
 
 # Alpha Intelligence Video Skill
@@ -13,7 +13,7 @@ Voice và nội dung đã duyệt là nguồn sự thật. Không dùng lịch s
 2. Viết script: đọc [bảo toàn nguồn](references/source-content-rules.md) và [ElevenLabs](references/script-elevenlabs.md).
 3. Phân tích voice/cue: đọc [content timing](references/content-timing.md).
 4. Trước khi xem reference, đọc [motion ideation](references/motion-ideation.md) cùng [Alpha taste profile](references/alpha-taste-profile.md), tạo ba concept/scene và khóa draft.
-5. Sau khi khóa draft mới đọc đúng nhóm trong `knowledge/motion-vocabulary.json`, [motion grammar](references/motion-grammar-v3.md), [motion language](references/motion-language.md) và micro-reference liên quan.
+5. Sau khi khóa draft mới đọc đúng nhóm trong `knowledge/motion-vocabulary.json`, [motion grammar](references/motion-grammar-v3.md), [motion language](references/motion-language.md) và [production reference library](references/production-reference-library.md). Nếu library production chưa được nhập, giữ workflow v3.1 và không giả lập reference.
 6. Render/bàn giao: đọc [QA](references/qa-delivery.md) và [Visual Critic Loop](references/visual-review-loop.md). Dự án cũ đọc [migration v3](references/migration-v3.md).
 
 ## Bộ nhớ sản xuất v3
@@ -32,13 +32,13 @@ Không đọc toàn bộ lịch sử chat hoặc toàn bộ knowledge pack. Ch�
 1. Chạy `transcribe-audio.py` bằng Faster Whisper `small` trở lên. Nếu ASR/model không hoạt động, **dừng trước storyboard**; không ước lượng cue bằng số chữ hoặc khoảng lặng.
 2. Rà chính tả transcript nhưng không sửa timestamp; chạy `lock-reviewed-transcript.mjs --confirm-reviewed` để đặt `reviewed: true` và tính lại hash.
 3. Tạo đúng ba concept cho mỗi scene: direct, metaphorical, typography. Chạy concept gate trước khi xem reference.
-4. Khóa concept draft, review micro-reference, rồi tạo `video-plan.v3.json`; không nhập timestamp số.
+4. Khóa concept draft, hash file, rồi mới truy xuất tối đa ba micro-reference/scene và ghi `reference-review.lock.json`; không xem reference trước ideation.
 5. Dựng bằng motion graph hoặc custom TSX có manifest. Legacy recipe chỉ dùng migration/fallback có lý do.
 6. Chạy `build-cue-lock.mjs`; transcript, plan, composition và QA dùng cùng `cue-sheet.lock.json`.
 7. Render candidate và `qaMode="semantic"`; chạy toàn bộ v3 gates và motion-density.
 8. Tạo QA pack và visual-review pack từ MP4; máy audit toàn bộ frame, agent xem contact sheet/anomaly rồi chấm từng scene.
 9. Sửa và rerender cho tới khi mọi scene cùng semantic/sync/readability đạt tối thiểu 8/10; tối đa năm vòng, không đạt thì chặn bàn giao.
-10. Chỉ `finalize-master.mjs` mới được tạo master sau khi QA report và visual-review report cùng khớp candidate hash.
+10. Khi dùng production reference, chạy reference-order, reference-novelty và reference-aware visual review; chỉ `finalize-master.mjs` mới được tạo master sau khi mọi lock/report cùng khớp hash.
 
 ## Điều kiện dừng
 
@@ -52,6 +52,7 @@ Không đọc toàn bộ lịch sử chat hoặc toàn bộ knowledge pack. Ch�
 - QA report chưa xác nhận readable, no clipping/overlap và đúng `visualMeaning` cho từng cue.
 - Master chưa được kiểm tra từ MP4 thật.
 - Visual review còn scene dưới 8/10, thiếu frame evidence hoặc đã hết năm vòng mà chưa đạt.
+- Reference review không khớp concept/library hash, copy risk cao hoặc execution thấp hơn quality bar.
 
 ## Bất biến thương hiệu
 

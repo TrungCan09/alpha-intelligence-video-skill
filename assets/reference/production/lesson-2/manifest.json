@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "lessonId": "lesson-2",
+  "sourceFileName": "alpha-intelligence-ai-tao-cau-tra-loi-final.mp4",
+  "sourceSha256": "9b0ac58d51531602321b10df0cd40ed36993652c32664066c7db215d3186a122",
+  "normalizedSha256": "85c4b6d8adb137ae89a7baa7df82107d08528ddffe822199e1fbbbcbca7c0cf9",
+  "masterApproved": true,
+  "publishConsent": true,
+  "durationSeconds": 97.216,
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "videoCodec": "h264",
+  "audioCodec": "aac",
+  "audioPresent": true,
+  "normalizedBytes": 20504366,
+  "transcriptReviewed": true,
+  "shotIndexReviewed": true
+}

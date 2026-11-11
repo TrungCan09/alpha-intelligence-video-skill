@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "skillVersion": "3.1.0",
+  "skillVersion": "3.2.0",
   "lessons": [
     {
       "id": "SYNC-001",
@@ -145,6 +145,18 @@
       "relatedScripts": ["scripts/build-qa-pack.mjs", "scripts/check-qa-report.mjs"],
       "relatedFixtures": ["assets/reference/alpha-video-v2-reference.mp4"],
       "referenceSection": "references/production-lessons.md#snd-001"
+    },
+    {
+      "id": "REF-001",
+      "category": "semantic-motion",
+      "symptom": "Video mới bắt chước bố cục hoặc motion fingerprint của reference thay vì tự giải thích nội dung.",
+      "rootCause": "Reference được xem trước ideation hoặc được dùng như template thay vì quality bar.",
+      "rule": "Khóa ba concept trước reference; similarity trên 0,85 bị chặn và vùng 0,70–0,85 phải thay đổi ít nhất hai nhóm hình thức.",
+      "remediation": "Khôi phục visual thesis đã khóa, chỉ giữ kỹ thuật execution và ghi rõ elementsNotToCopy trong reference review lock.",
+      "enforcement": "regression",
+      "relatedScripts": ["scripts/check-reference-review.mjs", "scripts/check-reference-novelty.mjs"],
+      "relatedFixtures": ["scripts/test-production-reference.mjs"],
+      "referenceSection": "references/production-lessons.md#ref-001"
     },
     {
       "id": "DEL-001",

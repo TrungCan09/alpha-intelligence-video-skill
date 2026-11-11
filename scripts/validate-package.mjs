@@ -12,7 +12,8 @@ required.push(
   'assets/remotion-starter/src/motion-graph-renderer.tsx', 'assets/remotion-starter/src/custom-scenes.tsx', 'assets/remotion-starter/src/custom-scene-manifests.json', 'assets/remotion-starter/src/scene-registry-v3.tsx',
   'scripts/check-concept-exploration.mjs', 'scripts/check-reference-order.mjs', 'scripts/check-motion-graph.mjs', 'scripts/check-motion-novelty.mjs',
   'scripts/check-custom-scene.mjs', 'scripts/check-v3-plan.mjs', 'scripts/migrate-plan-v2-to-v3.mjs', 'scripts/test-v3-pipeline.mjs',
-  'visual-review.config.json', 'references/visual-review-loop.md', 'scripts/build-visual-review-pack.mjs', 'scripts/check-visual-review.mjs', 'scripts/test-visual-review.mjs'
+  'visual-review.config.json', 'references/visual-review-loop.md', 'scripts/build-visual-review-pack.mjs', 'scripts/check-visual-review.mjs', 'scripts/test-visual-review.mjs',
+  'production-reference.config.json', 'references/production-reference-library.md', 'scripts/ingest-production-reference.mjs', 'scripts/curate-production-references.mjs', 'scripts/build-reference-library.mjs', 'scripts/build-reference-review-lock.mjs', 'scripts/check-reference-library.mjs', 'scripts/check-reference-review.mjs', 'scripts/check-reference-novelty.mjs', 'scripts/check-production-release.mjs', 'scripts/test-production-reference.mjs'
 );
 const errors = [];
 for (const file of required) { try { await access(resolve(root, file)); } catch { errors.push(`Thiếu ${file}`); } }
@@ -87,5 +88,7 @@ const v3 = spawnSync(process.execPath, [resolve(root, 'scripts/test-v3-pipeline.
 if (v3.status !== 0) errors.push(`V3 regression suite thất bại: ${v3.stderr || v3.stdout}`);
 const visualReview = spawnSync(process.execPath, [resolve(root, 'scripts/test-visual-review.mjs'), root], {encoding: 'utf8'});
 if (visualReview.status !== 0) errors.push(`Visual review regression thất bại: ${visualReview.stderr || visualReview.stdout}`);
+const productionReference = spawnSync(process.execPath, [resolve(root, 'scripts/test-production-reference.mjs'), root], {encoding: 'utf8'});
+if (productionReference.status !== 0) errors.push(`Production reference regression thất bại: ${productionReference.stderr || productionReference.stdout}`);
 if (errors.length) { errors.forEach((x) => console.error(`FAIL ${x}`)); process.exit(1); }
 console.log(`PASS Package hợp lệ: ${required.length} file bắt buộc.`);

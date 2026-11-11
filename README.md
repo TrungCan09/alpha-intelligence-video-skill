@@ -2,9 +2,9 @@
 
 Skill tiếng Việt để sản xuất video ngắn cho **Cộng đồng Alpha Intelligence** bằng pipeline tái lập: bài viết → script → voice → Faster Whisper → cue lock → ba concept/scene → motion graph hoặc custom TSX → semantic QA → master.
 
-Repository này tổng hợp độc lập hệ thống nhận diện, kinh nghiệm timing và các lỗi motion đã được kiểm chứng trong quá trình sản xuất. Không chứa voice, bài viết hay tài sản riêng tư; không sao chép nguyên văn skill bên thứ ba.
+Repository này tổng hợp độc lập hệ thống nhận diện, kinh nghiệm timing và các lỗi motion đã được kiểm chứng trong quá trình sản xuất. Production references v3.2 chỉ được thêm khi chủ sở hữu xác nhận quyền công khai; các tài sản riêng tư khác vẫn bị loại khỏi Git.
 
-Từ v3.1, skill không chọn template làm điểm xuất phát. Mỗi scene khám phá ba luận đề thị giác, được biên dịch thành motion graph/custom TSX, rồi đi qua vòng frame audit và AI visual review. Kinh nghiệm sản xuất vẫn được truy xuất chọn lọc qua lesson ID; không đọc lại toàn bộ lịch sử chat.
+Từ v3.2, skill vẫn tạo ba luận đề thị giác trước, sau đó mới truy xuất micro-reference từ ba video production đã duyệt. Reference cung cấp kỹ thuật và quality bar, không thay visual thesis hoặc thưởng điểm cho độ giống.
 
 ## Điểm cốt lõi
 
@@ -21,6 +21,7 @@ Từ v3.1, skill không chọn template làm điểm xuất phát. Mỗi scene k
 - Có motion/media primitives tự chứa: entrance/exit, Ken Burns, counter, spark, parallax, motion trail, footage và captions.
 - Knowledge pack truy vết `lỗi → nguyên nhân → quy tắc → enforcement → cách sửa`, kèm privacy scan và visual-review gate trung thực.
 - Máy audit mọi frame; agent xem contact sheet/anomaly và tự sửa tối đa năm vòng. Mỗi scene phải đạt tối thiểu 8/10.
+- Production reference lock gắn với hash concept/library; similarity trên 0,85 bị chặn và visual review bắt buộc đánh giá copy risk cùng execution quality.
 
 ## Cài skill
 
@@ -63,6 +64,24 @@ Không xem reference trước vòng ideation đầu tiên. Sau khi khóa draft c
 - `assets/reference/alpha-lessons-contact-sheet.png` — cặp ví dụ tổng hợp đạt/không đạt, không dùng dữ liệu người dùng.
 
 `AlphaMotionReference10s` là composition tham chiếu 10 giây cho nhịp `problem → prompt → answer`. Có thể truyền voice cục bộ bằng prop `voiceSrc`; thư mục `public/private/` được Git bỏ qua để không phát hành audio riêng tư.
+
+## Production reference v3.2
+
+Khi có đúng ba master bài 1–3 đã duyệt, nhập và lập chỉ mục:
+
+```bash
+node scripts/ingest-production-reference.mjs master-bai-1.mp4 --lesson lesson-1 --out assets/reference/production/lesson-1 --publish-consent
+# rà transcript.lock.json và shot-index.json, sau đó đặt reviewed=true
+node scripts/build-reference-library.mjs assets/reference/production --out knowledge/reference-library.json
+node scripts/check-reference-library.mjs knowledge/reference-library.json
+node scripts/build-reference-review-lock.mjs concept-candidates.json knowledge/reference-library.json --out reference-review.lock.json
+node scripts/check-reference-review.mjs reference-review.lock.json --concepts concept-candidates.json --library knowledge/reference-library.json
+node scripts/check-reference-novelty.mjs video-plan.v3.json --concepts concept-candidates.json --review reference-review.lock.json --library knowledge/reference-library.json
+```
+
+Không có master thật thì dừng bước ingest; không dùng preview hoặc reference tổng hợp thay thế.
+
+Trước khi tạo tag v3.2.0, chạy `node scripts/check-production-release.mjs .`. Gate này cố ý thất bại nếu thiếu một trong ba MP4, transcript, shot index, manifest, contact sheet hoặc library hợp lệ.
 
 Nếu có quyền sử dụng Cy Grotesk V3 Wide, cài file `.woff2` cục bộ:
 

@@ -10,10 +10,11 @@ import {decodePng} from './lib/png.mjs';
 const args = process.argv.slice(2);
 const value = (flag, fallback) => { const index = args.indexOf(flag); return index >= 0 ? args[index + 1] : fallback; };
 const videoArg = args.find((arg) => !arg.startsWith('--'));
-const cueArg = value('--cue-lock'); const planArg = value('--plan'); const outArg = value('--out', 'visual-review'); const configArg = value('--config', 'visual-review.config.json');
+const cueArg = value('--cue-lock'); const planArg = value('--plan'); const outArg = value('--out', 'visual-review'); const configArg = value('--config', resolve(import.meta.dirname,'..','visual-review.config.json')); const referenceReviewArg = value('--reference-review');
 if (!videoArg || !cueArg || !planArg) { console.error('Dùng: node scripts/build-visual-review-pack.mjs candidate.mp4 --cue-lock cue-sheet.lock.json --plan video-plan.v3.json --out visual-review/iteration-1'); process.exit(2); }
 
 const video = resolve(videoArg); const lock = await readJson(resolve(cueArg)); const plan = await readJson(resolve(planArg)); const config = await readJson(resolve(configArg)); const out = resolve(outArg);
+const referenceReview = referenceReviewArg ? await readJson(resolve(referenceReviewArg)) : null; const referenceRows = new Map((referenceReview?.scenes ?? []).map((row) => [row.sceneId,row]));
 const fps = Number(lock.fps ?? config.frameAuditFps); const duration = Number(lock.durationSeconds); const width = 64; const height = 114; const pixelsPerFrame = width * height;
 await mkdir(resolve(out, 'frames'), {recursive: true}); await mkdir(resolve(out, 'sheets'), {recursive: true});
 const ffmpeg = await resolveMediaTool('ffmpeg');
@@ -56,5 +57,5 @@ const frameAudit = {schemaVersion: 1, fps, durationSeconds: duration, frameCount
 await writeFile(resolve(out, 'frame-audit.json'), `${JSON.stringify(frameAudit, null, 2)}\n`);
 const index = {schemaVersion: 1, sourceVideo: basename(video), videoSha256: await sha256File(video), frameAuditSha256: sha256Value(frameAudit), planSchemaVersion: plan.schemaVersion, sceneIds: sceneRanges.map((item) => item.sceneId), frames, sheets: sceneRanges.flatMap((range) => frames.some((frame) => frame.sceneId === range.sceneId) ? Array.from({length: Math.ceil(frames.filter((frame) => frame.sceneId === range.sceneId).length / config.framesPerContactSheet)}, (_, index) => `sheets/${range.sceneId}-${index + 1}.png`) : [])};
 await writeFile(resolve(out, 'index.json'), `${JSON.stringify(index, null, 2)}\n`);
-await writeFile(resolve(out, 'review-template.json'), `${JSON.stringify({schemaVersion: 1, videoSha256: index.videoSha256, frameAuditSha256: index.frameAuditSha256, iteration: 1, reviewer: '', reviewedAt: '', playback1x: null, playback05x: null, decision: 'revise', scenes: sceneRanges.map((scene) => ({sceneId: scene.sceneId, scores: Object.fromEntries(Object.keys(config.weights).map((key) => [key, null])), weightedScore: null, evidenceFrameIds: [], strengths: [], risks: [], findings: []}))}, null, 2)}\n`);
+await writeFile(resolve(out, 'review-template.json'), `${JSON.stringify({schemaVersion: 1, videoSha256: index.videoSha256, frameAuditSha256: index.frameAuditSha256, iteration: 1, reviewer: '', reviewedAt: '', playback1x: null, playback05x: null, decision: 'revise', scenes: sceneRanges.map((scene) => ({sceneId: scene.sceneId, scores: Object.fromEntries(Object.keys(config.weights).map((key) => [key, null])), weightedScore: null, evidenceFrameIds: [], strengths: [], risks: [], findings: [], ...(referenceReview ? {referenceComparison:{shotIds:referenceRows.get(scene.sceneId)?.referenceShotIds ?? [],qualitiesMatched:[],intentionalDifferences:[],copyRisk:null,executionVerdict:null}} : {})}))}, null, 2)}\n`);
 console.log(`PASS Visual review pack: ${frameCount} frame được audit, ${frames.length} frame dành cho AI tại ${out}`);

@@ -32,3 +32,7 @@ Rerender làm invalid report cũ vì video hash đổi. Tối đa năm iteration
 ## Điều kiện pass
 
 `check-visual-review.mjs` phải pass với `decision: "pass"`, mọi scene ≥8, ba chiều critical ≥8, playback 1×/0,5× được xác nhận và report khớp candidate hash cùng review pack.
+
+Finalizer luôn gọi validator với `--require-pass`; report `revise` hoặc `blocked` có thể hợp lệ về schema nhưng tuyệt đối không được tạo master.
+
+Khi dùng production reference v3.2, tạo pack với `--reference-review`, rồi điền `referenceComparison` cho từng scene. Reference chỉ là quality bar: `copyRisk` không được `high` và `executionVerdict` phải là `comparable` hoặc `above`.

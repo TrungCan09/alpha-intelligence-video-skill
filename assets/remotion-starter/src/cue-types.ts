@@ -89,3 +89,24 @@ export type SceneSpecV3 = {
   similarityReason?: string;
 };
 export type VideoPlanV3 = {schemaVersion: 3; fps: number; conceptDraftLockedAt: string; referenceReviewedAt?: string; scenes: SceneSpecV3[]; voiceOnlySegments: Array<{segmentId: string; reason: string}>};
+
+export type ProductionLessonId = 'lesson-1' | 'lesson-2' | 'lesson-3';
+export type ProductionReferenceShot = {
+  id: string;
+  lessonId: ProductionLessonId;
+  start: number;
+  end: number;
+  spokenMeaning: string;
+  semanticFunction: string;
+  motionVerbs: string[];
+  layoutFamily: string;
+  elementKinds: string[];
+  cameraPattern: string;
+  motionFingerprint: string;
+  usefulFor: string[];
+  avoidWhen: string[];
+  qualityNotes: string[];
+  sourceCueIds: string[];
+};
+export type ProductionReferenceLibrary = {schemaVersion: 1; generatedAt: string; lessons: Array<{lessonId: ProductionLessonId; videoFile: string; videoSha256: string; durationSeconds: number; shots: ProductionReferenceShot[]}>; librarySha256: string};
+export type ReferenceReviewLock = {schemaVersion: 1; conceptDraftSha256: string; referenceLibrarySha256: string; reviewedAt: string; distributionOverrideReason?: string; scenes: Array<{sceneId: string; referenceShotIds: string[]; techniquesToLearn: string[]; elementsNotToCopy: string[]; thesisUnchanged: boolean; transformationRationale?: string; transformedGroups?: Array<'layout'|'operator'|'element'|'camera'>}>};

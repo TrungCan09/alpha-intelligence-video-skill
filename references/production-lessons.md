@@ -66,6 +66,10 @@ SFX phục vụ semantic hit, không phục vụ từng animation. Một transit
 
 ## Delivery
 
+### REF-001
+
+Reference là quality bar, không phải template. Khóa ba concept trước khi xem production reference. Similarity fingerprint trên 0,85 bị chặn; vùng 0,70–0,85 chỉ hợp lệ khi có transformation rationale và thay đổi ít nhất hai nhóm layout/operator/element/camera.
+
 ### DEL-001
 
 QA phải dựa trên MP4 thật. Source screenshot hoặc preview cũ không chứng minh master không clipping, drift hoặc lỗi capture.

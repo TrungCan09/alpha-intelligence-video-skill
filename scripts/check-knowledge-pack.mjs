@@ -16,7 +16,7 @@ const exists = async (path) => { try { await access(resolve(root, path)); return
 
 const data = JSON.parse(await readFile(knowledgePath, 'utf8'));
 if (data.schemaVersion !== 1) errors.push('knowledge/lessons.json phải dùng schemaVersion 1.');
-if (data.skillVersion !== '3.1.0') errors.push('Knowledge pack phải khai skillVersion 3.1.0.');
+if (data.skillVersion !== '3.2.0') errors.push('Knowledge pack phải khai skillVersion 3.2.0.');
 
 const vocabulary = JSON.parse(await readFile(resolve(root, 'knowledge/motion-vocabulary.json'), 'utf8'));
 if (vocabulary.schemaVersion !== 1 || !Array.isArray(vocabulary.groups) || vocabulary.groups.length < 8) errors.push('Motion vocabulary v3 phải có ít nhất 8 nhóm hợp lệ.');
@@ -52,6 +52,7 @@ try { tracked = execFileSync('git', ['ls-files', '--cached', '--others', '--excl
 catch { errors.push('Không thể chạy git ls-files để privacy scan.'); }
 const privatePath = /(^|\/)(private|tests\/private|chat-research)(\/|$)/i;
 const privateMedia = new Set(['.mp3', '.m4a', '.aac', '.wav', '.flac']);
+const allowedVideo = /^(?:assets\/reference\/alpha-video-v[23]-reference\.mp4|assets\/reference\/production\/lesson-[123]\/video\.mp4)$/i;
 const publicSyntheticAudio = /^assets\/remotion-starter\/public\/sfx\/(?:shimmer|soft-hit|tick|whoosh)\.wav$/i;
 const textExtensions = new Set(['.md', '.json', '.mjs', '.js', '.ts', '.tsx', '.yml', '.yaml', '.txt', '.py', '.gitignore']);
 const secretPatterns = [
@@ -64,6 +65,7 @@ for (const file of tracked) {
   const normalized = file.replaceAll('\\', '/');
   if (privatePath.test(normalized)) errors.push(`File private bị track: ${file}`);
   if (privateMedia.has(extname(file).toLowerCase()) && !publicSyntheticAudio.test(normalized)) errors.push(`Audio riêng tư không được track: ${file}`);
+  if (extname(file).toLowerCase() === '.mp4' && !allowedVideo.test(normalized)) errors.push(`MP4 không nằm trong whitelist công khai: ${file}`);
   if (!textExtensions.has(extname(file).toLowerCase()) && !file.endsWith('.gitignore')) continue;
   const content = await readFile(resolve(root, file), 'utf8');
   for (const pattern of secretPatterns) if (pattern.regex.test(content)) errors.push(`${file}: phát hiện ${pattern.name}.`);

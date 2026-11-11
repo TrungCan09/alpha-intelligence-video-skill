@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "lessonIds": ["lesson-1", "lesson-2", "lesson-3"],
+  "maxVideoBytes": 20971520,
+  "maxTotalBytes": 62914560,
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "audioBitrate": 128000,
+  "hardSimilarityLimit": 0.85,
+  "rationaleSimilarityLimit": 0.7,
+  "maxReferencesPerScene": 3
+}

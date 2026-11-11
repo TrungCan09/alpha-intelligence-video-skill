@@ -1,0 +1,583 @@
+{
+  "schemaVersion": 1,
+  "lessonId": "lesson-3",
+  "reviewed": true,
+  "shots": [
+    {
+      "id": "lesson-3-shot-01",
+      "lessonId": "lesson-3",
+      "start": 0,
+      "end": 6.68,
+      "spokenMeaning": "Hỏi AI về một cuốn sách và nhận câu trả lời tức thì",
+      "semanticFunction": "book setup",
+      "motionVerbs": [
+        "type",
+        "assemble"
+      ],
+      "layoutFamily": "book-response",
+      "elementKinds": [
+        "card",
+        "text"
+      ],
+      "cameraPattern": "push",
+      "motionFingerprint": "layout:book-response|verb:type|verb:assemble|primitive:card|primitive:text|camera:push",
+      "usefulFor": [
+        "book setup",
+        "voice-aligned state change"
+      ],
+      "avoidWhen": [
+        "visual thesis khác hoặc thời lượng không đủ đọc"
+      ],
+      "qualityNotes": [
+        "một entry point",
+        "motion phục vụ semantic cue"
+      ],
+      "sourceCueIds": [
+        "seg-001",
+        "seg-002"
+      ]
+    },
+    {
+      "id": "lesson-3-shot-02",
+      "lessonId": "lesson-3",
+      "start": 7.08,
+      "end": 11.18,
+      "spokenMeaning": "Thông tin chi tiết và trích dẫn trông thuyết phục",
+      "semanticFunction": "credible detail",
+      "motionVerbs": [
+        "accumulate",
+        "focus"
+      ],
+      "layoutFamily": "detail-stack",
+      "elementKinds": [
+        "text",
+        "card"
+      ],
+      "cameraPattern": "track",
+      "motionFingerprint": "layout:detail-stack|verb:accumulate|verb:focus|primitive:text|primitive:card|camera:track",
+      "usefulFor": [
+        "credible detail",
+        "voice-aligned state change"
+      ],
+      "avoidWhen": [
+        "visual thesis khác hoặc thời lượng không đủ đọc"
+      ],
+      "qualityNotes": [
+        "một entry point",
+        "motion phục vụ semantic cue"
+      ],
+      "sourceCueIds": [
+        "seg-003"
+      ]
+    },
+    {
+      "id": "lesson-3-shot-03",
+      "lessonId": "lesson-3",
+      "start": 11.64,
+      "end": 16.28,
+      "spokenMeaning": "Cú lật: cuốn sách không tồn tại",
+      "semanticFunction": "verification reveal",
+      "motionVerbs": [
+        "freeze",
+        "collapse"
+      ],
+      "layoutFamily": "mismatch-stage",
+      "elementKinds": [
+        "card",
+        "shape",
+        "text"
+      ],
+      "cameraPattern": "push",
+      "motionFingerprint": "layout:mismatch-stage|verb:freeze|verb:collapse|primitive:card|primitive:shape|primitive:text|camera:push",
+      "usefulFor": [
+        "verification reveal",
+        "voice-aligned state change"
+      ],
+      "avoidWhen": [
+        "visual thesis khác hoặc thời lượng không đủ đọc"
+      ],
+      "qualityNotes": [
+        "một entry point",
+        "motion phục vụ semantic cue"
+      ],
+      "sourceCueIds": [
+        "seg-004",
+        "seg-005"
+      ]
+    },
+    {
+      "id": "lesson-3-shot-04",
+      "lessonId": "lesson-3",
+      "start": 17.06,
+      "end": 20.64,
+      "spokenMeaning": "Vì sao AI sai mà vẫn tự tin",
+      "semanticFunction": "hero question",
+      "motionVerbs": [
+        "contrast",
+        "focus"
+      ],
+      "layoutFamily": "question-stage",
+      "elementKinds": [
+        "text",
+        "shape"
+      ],
+      "cameraPattern": "static",
+      "motionFingerprint": "layout:question-stage|verb:contrast|verb:focus|primitive:text|primitive:shape|camera:static",
+      "usefulFor": [
+        "hero question",
+        "voice-aligned state change"
+      ],
+      "avoidWhen": [
+        "visual thesis khác hoặc thời lượng không đủ đọc"
+      ],
+      "qualityNotes": [
+        "một entry point",
+        "motion phục vụ semantic cue"
+      ],
+      "sourceCueIds": [
+        "seg-006"
+      ]
+    },
+    {
+      "id": "lesson-3-shot-05",
+      "lessonId": "lesson-3",
+      "start": 21.4,
+      "end": 26.62,
+      "spokenMeaning": "AI dự đoán từ tiếp theo theo ngữ cảnh",
+      "semanticFunction": "prediction chain",
+      "motionVerbs": [
+        "draw",
+        "advance"
+      ],
+      "layoutFamily": "axis-flow",
+      "elementKinds": [
+        "text",
+        "connector",
+        "token-field"
+      ],
+      "cameraPattern": "track",
+      "motionFingerprint": "layout:axis-flow|verb:draw|verb:advance|primitive:text|primitive:connector|primitive:token-field|camera:track",
+      "usefulFor": [
+        "prediction chain",
+        "voice-aligned state change"
+      ],
+      "avoidWhen": [
+        "visual thesis khác hoặc thời lượng không đủ đọc"
+      ],
+      "qualityNotes": [
+        "một entry point",
+        "motion phục vụ semantic cue"
+      ],
+      "sourceCueIds": [
+        "seg-007"
+      ]
+    },
+    {
+      "id": "lesson-3-shot-06",
+      "lessonId": "lesson-3",
+      "start": 27.14,
+      "end": 31.76,
+      "spokenMeaning": "Mục tiêu mạch lạc không đồng nghĩa kiểm chứng",
+      "semanticFunction": "goal mismatch",
+      "motionVerbs": [
+        "compare",
+        "separate"
+      ],
+      "layoutFamily": "split-goal",
+      "elementKinds": [
+        "text",
+        "card"
+      ],
+      "cameraPattern": "static",
+      "motionFingerprint": "layout:split-goal|verb:compare|verb:separate|primitive:text|primitive:card|camera:static",
+      "usefulFor": [
+        "goal mismatch",
+        "voice-aligned state change"
+      ],
+      "avoidWhen": [
+        "visual thesis khác hoặc thời lượng không đủ đọc"
+      ],
+      "qualityNotes": [
+        "một entry point",
+        "motion phục vụ semantic cue"
+      ],
+      "sourceCueIds": [
+        "seg-008",
+        "seg-009"
+      ]
+    },
+    {
+      "id": "lesson-3-shot-07",
+      "lessonId": "lesson-3",
+      "start": 32.32,
+      "end": 38.84,
+      "spokenMeaning": "Thiếu dữ liệu vẫn ghép đáp án hợp lý",
+      "semanticFunction": "plausible assembly",
+      "motionVerbs": [
+        "assemble",
+        "fill"
+      ],
+      "layoutFamily": "assembly-stage",
+      "elementKinds": [
+        "card",
+        "token-field"
+      ],
+      "cameraPattern": "push",
+      "motionFingerprint": "layout:assembly-stage|verb:assemble|verb:fill|primitive:card|primitive:token-field|camera:push",
+      "usefulFor": [
+        "plausible assembly",
+        "voice-aligned state change"
+      ],
+      "avoidWhen": [
+        "visual thesis khác hoặc thời lượng không đủ đọc"
+      ],
+      "qualityNotes": [
+        "một entry point",
+        "motion phục vụ semantic cue"
+      ],
+      "sourceCueIds": [
+        "seg-010",
+        "seg-011"
+      ]
+    },
+    {
+      "id": "lesson-3-shot-08",
+      "lessonId": "lesson-3",
+      "start": 39.2,
+      "end": 45.36,
+      "spokenMeaning": "Tên, số liệu, trích dẫn giả tạo thành ảo giác AI",
+      "semanticFunction": "hallucination label",
+      "motionVerbs": [
+        "accumulate",
+        "stamp"
+      ],
+      "layoutFamily": "evidence-stack",
+      "elementKinds": [
+        "text",
+        "card"
+      ],
+      "cameraPattern": "push",
+      "motionFingerprint": "layout:evidence-stack|verb:accumulate|verb:stamp|primitive:text|primitive:card|camera:push",
+      "usefulFor": [
+        "hallucination label",
+        "voice-aligned state change"
+      ],
+      "avoidWhen": [
+        "visual thesis khác hoặc thời lượng không đủ đọc"
+      ],
+      "qualityNotes": [
+        "một entry point",
+        "motion phục vụ semantic cue"
+      ],
+      "sourceCueIds": [
+        "seg-012",
+        "seg-013"
+      ]
+    },
+    {
+      "id": "lesson-3-shot-09",
+      "lessonId": "lesson-3",
+      "start": 46.06,
+      "end": 52.5,
+      "spokenMeaning": "Hai tình huống đầu: mơ hồ và thông tin cũ",
+      "semanticFunction": "risk cases one two",
+      "motionVerbs": [
+        "count",
+        "focus"
+      ],
+      "layoutFamily": "risk-grid",
+      "elementKinds": [
+        "card",
+        "text"
+      ],
+      "cameraPattern": "static",
+      "motionFingerprint": "layout:risk-grid|verb:count|verb:focus|primitive:card|primitive:text|camera:static",
+      "usefulFor": [
+        "risk cases one two",
+        "voice-aligned state change"
+      ],
+      "avoidWhen": [
+        "visual thesis khác hoặc thời lượng không đủ đọc"
+      ],
+      "qualityNotes": [
+        "một entry point",
+        "motion phục vụ semantic cue"
+      ],
+      "sourceCueIds": [
+        "seg-014",
+        "seg-015"
+      ]
+    },
+    {
+      "id": "lesson-3-shot-10",
+      "lessonId": "lesson-3",
+      "start": 53.06,
+      "end": 58.74,
+      "spokenMeaning": "Hai tình huống sau: nguồn cụ thể và giả định sai",
+      "semanticFunction": "risk cases three four",
+      "motionVerbs": [
+        "count",
+        "verify"
+      ],
+      "layoutFamily": "risk-grid",
+      "elementKinds": [
+        "card",
+        "text"
+      ],
+      "cameraPattern": "track",
+      "motionFingerprint": "layout:risk-grid|verb:count|verb:verify|primitive:card|primitive:text|camera:track",
+      "usefulFor": [
+        "risk cases three four",
+        "voice-aligned state change"
+      ],
+      "avoidWhen": [
+        "visual thesis khác hoặc thời lượng không đủ đọc"
+      ],
+      "qualityNotes": [
+        "một entry point",
+        "motion phục vụ semantic cue"
+      ],
+      "sourceCueIds": [
+        "seg-016",
+        "seg-017"
+      ]
+    },
+    {
+      "id": "lesson-3-shot-11",
+      "lessonId": "lesson-3",
+      "start": 59.72,
+      "end": 66.22,
+      "spokenMeaning": "Đúng và sai có cùng giọng văn tự tin",
+      "semanticFunction": "confidence mask",
+      "motionVerbs": [
+        "mirror",
+        "compare"
+      ],
+      "layoutFamily": "balanced-split",
+      "elementKinds": [
+        "text",
+        "card"
+      ],
+      "cameraPattern": "static",
+      "motionFingerprint": "layout:balanced-split|verb:mirror|verb:compare|primitive:text|primitive:card|camera:static",
+      "usefulFor": [
+        "confidence mask",
+        "voice-aligned state change"
+      ],
+      "avoidWhen": [
+        "visual thesis khác hoặc thời lượng không đủ đọc"
+      ],
+      "qualityNotes": [
+        "một entry point",
+        "motion phục vụ semantic cue"
+      ],
+      "sourceCueIds": [
+        "seg-018",
+        "seg-019"
+      ]
+    },
+    {
+      "id": "lesson-3-shot-12",
+      "lessonId": "lesson-3",
+      "start": 66.98,
+      "end": 70.96,
+      "spokenMeaning": "Dài và nhiều số liệu chưa chắc đáng tin",
+      "semanticFunction": "detail distrust",
+      "motionVerbs": [
+        "expand",
+        "reject"
+      ],
+      "layoutFamily": "typographic-scale",
+      "elementKinds": [
+        "text",
+        "shape"
+      ],
+      "cameraPattern": "push",
+      "motionFingerprint": "layout:typographic-scale|verb:expand|verb:reject|primitive:text|primitive:shape|camera:push",
+      "usefulFor": [
+        "detail distrust",
+        "voice-aligned state change"
+      ],
+      "avoidWhen": [
+        "visual thesis khác hoặc thời lượng không đủ đọc"
+      ],
+      "qualityNotes": [
+        "một entry point",
+        "motion phục vụ semantic cue"
+      ],
+      "sourceCueIds": [
+        "seg-020"
+      ]
+    },
+    {
+      "id": "lesson-3-shot-13",
+      "lessonId": "lesson-3",
+      "start": 71.56,
+      "end": 77.08,
+      "spokenMeaning": "Dừng lại và kiểm tra ba điều",
+      "semanticFunction": "checklist setup",
+      "motionVerbs": [
+        "freeze",
+        "assemble"
+      ],
+      "layoutFamily": "checklist-stage",
+      "elementKinds": [
+        "text",
+        "card"
+      ],
+      "cameraPattern": "pull",
+      "motionFingerprint": "layout:checklist-stage|verb:freeze|verb:assemble|primitive:text|primitive:card|camera:pull",
+      "usefulFor": [
+        "checklist setup",
+        "voice-aligned state change"
+      ],
+      "avoidWhen": [
+        "visual thesis khác hoặc thời lượng không đủ đọc"
+      ],
+      "qualityNotes": [
+        "một entry point",
+        "motion phục vụ semantic cue"
+      ],
+      "sourceCueIds": [
+        "seg-021",
+        "seg-022"
+      ]
+    },
+    {
+      "id": "lesson-3-shot-14",
+      "lessonId": "lesson-3",
+      "start": 77.9,
+      "end": 82.92,
+      "spokenMeaning": "Kiểm tra độ mới và nguồn trích dẫn",
+      "semanticFunction": "checklist one two",
+      "motionVerbs": [
+        "accumulate",
+        "verify"
+      ],
+      "layoutFamily": "checklist-stage",
+      "elementKinds": [
+        "card",
+        "text"
+      ],
+      "cameraPattern": "static",
+      "motionFingerprint": "layout:checklist-stage|verb:accumulate|verb:verify|primitive:card|primitive:text|camera:static",
+      "usefulFor": [
+        "checklist one two",
+        "voice-aligned state change"
+      ],
+      "avoidWhen": [
+        "visual thesis khác hoặc thời lượng không đủ đọc"
+      ],
+      "qualityNotes": [
+        "một entry point",
+        "motion phục vụ semantic cue"
+      ],
+      "sourceCueIds": [
+        "seg-023",
+        "seg-024"
+      ]
+    },
+    {
+      "id": "lesson-3-shot-15",
+      "lessonId": "lesson-3",
+      "start": 83.64,
+      "end": 87.02,
+      "spokenMeaning": "Kiểm tra giả định trong câu hỏi",
+      "semanticFunction": "checklist three",
+      "motionVerbs": [
+        "focus",
+        "lock"
+      ],
+      "layoutFamily": "checklist-stage",
+      "elementKinds": [
+        "card",
+        "text"
+      ],
+      "cameraPattern": "push",
+      "motionFingerprint": "layout:checklist-stage|verb:focus|verb:lock|primitive:card|primitive:text|camera:push",
+      "usefulFor": [
+        "checklist three",
+        "voice-aligned state change"
+      ],
+      "avoidWhen": [
+        "visual thesis khác hoặc thời lượng không đủ đọc"
+      ],
+      "qualityNotes": [
+        "một entry point",
+        "motion phục vụ semantic cue"
+      ],
+      "sourceCueIds": [
+        "seg-025"
+      ]
+    },
+    {
+      "id": "lesson-3-shot-16",
+      "lessonId": "lesson-3",
+      "start": 88.06,
+      "end": 94.84,
+      "spokenMeaning": "Biết khi nào tham khảo và khi nào xác minh",
+      "semanticFunction": "calibrated trust",
+      "motionVerbs": [
+        "balance",
+        "resolve"
+      ],
+      "layoutFamily": "decision-axis",
+      "elementKinds": [
+        "text",
+        "shape"
+      ],
+      "cameraPattern": "static",
+      "motionFingerprint": "layout:decision-axis|verb:balance|verb:resolve|primitive:text|primitive:shape|camera:static",
+      "usefulFor": [
+        "calibrated trust",
+        "voice-aligned state change"
+      ],
+      "avoidWhen": [
+        "visual thesis khác hoặc thời lượng không đủ đọc"
+      ],
+      "qualityNotes": [
+        "một entry point",
+        "motion phục vụ semantic cue"
+      ],
+      "sourceCueIds": [
+        "seg-026",
+        "seg-027"
+      ]
+    },
+    {
+      "id": "lesson-3-shot-17",
+      "lessonId": "lesson-3",
+      "start": 95.64,
+      "end": 103.06,
+      "spokenMeaning": "Dẫn sang việc dùng AI để học hay né phần khó",
+      "semanticFunction": "next lesson choice",
+      "motionVerbs": [
+        "split",
+        "question"
+      ],
+      "layoutFamily": "outro-choice",
+      "elementKinds": [
+        "text",
+        "card"
+      ],
+      "cameraPattern": "pull",
+      "motionFingerprint": "layout:outro-choice|verb:split|verb:question|primitive:text|primitive:card|camera:pull",
+      "usefulFor": [
+        "next lesson choice",
+        "voice-aligned state change"
+      ],
+      "avoidWhen": [
+        "visual thesis khác hoặc thời lượng không đủ đọc"
+      ],
+      "qualityNotes": [
+        "một entry point",
+        "motion phục vụ semantic cue"
+      ],
+      "sourceCueIds": [
+        "seg-028",
+        "seg-029",
+        "seg-030"
+      ]
+    }
+  ]
+}

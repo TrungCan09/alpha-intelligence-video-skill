@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "lessonId": "lesson-1",
+  "sourceFileName": "alpha-intelligence-hoc-chu-dong-cung-ai-motion-layout-fixed-final.mp4",
+  "sourceSha256": "25bbe5b643b7a6bcf258119021e33168fff2a6d400a1aa03e0489a41809046ff",
+  "normalizedSha256": "4cdfc60babee96000fda43fbbf10be6e81b75725cf0ac3d7a175f28246d7b992",
+  "masterApproved": true,
+  "publishConsent": true,
+  "durationSeconds": 53.461,
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "videoCodec": "h264",
+  "audioCodec": "aac",
+  "audioPresent": true,
+  "normalizedBytes": 20664140,
+  "transcriptReviewed": true,
+  "shotIndexReviewed": true
+}

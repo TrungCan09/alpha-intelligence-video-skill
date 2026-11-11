@@ -1,0 +1,1094 @@
+{
+  "schemaVersion": 2,
+  "sourceAudio": {
+    "fileName": "audio.wav",
+    "sha256": "b6edaab8f4935a28597657e2de275a1dbb15fc6145d371fd736d157f7b7249f8"
+  },
+  "durationSeconds": 53.461,
+  "engine": {
+    "name": "faster-whisper",
+    "version": "1.2.1",
+    "model": "small",
+    "language": "vi",
+    "device": "cpu",
+    "computeType": "int8",
+    "wordTimestamps": true,
+    "vad": true
+  },
+  "reviewed": true,
+  "segments": [
+    {
+      "id": "seg-001",
+      "start": 0,
+      "end": 5.04,
+      "text": "Thực ra thì xong bài nhờ AI chưa chắc đã có nghĩa là bạn thực sự học được điều gì đó.",
+      "words": [
+        {
+          "start": 0,
+          "end": 0.26,
+          "text": "Thực"
+        },
+        {
+          "start": 0.26,
+          "end": 0.46,
+          "text": "ra"
+        },
+        {
+          "start": 0.46,
+          "end": 0.76,
+          "text": "thì"
+        },
+        {
+          "start": 0.76,
+          "end": 1.3,
+          "text": "xong"
+        },
+        {
+          "start": 1.3,
+          "end": 1.56,
+          "text": "bài"
+        },
+        {
+          "start": 1.56,
+          "end": 1.84,
+          "text": "nhớ"
+        },
+        {
+          "start": 1.84,
+          "end": 2.18,
+          "text": "AI,"
+        },
+        {
+          "start": 2.68,
+          "end": 2.8,
+          "text": "cho"
+        },
+        {
+          "start": 2.8,
+          "end": 3,
+          "text": "chắc"
+        },
+        {
+          "start": 3,
+          "end": 3.16,
+          "text": "đã"
+        },
+        {
+          "start": 3.16,
+          "end": 3.3,
+          "text": "có"
+        },
+        {
+          "start": 3.3,
+          "end": 3.56,
+          "text": "nghĩa"
+        },
+        {
+          "start": 3.56,
+          "end": 3.64,
+          "text": "là"
+        },
+        {
+          "start": 3.64,
+          "end": 3.82,
+          "text": "bạn"
+        },
+        {
+          "start": 3.82,
+          "end": 3.96,
+          "text": "thực"
+        },
+        {
+          "start": 3.96,
+          "end": 4.16,
+          "text": "sự"
+        },
+        {
+          "start": 4.16,
+          "end": 4.32,
+          "text": "học"
+        },
+        {
+          "start": 4.32,
+          "end": 4.48,
+          "text": "được"
+        },
+        {
+          "start": 4.48,
+          "end": 4.64,
+          "text": "điều"
+        },
+        {
+          "start": 4.64,
+          "end": 4.8,
+          "text": "gì"
+        },
+        {
+          "start": 4.8,
+          "end": 5.04,
+          "text": "đó."
+        }
+      ]
+    },
+    {
+      "id": "seg-002",
+      "start": 5.76,
+      "end": 10.18,
+      "text": "Việc có ngay một sản phẩm hoàn chỉnh trong tay đôi khi lại tạo ra cảm giác hiểu bài giả tạo.",
+      "words": [
+        {
+          "start": 5.76,
+          "end": 5.92,
+          "text": "Việc"
+        },
+        {
+          "start": 5.92,
+          "end": 6.08,
+          "text": "có"
+        },
+        {
+          "start": 6.08,
+          "end": 6.28,
+          "text": "ngay"
+        },
+        {
+          "start": 6.28,
+          "end": 6.44,
+          "text": "một"
+        },
+        {
+          "start": 6.44,
+          "end": 6.6,
+          "text": "sản"
+        },
+        {
+          "start": 6.6,
+          "end": 6.72,
+          "text": "phẩm"
+        },
+        {
+          "start": 6.72,
+          "end": 6.98,
+          "text": "hoàn"
+        },
+        {
+          "start": 6.98,
+          "end": 7.18,
+          "text": "chỉnh"
+        },
+        {
+          "start": 7.18,
+          "end": 7.34,
+          "text": "trong"
+        },
+        {
+          "start": 7.34,
+          "end": 7.56,
+          "text": "tay,"
+        },
+        {
+          "start": 8.12,
+          "end": 8.2,
+          "text": "đôi"
+        },
+        {
+          "start": 8.2,
+          "end": 8.42,
+          "text": "khi"
+        },
+        {
+          "start": 8.42,
+          "end": 8.6,
+          "text": "lại"
+        },
+        {
+          "start": 8.6,
+          "end": 8.82,
+          "text": "tạo"
+        },
+        {
+          "start": 8.82,
+          "end": 8.96,
+          "text": "ra"
+        },
+        {
+          "start": 8.96,
+          "end": 9.14,
+          "text": "cảm"
+        },
+        {
+          "start": 9.14,
+          "end": 9.36,
+          "text": "giác"
+        },
+        {
+          "start": 9.36,
+          "end": 9.6,
+          "text": "hiểu"
+        },
+        {
+          "start": 9.6,
+          "end": 9.8,
+          "text": "bài"
+        },
+        {
+          "start": 9.8,
+          "end": 9.98,
+          "text": "giả"
+        },
+        {
+          "start": 9.98,
+          "end": 10.18,
+          "text": "tạ."
+        }
+      ]
+    },
+    {
+      "id": "seg-003",
+      "start": 10.78,
+      "end": 17.22,
+      "text": "Nó rất khác với việc bạn thực sự nắm vững kiến thức, có thể tự tin giải thích lại, hay tự tay giải quyết một bài toán tương tự.",
+      "words": [
+        {
+          "start": 10.78,
+          "end": 11.14,
+          "text": "Nó"
+        },
+        {
+          "start": 11.14,
+          "end": 11.28,
+          "text": "rất"
+        },
+        {
+          "start": 11.28,
+          "end": 11.5,
+          "text": "khác"
+        },
+        {
+          "start": 11.5,
+          "end": 11.66,
+          "text": "với"
+        },
+        {
+          "start": 11.66,
+          "end": 11.84,
+          "text": "việc"
+        },
+        {
+          "start": 11.84,
+          "end": 12.1,
+          "text": "bạn"
+        },
+        {
+          "start": 12.1,
+          "end": 12.3,
+          "text": "thực"
+        },
+        {
+          "start": 12.3,
+          "end": 12.52,
+          "text": "sự"
+        },
+        {
+          "start": 12.52,
+          "end": 12.68,
+          "text": "nắm"
+        },
+        {
+          "start": 12.68,
+          "end": 12.84,
+          "text": "vững"
+        },
+        {
+          "start": 12.84,
+          "end": 13.04,
+          "text": "kiên"
+        },
+        {
+          "start": 13.04,
+          "end": 13.22,
+          "text": "thức,"
+        },
+        {
+          "start": 13.64,
+          "end": 13.74,
+          "text": "có"
+        },
+        {
+          "start": 13.74,
+          "end": 13.92,
+          "text": "thể"
+        },
+        {
+          "start": 13.92,
+          "end": 14.12,
+          "text": "tự"
+        },
+        {
+          "start": 14.12,
+          "end": 14.36,
+          "text": "tin"
+        },
+        {
+          "start": 14.36,
+          "end": 14.58,
+          "text": "giải"
+        },
+        {
+          "start": 14.58,
+          "end": 14.7,
+          "text": "thích"
+        },
+        {
+          "start": 14.7,
+          "end": 14.96,
+          "text": "lại"
+        },
+        {
+          "start": 14.96,
+          "end": 15.48,
+          "text": "hay"
+        },
+        {
+          "start": 15.48,
+          "end": 15.7,
+          "text": "tự"
+        },
+        {
+          "start": 15.7,
+          "end": 15.88,
+          "text": "tay"
+        },
+        {
+          "start": 15.88,
+          "end": 16.12,
+          "text": "giải"
+        },
+        {
+          "start": 16.12,
+          "end": 16.32,
+          "text": "quyết"
+        },
+        {
+          "start": 16.32,
+          "end": 16.44,
+          "text": "một"
+        },
+        {
+          "start": 16.44,
+          "end": 16.6,
+          "text": "bài"
+        },
+        {
+          "start": 16.6,
+          "end": 16.86,
+          "text": "toán"
+        },
+        {
+          "start": 16.86,
+          "end": 17.04,
+          "text": "tương"
+        },
+        {
+          "start": 17.04,
+          "end": 17.22,
+          "text": "tự."
+        }
+      ]
+    },
+    {
+      "id": "seg-004",
+      "start": 18.6,
+      "end": 21.06,
+      "text": "Ừm, điểm khác biệt cốt lõi nằm ở cách chúng ta tiếp cận.",
+      "words": [
+        {
+          "start": 18.6,
+          "end": 19,
+          "text": "Điểm"
+        },
+        {
+          "start": 19,
+          "end": 19.16,
+          "text": "khác"
+        },
+        {
+          "start": 19.16,
+          "end": 19.38,
+          "text": "biệt"
+        },
+        {
+          "start": 19.38,
+          "end": 19.56,
+          "text": "cốt"
+        },
+        {
+          "start": 19.56,
+          "end": 19.86,
+          "text": "lõi"
+        },
+        {
+          "start": 19.86,
+          "end": 20.02,
+          "text": "nằm"
+        },
+        {
+          "start": 20.02,
+          "end": 20.12,
+          "text": "ở"
+        },
+        {
+          "start": 20.12,
+          "end": 20.24,
+          "text": "cách"
+        },
+        {
+          "start": 20.24,
+          "end": 20.44,
+          "text": "chúng"
+        },
+        {
+          "start": 20.44,
+          "end": 20.66,
+          "text": "ta"
+        },
+        {
+          "start": 20.66,
+          "end": 20.82,
+          "text": "tiếp"
+        },
+        {
+          "start": 20.82,
+          "end": 21.06,
+          "text": "cận."
+        }
+      ]
+    },
+    {
+      "id": "seg-005",
+      "start": 21.66,
+      "end": 28.4,
+      "text": "Bạn chọn phó mặc tất cả cho AI, hay tự mình suy nghĩ trước rồi mới dùng nó để soi chiếu và tìm ra những lỗ hổng?",
+      "words": [
+        {
+          "start": 21.66,
+          "end": 21.92,
+          "text": "Bạn"
+        },
+        {
+          "start": 21.92,
+          "end": 22.18,
+          "text": "chọn"
+        },
+        {
+          "start": 22.18,
+          "end": 22.38,
+          "text": "phó"
+        },
+        {
+          "start": 22.38,
+          "end": 22.54,
+          "text": "mắc"
+        },
+        {
+          "start": 22.54,
+          "end": 22.74,
+          "text": "tất"
+        },
+        {
+          "start": 22.74,
+          "end": 22.98,
+          "text": "cả"
+        },
+        {
+          "start": 22.98,
+          "end": 23.16,
+          "text": "cho"
+        },
+        {
+          "start": 23.16,
+          "end": 23.52,
+          "text": "AI,"
+        },
+        {
+          "start": 24.1,
+          "end": 24.32,
+          "text": "hay"
+        },
+        {
+          "start": 24.32,
+          "end": 24.54,
+          "text": "tự"
+        },
+        {
+          "start": 24.54,
+          "end": 24.74,
+          "text": "mình"
+        },
+        {
+          "start": 24.74,
+          "end": 24.94,
+          "text": "suy"
+        },
+        {
+          "start": 24.94,
+          "end": 25.06,
+          "text": "nghĩ"
+        },
+        {
+          "start": 25.06,
+          "end": 25.32,
+          "text": "trước"
+        },
+        {
+          "start": 25.32,
+          "end": 25.9,
+          "text": "rồi"
+        },
+        {
+          "start": 25.9,
+          "end": 26.12,
+          "text": "mới"
+        },
+        {
+          "start": 26.12,
+          "end": 26.28,
+          "text": "dùng"
+        },
+        {
+          "start": 26.28,
+          "end": 26.54,
+          "text": "nó"
+        },
+        {
+          "start": 26.54,
+          "end": 26.72,
+          "text": "để"
+        },
+        {
+          "start": 26.72,
+          "end": 26.96,
+          "text": "soi"
+        },
+        {
+          "start": 26.96,
+          "end": 27.26,
+          "text": "chiếu"
+        },
+        {
+          "start": 27.26,
+          "end": 27.42,
+          "text": "và"
+        },
+        {
+          "start": 27.42,
+          "end": 27.64,
+          "text": "tìm"
+        },
+        {
+          "start": 27.64,
+          "end": 27.82,
+          "text": "ra"
+        },
+        {
+          "start": 27.82,
+          "end": 27.98,
+          "text": "những"
+        },
+        {
+          "start": 27.98,
+          "end": 28.14,
+          "text": "lỗ"
+        },
+        {
+          "start": 28.14,
+          "end": 28.4,
+          "text": "hỏng."
+        }
+      ]
+    },
+    {
+      "id": "seg-006",
+      "start": 29.3,
+      "end": 35.52,
+      "text": "Lần tới, trước khi gõ câu lệnh, hãy thử dừng lại một nhịp và tự hỏi: AI đã làm giúp mình phần nào?",
+      "words": [
+        {
+          "start": 29.3,
+          "end": 29.7,
+          "text": "Lần"
+        },
+        {
+          "start": 29.7,
+          "end": 29.94,
+          "text": "tới,"
+        },
+        {
+          "start": 30.38,
+          "end": 30.48,
+          "text": "trước"
+        },
+        {
+          "start": 30.48,
+          "end": 30.66,
+          "text": "khi"
+        },
+        {
+          "start": 30.66,
+          "end": 30.84,
+          "text": "gõ"
+        },
+        {
+          "start": 30.84,
+          "end": 31.04,
+          "text": "câu"
+        },
+        {
+          "start": 31.04,
+          "end": 31.22,
+          "text": "lạnh,"
+        },
+        {
+          "start": 31.72,
+          "end": 31.8,
+          "text": "hãy"
+        },
+        {
+          "start": 31.8,
+          "end": 32,
+          "text": "thử"
+        },
+        {
+          "start": 32,
+          "end": 32.18,
+          "text": "dừng"
+        },
+        {
+          "start": 32.18,
+          "end": 32.38,
+          "text": "lại"
+        },
+        {
+          "start": 32.38,
+          "end": 32.54,
+          "text": "một"
+        },
+        {
+          "start": 32.54,
+          "end": 32.86,
+          "text": "nhịp"
+        },
+        {
+          "start": 32.86,
+          "end": 33.06,
+          "text": "và"
+        },
+        {
+          "start": 33.06,
+          "end": 33.26,
+          "text": "tự"
+        },
+        {
+          "start": 33.26,
+          "end": 33.52,
+          "text": "hỏi,"
+        },
+        {
+          "start": 34.12,
+          "end": 34.32,
+          "text": "AI"
+        },
+        {
+          "start": 34.32,
+          "end": 34.6,
+          "text": "đã"
+        },
+        {
+          "start": 34.6,
+          "end": 34.8,
+          "text": "làm"
+        },
+        {
+          "start": 34.8,
+          "end": 34.96,
+          "text": "giúp"
+        },
+        {
+          "start": 34.96,
+          "end": 35.12,
+          "text": "mình"
+        },
+        {
+          "start": 35.12,
+          "end": 35.3,
+          "text": "phần"
+        },
+        {
+          "start": 35.3,
+          "end": 35.52,
+          "text": "nào,"
+        }
+      ]
+    },
+    {
+      "id": "seg-007",
+      "start": 36.14,
+      "end": 41.16,
+      "text": "Đâu mới là quyết định của chính mình? Và quan trọng nhất, mình đã học thêm được gì sau bước đó?",
+      "words": [
+        {
+          "start": 36.14,
+          "end": 36.38,
+          "text": "đâu"
+        },
+        {
+          "start": 36.38,
+          "end": 36.58,
+          "text": "mới"
+        },
+        {
+          "start": 36.58,
+          "end": 36.68,
+          "text": "là"
+        },
+        {
+          "start": 36.68,
+          "end": 36.88,
+          "text": "quyết"
+        },
+        {
+          "start": 36.88,
+          "end": 37.04,
+          "text": "định"
+        },
+        {
+          "start": 37.04,
+          "end": 37.22,
+          "text": "của"
+        },
+        {
+          "start": 37.22,
+          "end": 37.38,
+          "text": "chính"
+        },
+        {
+          "start": 37.38,
+          "end": 37.6,
+          "text": "mình,"
+        },
+        {
+          "start": 38.1,
+          "end": 38.46,
+          "text": "và"
+        },
+        {
+          "start": 38.46,
+          "end": 38.68,
+          "text": "quan"
+        },
+        {
+          "start": 38.68,
+          "end": 38.9,
+          "text": "trọng"
+        },
+        {
+          "start": 38.9,
+          "end": 39.02,
+          "text": "nhất,"
+        },
+        {
+          "start": 39.6,
+          "end": 39.72,
+          "text": "mình"
+        },
+        {
+          "start": 39.72,
+          "end": 39.9,
+          "text": "đã"
+        },
+        {
+          "start": 39.9,
+          "end": 40.04,
+          "text": "học"
+        },
+        {
+          "start": 40.04,
+          "end": 40.2,
+          "text": "thêm"
+        },
+        {
+          "start": 40.2,
+          "end": 40.34,
+          "text": "được"
+        },
+        {
+          "start": 40.34,
+          "end": 40.56,
+          "text": "gì"
+        },
+        {
+          "start": 40.56,
+          "end": 40.76,
+          "text": "sau"
+        },
+        {
+          "start": 40.76,
+          "end": 40.92,
+          "text": "bất"
+        },
+        {
+          "start": 40.92,
+          "end": 41.16,
+          "text": "đó."
+        }
+      ]
+    },
+    {
+      "id": "seg-008",
+      "start": 41.98,
+      "end": 47.34,
+      "text": "Hãy dùng AI như một đòn bẩy để nâng tầm bản thân, thay vì chỉ để hoàn thành mục tiêu cho xong, bạn nhé!",
+      "words": [
+        {
+          "start": 41.98,
+          "end": 42.14,
+          "text": "Hãy"
+        },
+        {
+          "start": 42.14,
+          "end": 42.3,
+          "text": "dùng"
+        },
+        {
+          "start": 42.3,
+          "end": 42.64,
+          "text": "AI"
+        },
+        {
+          "start": 42.64,
+          "end": 42.84,
+          "text": "như"
+        },
+        {
+          "start": 42.84,
+          "end": 42.96,
+          "text": "một"
+        },
+        {
+          "start": 42.96,
+          "end": 43.16,
+          "text": "đòn"
+        },
+        {
+          "start": 43.16,
+          "end": 43.36,
+          "text": "7"
+        },
+        {
+          "start": 43.36,
+          "end": 43.64,
+          "text": "để"
+        },
+        {
+          "start": 43.64,
+          "end": 43.88,
+          "text": "nâng"
+        },
+        {
+          "start": 43.88,
+          "end": 44.02,
+          "text": "tầm"
+        },
+        {
+          "start": 44.02,
+          "end": 44.2,
+          "text": "bản"
+        },
+        {
+          "start": 44.2,
+          "end": 44.46,
+          "text": "thân,"
+        },
+        {
+          "start": 45,
+          "end": 45.14,
+          "text": "thay"
+        },
+        {
+          "start": 45.14,
+          "end": 45.34,
+          "text": "vì"
+        },
+        {
+          "start": 45.34,
+          "end": 45.52,
+          "text": "chỉ"
+        },
+        {
+          "start": 45.52,
+          "end": 45.64,
+          "text": "để"
+        },
+        {
+          "start": 45.64,
+          "end": 45.84,
+          "text": "hoàn"
+        },
+        {
+          "start": 45.84,
+          "end": 45.96,
+          "text": "thành"
+        },
+        {
+          "start": 45.96,
+          "end": 46.12,
+          "text": "một"
+        },
+        {
+          "start": 46.12,
+          "end": 46.36,
+          "text": "tiêu"
+        },
+        {
+          "start": 46.36,
+          "end": 46.52,
+          "text": "cho"
+        },
+        {
+          "start": 46.52,
+          "end": 46.76,
+          "text": "xong"
+        },
+        {
+          "start": 46.76,
+          "end": 47.06,
+          "text": "bạn"
+        },
+        {
+          "start": 47.06,
+          "end": 47.34,
+          "text": "nhé."
+        }
+      ]
+    },
+    {
+      "id": "seg-009",
+      "start": 48.36,
+      "end": 53.38,
+      "text": "Ở bài tiếp theo, chúng ta sẽ cùng bóc tách xem AI thực sự tạo ra câu trả lời như thế nào.",
+      "words": [
+        {
+          "start": 48.36,
+          "end": 48.52,
+          "text": "Ở"
+        },
+        {
+          "start": 48.52,
+          "end": 48.64,
+          "text": "bài"
+        },
+        {
+          "start": 48.64,
+          "end": 48.8,
+          "text": "tiếp"
+        },
+        {
+          "start": 48.8,
+          "end": 49.06,
+          "text": "theo,"
+        },
+        {
+          "start": 49.46,
+          "end": 49.54,
+          "text": "chúng"
+        },
+        {
+          "start": 49.54,
+          "end": 49.76,
+          "text": "ta"
+        },
+        {
+          "start": 49.76,
+          "end": 49.94,
+          "text": "sẽ"
+        },
+        {
+          "start": 49.94,
+          "end": 50.08,
+          "text": "cùng"
+        },
+        {
+          "start": 50.08,
+          "end": 50.3,
+          "text": "bóc"
+        },
+        {
+          "start": 50.3,
+          "end": 50.44,
+          "text": "tác"
+        },
+        {
+          "start": 50.44,
+          "end": 50.66,
+          "text": "xem"
+        },
+        {
+          "start": 50.66,
+          "end": 51.48,
+          "text": "AI"
+        },
+        {
+          "start": 51.48,
+          "end": 51.66,
+          "text": "thực"
+        },
+        {
+          "start": 51.66,
+          "end": 51.9,
+          "text": "sự"
+        },
+        {
+          "start": 51.9,
+          "end": 52.1,
+          "text": "tạo"
+        },
+        {
+          "start": 52.1,
+          "end": 52.28,
+          "text": "ra"
+        },
+        {
+          "start": 52.28,
+          "end": 52.5,
+          "text": "câu"
+        },
+        {
+          "start": 52.5,
+          "end": 52.66,
+          "text": "trả"
+        },
+        {
+          "start": 52.66,
+          "end": 52.84,
+          "text": "lời"
+        },
+        {
+          "start": 52.84,
+          "end": 53.04,
+          "text": "như"
+        },
+        {
+          "start": 53.04,
+          "end": 53.16,
+          "text": "thế"
+        },
+        {
+          "start": 53.16,
+          "end": 53.38,
+          "text": "nào."
+        }
+      ]
+    }
+  ],
+  "transcriptSha256": "7d96ae8811cb98113d2dbebbeb54448e3af3c366615e395656589980da13b7d7"
+}

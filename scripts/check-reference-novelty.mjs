@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+import {resolve} from 'node:path';
+import {readJson} from './lib/lock-utils.mjs';
+import {conceptFingerprint, findConcept, similarity} from './lib/v3-utils.mjs';
+
+const args = process.argv.slice(2); const planArg = args[0]; const value = (flag, fallback) => { const index = args.indexOf(flag); return index >= 0 ? args[index + 1] : fallback; }; const conceptsArg = value('--concepts'); const lockArg = value('--review'); const libraryArg = value('--library'); const configArg = value('--config', resolve(import.meta.dirname,'..','production-reference.config.json'));
+if (!planArg || !conceptsArg || !lockArg || !libraryArg) { console.error('Dùng: node scripts/check-reference-novelty.mjs video-plan.v3.json --concepts concepts.json --review reference-review.lock.json --library reference-library.json'); process.exit(2); }
+const plan = await readJson(resolve(planArg)); const concepts = await readJson(resolve(conceptsArg)); const lock = await readJson(resolve(lockArg)); const library = await readJson(resolve(libraryArg)); const config = await readJson(resolve(configArg)); const errors = [];
+const rows = new Map((lock.scenes ?? []).map((row) => [row.sceneId, row])); const shots = new Map((library.lessons ?? []).flatMap((lesson) => (lesson.shots ?? []).map((shot) => [shot.id, shot]))); const primaryUsage = new Map();
+for (const scene of plan.scenes ?? []) { const concept = findConcept(concepts, scene.id, scene.conceptId); const row = rows.get(scene.id); if (!concept || !row) continue; const sceneFp = conceptFingerprint(concept, scene); const primary = row.referenceShotIds?.[0]; if (primary) { if (primaryUsage.has(primary)) errors.push(`${scene.id}: primary reference ${primary} đã dùng cho ${primaryUsage.get(primary)}.`); primaryUsage.set(primary, scene.id); }
+  for (const id of row.referenceShotIds ?? []) { const shot = shots.get(id); if (!shot) continue; const refFp = new Set(String(shot.motionFingerprint).split('|').filter(Boolean)); const score = similarity(sceneFp, refFp); if (score > config.hardSimilarityLimit) errors.push(`${scene.id}/${id}: similarity ${score.toFixed(2)} vượt ${config.hardSimilarityLimit}.`); else if (score >= config.rationaleSimilarityLimit && (!row.transformationRationale || new Set(row.transformedGroups ?? []).size < 2)) errors.push(`${scene.id}/${id}: similarity ${score.toFixed(2)} cần rationale và ít nhất hai transformedGroups.`); }
+}
+if (errors.length) { errors.forEach((error) => console.error(`FAIL ${error}`)); process.exit(1); } console.log(`PASS Reference novelty: ${plan.scenes?.length ?? 0} scene không sao chép production reference.`);

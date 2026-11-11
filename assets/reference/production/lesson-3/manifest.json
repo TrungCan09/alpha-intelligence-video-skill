@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "lessonId": "lesson-3",
+  "sourceFileName": "alpha-intelligence-vi-sao-ai-tu-tin-nhung-van-sai-final.mp4",
+  "sourceSha256": "4d300a0da61396aa0bbf5458830b4b6bb166c72700fb038dcbfe894cbd9e36c0",
+  "normalizedSha256": "d828387195b6640d6f922cba9d345d6516ba79cb8cd23c836a3d1062ee83976f",
+  "masterApproved": true,
+  "publishConsent": true,
+  "durationSeconds": 103.146,
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "videoCodec": "h264",
+  "audioCodec": "aac",
+  "audioPresent": true,
+  "normalizedBytes": 20523085,
+  "transcriptReviewed": true,
+  "shotIndexReviewed": true
+}

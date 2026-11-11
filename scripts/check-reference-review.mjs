@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+import {resolve} from 'node:path';
+import {readJson, sha256Value} from './lib/lock-utils.mjs';
+import {conceptDraftPayload} from './lib/v3-utils.mjs';
+
+const args = process.argv.slice(2); const lockArg = args[0]; const value = (flag, fallback) => { const index = args.indexOf(flag); return index >= 0 ? args[index + 1] : fallback; }; const conceptsArg = value('--concepts'); const libraryArg = value('--library'); const configArg = value('--config', resolve(import.meta.dirname,'..','production-reference.config.json'));
+if (!lockArg || !conceptsArg || !libraryArg) { console.error('Dùng: node scripts/check-reference-review.mjs reference-review.lock.json --concepts concept-candidates.json --library reference-library.json'); process.exit(2); }
+const lock = await readJson(resolve(lockArg)); const concepts = await readJson(resolve(conceptsArg)); const library = await readJson(resolve(libraryArg)); const config = await readJson(resolve(configArg)); const errors = [];
+if (lock.schemaVersion !== 1) errors.push('Reference review lock phải dùng schemaVersion 1.');
+if (lock.conceptDraftSha256 !== sha256Value(conceptDraftPayload(concepts))) errors.push('Reference lock không khớp concept draft.'); if (lock.referenceLibrarySha256 !== library.librarySha256) errors.push('Reference lock không khớp library.');
+const reviewedAt = Date.parse(lock.reviewedAt); const draftAt = Date.parse(concepts.draftLockedAt); if (!Number.isFinite(reviewedAt) || !Number.isFinite(draftAt) || reviewedAt <= draftAt) errors.push('Reference chỉ được review sau concept draft.');
+const shots = new Map((library.lessons ?? []).flatMap((lesson) => (lesson.shots ?? []).map((shot) => [shot.id, shot]))); const conceptScenes = new Set((concepts.sceneConceptSets ?? []).map((scene) => scene.sceneId)); const rows = new Map((lock.scenes ?? []).map((scene) => [scene.sceneId, scene])); const usage = new Map();
+for (const sceneId of conceptScenes) { const row = rows.get(sceneId); if (!row) { errors.push(`Thiếu reference review cho ${sceneId}.`); continue; } if (row.thesisUnchanged !== true) errors.push(`${sceneId}: visual thesis đã bị reference thay đổi.`); if (!row.referenceShotIds?.length || row.referenceShotIds.length > config.maxReferencesPerScene) errors.push(`${sceneId}: phải dùng 1–${config.maxReferencesPerScene} micro-reference.`); if (!row.techniquesToLearn?.length || !row.elementsNotToCopy?.length) errors.push(`${sceneId}: thiếu techniquesToLearn/elementsNotToCopy.`); for (const id of row.referenceShotIds ?? []) { const shot = shots.get(id); if (!shot) errors.push(`${sceneId}: shot không tồn tại ${id}.`); else usage.set(shot.lessonId, (usage.get(shot.lessonId) ?? 0) + 1); } }
+const total = [...usage.values()].reduce((a, b) => a + b, 0); if (total >= 10 && Math.max(0, ...usage.values()) / total > 0.3 && !lock.distributionOverrideReason) errors.push('Một video chiếm quá 30% reference mà không có distributionOverrideReason.');
+if (errors.length) { errors.forEach((error) => console.error(`FAIL ${error}`)); process.exit(1); } console.log(`PASS Reference review lock: ${rows.size} scene, ${total} micro-reference.`);

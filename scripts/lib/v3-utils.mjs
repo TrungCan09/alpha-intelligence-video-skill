@@ -15,6 +15,7 @@ export const similarity = (a, b) => {
   return intersection / Math.max(1, new Set([...a, ...b]).size);
 };
 export const findConcept = (concepts, sceneId, conceptId) => concepts.sceneConceptSets?.find((set) => set.sceneId === sceneId)?.candidates?.find((candidate) => candidate.id === conceptId);
+export const conceptDraftPayload = (concepts) => { const clone = structuredClone(concepts); delete clone.referenceReviewedAt; return clone; };
 export const hasNumericTimingKey = (value) => {
   if (!value || typeof value !== 'object') return false;
   return Object.entries(value).some(([key, nested]) => (/^(?:time|start|end|frame|duration|delay)(?:Seconds|Frames)?$/i.test(key) && typeof nested === 'number') || hasNumericTimingKey(nested));
