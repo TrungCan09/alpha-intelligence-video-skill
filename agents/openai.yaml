@@ -2,6 +2,6 @@ interface:
   display_name: "Alpha Intelligence Video"
   short_description: "Tạo video ngắn đúng nhận diện Alpha Intelligence"
   brand_color: "#20F669"
-  default_prompt: "Dùng $alpha-intelligence-video-skill v3: chạy Faster Whisper, tạo ba concept cho mỗi scene trước khi xem reference, chọn concept theo semantic score, dựng bằng motion graph hoặc custom TSX, render semantic QA và chỉ xuất master khi mọi gate đạt."
+  default_prompt: "Dùng $alpha-intelligence-video-skill v3.1: chạy Faster Whisper, tạo ba concept trước reference, dựng graph/custom TSX, audit toàn bộ frame, tự xem contact sheet/anomaly, sửa tối đa năm vòng và chỉ xuất master khi mọi scene đạt ít nhất 8/10."
 policy:
   allow_implicit_invocation: true

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "minimumSceneScore": 8,
+  "minimumCriticalScore": 8,
+  "maximumIterations": 5,
+  "frameAuditFps": 30,
+  "maxAiFramesPerScene": 18,
+  "framesPerContactSheet": 6,
+  "criticalDimensions": ["semanticClarity", "voiceAlignment", "typographyReadability"],
+  "weights": {
+    "semanticClarity": 0.25,
+    "voiceAlignment": 0.2,
+    "compositionBalance": 0.2,
+    "typographyReadability": 0.15,
+    "motionCraftRhythm": 0.1,
+    "brandConsistency": 0.1
+  },
+  "frameAudit": {
+    "lowMotionDelta": 0.18,
+    "longHoldFrames": 90,
+    "highDelta": 28,
+    "nearBlankLuma": 1.5,
+    "nearBlankVariance": 1.2
+  }
+}

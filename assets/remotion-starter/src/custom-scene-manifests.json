@@ -4,7 +4,7 @@
     {
       "id": "thinking-threshold",
       "motionFingerprint": {"layoutFamily":"threshold-stage","operatorSequence":["freeze","split","camera"],"elementKinds":["shape","text","camera"],"cameraPattern":"push"},
-      "elementRelationships": ["answer-layer stops above threshold", "green marker crosses threshold", "thinking-layer becomes foreground payoff"],
+      "elementRelationships": ["answer-layer stops above threshold", "thinking headline crosses threshold", "threshold resolves into the headline underline"],
       "graphInsufficientReason": "The semantic payoff depends on coordinated depth, threshold crossing and camera perspective rather than independent graph elements.",
       "semanticModePreservesMeaning": true
     }

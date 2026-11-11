@@ -4,12 +4,13 @@ import {resolve} from 'node:path';
 import {spawnSync} from 'node:child_process';
 
 const args = process.argv.slice(2); const value = (flag) => { const index = args.indexOf(flag); return index >= 0 ? args[index + 1] : undefined; };
-const candidate = value('--candidate'); const transcript = value('--transcript'); const cueLock = value('--cue-lock'); const plan = value('--plan'); const concepts = value('--concepts'); const project = value('--project'); const report = value('--report'); const out = value('--out');
+const candidate = value('--candidate'); const transcript = value('--transcript'); const cueLock = value('--cue-lock'); const plan = value('--plan'); const concepts = value('--concepts'); const project = value('--project'); const report = value('--report'); const visualReview = value('--visual-review'); const visualPack = value('--visual-pack'); const out = value('--out');
 if (![candidate, transcript, cueLock, plan, project, report, out].every(Boolean)) {
   console.error('Dùng: node scripts/finalize-master.mjs --candidate candidate.mp4 --transcript transcript.lock.json --cue-lock cue-sheet.lock.json --plan video-plan.json --project project --report qa/report.json --out master.mp4'); process.exit(2);
 }
 const planData = JSON.parse(await readFile(resolve(plan), 'utf8'));
 if (planData.schemaVersion === 3 && !concepts) { console.error('Plan v3 bắt buộc truyền --concepts concept-candidates.json'); process.exit(2); }
+if (planData.schemaVersion === 3 && (!visualReview || !visualPack)) { console.error('Plan v3.1 bắt buộc truyền --visual-review và --visual-pack.'); process.exit(2); }
 const checks = [
   ['check-cue-lock.mjs', [transcript, cueLock]],
   ['check-timeline-binding.mjs', [project]],
@@ -20,6 +21,7 @@ const checks = [
     ['check-motion-graph.mjs', [plan, cueLock]],
     ['check-motion-novelty.mjs', [plan, concepts]],
     ['check-custom-scene.mjs', [plan, project]],
+    ['check-visual-review.mjs', [visualReview, '--video', candidate, '--plan', plan, '--pack-index', visualPack]],
   ] : [['check-scene-diversity.mjs', [plan]]]),
   ['check-qa-report.mjs', [report, '--video', candidate, '--cue-lock', cueLock]],
   ['check-alpha-video.mjs', ['--project', project, '--video', candidate, '--expect-audio']],

@@ -69,3 +69,4 @@ Tại mỗi điểm, kiểm tra text không đi trước voice quá 0 giây và 
    Trích thêm ít nhất 5 frame liên tiếp quanh một hero tiếng Việt có dấu. Nếu các dải glyph mất luân phiên, render lại với `--disable-shared-memory-capture --gop=30`; không chữa bằng đổi font hoặc nới layout khi PNG nguồn đã chứng minh lỗi capture/codec.
 6. Xem lại frame đã trích và playback 1×/0,5×, không dựa vào ảnh preview cũ.
 7. Chỉ `finalize-master.mjs` được tạo master sau khi report hợp lệ. Ghi rõ ngoại lệ; nếu không đạt, chưa bàn giao.
+8. Với pipeline v3.1, chạy thêm Visual Critic Loop: audit mọi frame, agent xem sheets/anomaly, chấm từng scene và rerender tới khi mỗi scene cùng các chiều critical đạt ít nhất 8/10. Sau năm vòng chưa đạt thì chặn master.

@@ -15,16 +15,17 @@ const ThinkingThreshold: React.FC<CustomSceneProps> = ({scene, qaMode}) => {
   const enter = interpolate(frame, [start, start + 9], [0, 1], {...clamp, easing: ALPHA_THEME.motion.easeOut});
   const exit = interpolate(frame, [end - 8, end], [0, 1], {...clamp, easing: ALPHA_THEME.motion.easeIn});
   const thresholdWidth = interpolate(freeze, [0, 1], [0, 820], {...clamp, easing: ALPHA_THEME.motion.easeOut});
-  const markerY = interpolate(thinking, [0, 1], [500, 690], {...clamp, easing: ALPHA_THEME.motion.easeOut});
+  const resolvedLineWidth = interpolate(thinking, [0, 1], [thresholdWidth, 700], {...clamp, easing: ALPHA_THEME.motion.easeInOut});
+  const resolvedLineTop = interpolate(thinking, [0, 1], [650, 880], {...clamp, easing: ALPHA_THEME.motion.easeInOut});
+  const resolvedLineLeft = interpolate(thinking, [0, 1], [70, 40], {...clamp, easing: ALPHA_THEME.motion.easeInOut});
   const camera = qaMode === 'semantic' ? thinking * 0.015 : thinking * 0.03;
   return <div data-v3-scene={scene.id} data-render-mode="custom" style={{position: 'absolute', left: 60, right: 60, top: 330, bottom: 270, opacity: enter * (1 - exit), transform: `scale(${1 + camera}) translateY(${(1 - enter) * 34 - exit * 26}px)`, transformOrigin: '50% 56%'}}>
     <div style={{position: 'absolute', left: 40, right: 40, top: 120, minHeight: 250, padding: '34px 38px', borderRadius: 34, border: `2px solid ${ALPHA_THEME.colors.cyan}66`, background: `linear-gradient(145deg, ${ALPHA_THEME.colors.surface}F2, ${ALPHA_THEME.colors.navy}E8)`, boxShadow: `0 24px 80px ${ALPHA_THEME.colors.cyan}18`, opacity: 1 - thinking * 0.55, transform: `translateY(${-freeze * 24}px) scale(${1 - freeze * 0.025})`}}>
       <DataLabel tone="cyan">ĐÁP ÁN ĐÃ CÓ</DataLabel><div style={{height: 28}}/><BodyText size={44}>AI hoàn thành phần trả lời rất nhanh.</BodyText>
     </div>
-    <div style={{position: 'absolute', left: 70, top: 500, width: thresholdWidth, height: 8, borderRadius: 99, background: `linear-gradient(90deg, ${ALPHA_THEME.colors.cyan}, ${ALPHA_THEME.colors.green})`, boxShadow: `0 0 34px ${ALPHA_THEME.colors.green}44`}}/>
-    <div style={{position: 'absolute', top: 428, left: 70, opacity: freeze, transform: `translateY(${(1 - freeze) * 24}px)`}}><DataLabel tone="green">NHƯNG BẠN CÓ ĐI TIẾP?</DataLabel></div>
-    <div style={{position: 'absolute', left: 470, top: markerY, width: 34, height: 34, borderRadius: 99, opacity: freeze, background: ALPHA_THEME.colors.green, boxShadow: `0 0 32px ${ALPHA_THEME.colors.green}`, transform: `translate(-50%, -50%) scale(${0.82 + thinking * 0.18})`}}/>
-    <div style={{position: 'absolute', left: 40, right: 30, top: 650, opacity: thinking, transform: `translateY(${(1 - thinking) * 110}px) scale(${0.94 + thinking * 0.06})`}}>
+    <div style={{position: 'absolute', left: resolvedLineLeft, top: resolvedLineTop, width: resolvedLineWidth, height: 8, borderRadius: 99, background: `linear-gradient(90deg, ${ALPHA_THEME.colors.cyan}, ${ALPHA_THEME.colors.green})`, boxShadow: `0 0 34px ${ALPHA_THEME.colors.green}44`}}/>
+    <div style={{position: 'absolute', top: 548, left: 70, opacity: freeze * (1 - thinking * 0.7), transform: `translateY(${(1 - freeze) * 24 - thinking * 24}px)`}}><DataLabel tone="green">NHƯNG BẠN CÓ ĐI TIẾP?</DataLabel></div>
+    <div style={{position: 'absolute', left: 40, right: 30, top: 590, opacity: thinking, transform: `translateY(${(1 - thinking) * 260}px) scale(${0.94 + thinking * 0.06})`}}>
       <BodyText size={40} muted>HỌC THẬT SỰ BẮT ĐẦU</BodyText><div style={{height: 20}}/><HeroText size={84} gradient="intelligence" focus>KHI BẠN<br/>VẪN SUY NGHĨ</HeroText>
     </div>
   </div>;

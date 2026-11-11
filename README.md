@@ -4,7 +4,7 @@ Skill tiếng Việt để sản xuất video ngắn cho **Cộng đồng Alpha 
 
 Repository này tổng hợp độc lập hệ thống nhận diện, kinh nghiệm timing và các lỗi motion đã được kiểm chứng trong quá trình sản xuất. Không chứa voice, bài viết hay tài sản riêng tư; không sao chép nguyên văn skill bên thứ ba.
 
-Từ v3.0, skill không chọn template làm điểm xuất phát. Mỗi scene phải khám phá ba luận đề thị giác độc lập, chấm điểm semantic clarity trước khi xem reference, rồi mới biên dịch thành motion graph hoặc custom TSX. Kinh nghiệm sản xuất vẫn được truy xuất chọn lọc qua lesson ID; không đọc lại toàn bộ lịch sử chat.
+Từ v3.1, skill không chọn template làm điểm xuất phát. Mỗi scene khám phá ba luận đề thị giác, được biên dịch thành motion graph/custom TSX, rồi đi qua vòng frame audit và AI visual review. Kinh nghiệm sản xuất vẫn được truy xuất chọn lọc qua lesson ID; không đọc lại toàn bộ lịch sử chat.
 
 ## Điểm cốt lõi
 
@@ -20,6 +20,7 @@ Từ v3.0, skill không chọn template làm điểm xuất phát. Mỗi scene p
 - Motion graph là đường mặc định; custom TSX là escape hatch có manifest; chín recipe v2 chỉ còn dùng cho migration/fallback có lý do.
 - Có motion/media primitives tự chứa: entrance/exit, Ken Burns, counter, spark, parallax, motion trail, footage và captions.
 - Knowledge pack truy vết `lỗi → nguyên nhân → quy tắc → enforcement → cách sửa`, kèm privacy scan và visual-review gate trung thực.
+- Máy audit mọi frame; agent xem contact sheet/anomaly và tự sửa tối đa năm vòng. Mỗi scene phải đạt tối thiểu 8/10.
 
 ## Cài skill
 
@@ -101,10 +102,12 @@ Render candidate và semantic-only QA:
 cd assets/remotion-starter
 npm run render:v3:candidate
 npm run render:v3:semantic
+npm run review:v3:pack
 cd ../..
 node scripts/audit-motion-density.mjs outputs/alpha-video-v3-semantic.mp4 --storyboard assets/remotion-starter/src/video-plan.v3.json
 node scripts/build-qa-pack.mjs outputs/alpha-video-v3-candidate.mp4 assets/remotion-starter/src/cue-sheet.lock.json --out outputs/qa
 node scripts/check-qa-report.mjs outputs/qa/report.json
+node scripts/check-visual-review.mjs outputs/visual-review/latest/report.json --video outputs/alpha-video-v3-candidate.mp4 --plan assets/remotion-starter/src/video-plan.v3.json --pack-index outputs/visual-review/latest/index.json
 ```
 
 `report.json` phải được người duyệt xác nhận cho từng cue và playback 1×/0,5×. Sau đó chạy `npm run render:master`; finalizer sẽ chạy lại toàn bộ gate trước khi tạo master.
