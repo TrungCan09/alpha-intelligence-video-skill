@@ -54,12 +54,13 @@ jobs:
           node scripts/test-v3-pipeline.mjs .
           node scripts/test-visual-review.mjs .
           node scripts/test-production-reference.mjs .
-          node scripts/check-production-release.mjs .
       - name: Kiểm tra SFX generator
         run: node scripts/generate-sfx.mjs --out outputs/test-sfx
       - name: Cài starter
         working-directory: assets/remotion-starter
         run: npm ci
+      - name: Kiểm tra release production reference
+        run: node scripts/check-production-release.mjs .
       - name: Kiểm tra installer font ngoài
         run: |
           node scripts/install-brand-font.mjs --file assets/remotion-starter/node_modules/@fontsource/montserrat/files/montserrat-vietnamese-800-normal.woff2 --project outputs/font-test-project
