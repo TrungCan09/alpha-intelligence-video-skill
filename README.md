@@ -2,14 +2,14 @@
 
 Skill tiếng Việt để sản xuất video ngắn cho **Cộng đồng Alpha Intelligence** bằng pipeline tái lập: bài viết → script → voice → Faster Whisper → cue lock → ba concept/scene → motion graph hoặc custom TSX → semantic QA → master.
 
-Repository này tổng hợp độc lập hệ thống nhận diện, kinh nghiệm timing và các lỗi motion đã được kiểm chứng trong quá trình sản xuất. Production references v3.2 chỉ được thêm khi chủ sở hữu xác nhận quyền công khai; các tài sản riêng tư khác vẫn bị loại khỏi Git.
+Repository này tổng hợp độc lập hệ thống nhận diện, kinh nghiệm timing và các lỗi motion đã được kiểm chứng trong quá trình sản xuất. Production references v3.2 chỉ được thêm khi chủ sở hữu xác nhận quyền công khai; các tài sản riêng tư khác vẫn bị loại khỏi Git. Từ v3.3, production bắt buộc khóa script đã duyệt cùng voice final trước khi dựng.
 
 Từ v3.2, skill vẫn tạo ba luận đề thị giác trước, sau đó mới truy xuất micro-reference từ ba video production đã duyệt. Reference cung cấp kỹ thuật và quality bar, không thay visual thesis hoặc thưởng điểm cho độ giống.
 
 ## Điểm cốt lõi
 
-- Voice và nội dung đã duyệt là nguồn sự thật.
-- Khi chưa có script, tạo hai bản voice-over ElevenLabs dưới 2 phút: kể chuyện và siêu cô đọng.
+- Script đã duyệt là nguồn chữ; voice final là nguồn thời gian.
+- Khi chưa có script, skill chỉ có thể đề xuất hai bản voice-over ElevenLabs dưới 2 phút: kể chuyện và siêu cô đọng. Người dùng phải duyệt một bản thành `approved-script` trước production.
 - Audio là nguồn timing duy nhất. Faster Whisper `small` trở lên là gate bắt buộc khi đã có voice.
 - `video-plan.v3.json` không chứa timestamp; composition, storyboard và QA dùng chung `cue-sheet.lock.json`.
 - Storyboard dùng semantic beats; ambient motion không được tính thay cho diễn tiến nội dung.
@@ -81,7 +81,7 @@ node scripts/check-reference-novelty.mjs video-plan.v3.json --concepts concept-c
 
 Không có master thật thì dừng bước ingest; không dùng preview hoặc reference tổng hợp thay thế.
 
-Trước khi tạo tag v3.2.0, chạy `node scripts/check-production-release.mjs .`. Gate này cố ý thất bại nếu thiếu một trong ba MP4, transcript, shot index, manifest, contact sheet hoặc library hợp lệ.
+Trước khi tạo tag v3.3.0, chạy `node scripts/check-production-release.mjs .`. Gate này cố ý thất bại nếu thiếu một trong ba MP4, transcript, shot index, manifest, contact sheet hoặc library hợp lệ.
 
 Nếu có quyền sử dụng Cy Grotesk V3 Wide, cài file `.woff2` cục bộ:
 
@@ -98,22 +98,26 @@ Composition `AlphaPrimitivesDemo` kiểm tra các pattern bổ sung:
 npm run render:primitives-preview
 ```
 
-## Pipeline v3
+## Pipeline production v3.3 — script-locked voice alignment
 
 ```bash
 python -m pip install -r requirements-asr.txt
-python scripts/transcribe-audio.py "voice.mp3" --model small --language vi --out transcript.lock.json
-# nghe lại, sửa chính tả nhưng không sửa timestamp
-node scripts/lock-reviewed-transcript.mjs transcript.lock.json --confirm-reviewed
+node scripts/check-input-contract.mjs --script approved-script.md --audio final-voice.mp3
+node scripts/lock-approved-script.mjs approved-script.md --out script.lock.json
+python scripts/transcribe-audio.py "final-voice.mp3" --model small --language vi --out asr-transcript.lock.json
+node scripts/align-script-to-audio.mjs --script script.lock.json --asr asr-transcript.lock.json --out script-audio-alignment.lock.json
+# rà mapping; ASR không được sửa thành script
+node scripts/lock-reviewed-alignment.mjs script-audio-alignment.lock.json --confirm-reviewed
 node scripts/check-concept-exploration.mjs concept-candidates.json
 node scripts/check-reference-order.mjs concept-candidates.json video-plan.v3.json
-node scripts/build-cue-lock.mjs transcript.lock.json video-plan.v3.json --out cue-sheet.lock.json
-node scripts/check-cue-lock.mjs transcript.lock.json cue-sheet.lock.json --audio voice.mp3
+node scripts/build-cue-lock.mjs --script script.lock.json --alignment script-audio-alignment.lock.json --plan video-plan.v3.json --out cue-sheet.lock.json
+node scripts/check-script-audio-alignment.mjs script.lock.json asr-transcript.lock.json script-audio-alignment.lock.json --audio final-voice.mp3
+node scripts/check-cue-lock.mjs --cue-lock cue-sheet.lock.json --script script.lock.json --asr asr-transcript.lock.json --alignment script-audio-alignment.lock.json --audio final-voice.mp3
 node scripts/check-timeline-binding.mjs assets/remotion-starter
 node scripts/check-v3-plan.mjs video-plan.v3.json concept-candidates.json cue-sheet.lock.json
 ```
 
-Nếu ASR/model không chạy, pipeline dừng trước storyboard. Không có fallback chia cue theo số chữ hoặc khoảng lặng.
+Script là nguồn chữ duy nhất; Faster-Whisper chỉ xác định timing. Nếu ASR/model không chạy, thiếu script/voice, script–voice lệch nghĩa hoặc mapping không được review, pipeline dừng trước storyboard. Không có fallback chia cue theo số chữ hoặc khoảng lặng.
 
 Render candidate và semantic-only QA:
 

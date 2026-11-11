@@ -2,7 +2,7 @@
 
 ## Nguồn sự thật
 
-Thứ tự ưu tiên: yêu cầu người dùng → script đã chốt → voice đã chốt → bài viết nguồn → storyboard. Không tự viết lại script hoặc đảo thứ tự voice khi đã khóa.
+Script đã chốt là nguồn sự thật duy nhất của lời thoại và `spokenText`; voice đã chốt là nguồn sự thật duy nhất của timing. Faster-Whisper chỉ nhận dạng để căn vị trí của script vào audio, không được thay script.
 
 ## Viết script
 
@@ -12,25 +12,27 @@ Thứ tự ưu tiên: yêu cầu người dùng → script đã chốt → voice
 - On-screen text là bản cô đọng, không chép toàn bộ voice.
 - Kết thúc bằng hành động hoặc câu hỏi mở sang bài sau; không suy đoán số bài.
 
-## Đo voice và khóa transcript
+## Script-locked voice alignment
 
-1. Chạy Faster Whisper `small` trở lên với word timestamps và VAD.
-2. Đo duration/audio hash từ file thật; không dựa vào tên file hoặc script.
-3. Nghe lại và sửa chính tả transcript, nhưng không tự sửa timestamp.
-4. Silence detection chỉ dùng chẩn đoán; không được thay ASR hoặc chia cue theo khoảng lặng.
+1. Người dùng cung cấp `approved-script.md|txt` và `final-voice.mp3|wav`; mỗi paragraph script là một đơn vị lời đọc.
+2. Khóa script rồi chạy Faster Whisper `small` trở lên với word timestamps và VAD. CPU dùng int8, CUDA dùng float16.
+3. Giữ raw ASR transcript nguyên trạng. Map script sang word timestamp bằng `align-script-to-audio.mjs`; `spokenText` luôn lấy từ script.
+4. Chỉ khác biệt phát âm trong pronunciation dictionary được tự chấp nhận. Thiếu/thừa câu, khác nghĩa hoặc không map được phải chặn để review; manual override chỉ tham chiếu một khoảng word ASR liên tiếp, có reviewer và lý do.
+5. Không nhập timestamp tự do, không sửa ASR timestamp, không dùng silence detection để thay alignment.
 
 ## Voice-grounding gate
 
 - Không suy lời thoại hoặc cue của đoạn tiếp theo từ frame, caption cũ, tên scene hay chủ đề chung.
-- Khi có voice nhưng chưa có transcript đã duyệt, phải tạo transcript từ chính audio, rà lại lỗi ASR theo ngữ cảnh, rồi mới lập storyboard.
-- Storyboard có voice khai báo `hasVoice: true`, `voiceGrounding.verified: true`, `voiceGrounding.visualInference: false`; mỗi beat phải lưu `spokenText` tương ứng.
+- Khi có voice nhưng thiếu script lock hoặc alignment lock đã review, phải dừng trước storyboard.
+- Storyboard production có `timingSource: "script-audio-alignment"`; mỗi beat dùng `scriptSegmentIds`, không dùng `segmentIds` ASR.
 - Nếu chưa xác minh được lời nói, dừng ở cue draft; không tự tạo motion chỉ vì hình ảnh có vẻ phù hợp chủ đề.
 
 ## Video plan và semantic beats
 
 ```json
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
+  "timingSource": "script-audio-alignment",
   "scenes": [
     {
       "id": "hook",
@@ -43,7 +45,7 @@ Thứ tự ưu tiên: yêu cầu người dùng → script đã chốt → voice
         {
           "id": "problem-lock",
           "cueId": "problem-lock",
-          "segmentIds": ["seg-001"],
+          "scriptSegmentIds": ["script-001"],
           "action": "lock",
           "target": "problem-card",
           "onScreenText": "Ý cô đọng",
@@ -55,7 +57,7 @@ Thứ tự ưu tiên: yêu cầu người dùng → script đã chốt → voice
 }
 ```
 
-Video plan tuyệt đối không chứa timestamp số. `build-cue-lock.mjs` lấy `start`, `end`, `visualHit` và `readableBy` từ segment ASR. Particle, grain, mesh drift và breathing trang trí không được khai báo như beat.
+Video plan tuyệt đối không chứa timestamp số. `build-cue-lock.mjs` lấy `start`, `end`, `visualHit` và `readableBy` từ mapping script–ASR đã khóa. Particle, grain, mesh drift và breathing trang trí không được khai báo như beat.
 
 ## Quy tắc đồng bộ
 

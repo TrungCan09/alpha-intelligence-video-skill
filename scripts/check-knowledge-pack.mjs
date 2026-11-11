@@ -16,7 +16,7 @@ const exists = async (path) => { try { await access(resolve(root, path)); return
 
 const data = JSON.parse(await readFile(knowledgePath, 'utf8'));
 if (data.schemaVersion !== 1) errors.push('knowledge/lessons.json phải dùng schemaVersion 1.');
-if (data.skillVersion !== '3.2.0') errors.push('Knowledge pack phải khai skillVersion 3.2.0.');
+if (data.skillVersion !== '3.3.0') errors.push('Knowledge pack phải khai skillVersion 3.3.0.');
 
 const vocabulary = JSON.parse(await readFile(resolve(root, 'knowledge/motion-vocabulary.json'), 'utf8'));
 if (vocabulary.schemaVersion !== 1 || !Array.isArray(vocabulary.groups) || vocabulary.groups.length < 8) errors.push('Motion vocabulary v3 phải có ít nhất 8 nhóm hợp lệ.');

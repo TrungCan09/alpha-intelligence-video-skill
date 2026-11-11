@@ -56,11 +56,11 @@ def sha256_file(path: Path) -> str:
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Transcribe audio with Faster Whisper and write transcript.lock.json")
+    parser = argparse.ArgumentParser(description="Transcribe audio with Faster Whisper and write a raw ASR timing lock")
     parser.add_argument("audio", type=Path)
     parser.add_argument("--model", default="small", choices=ALLOWED_MODELS)
     parser.add_argument("--language", default="vi")
-    parser.add_argument("--out", type=Path, default=Path("transcript.lock.json"))
+    parser.add_argument("--out", type=Path, default=Path("asr-transcript.lock.json"))
     return parser.parse_args()
 
 
@@ -89,12 +89,13 @@ def main() -> int:
             word_timestamps=True,
         )
         segments = []
+        word_index = 0
         for index, segment in enumerate(segment_iter):
             words = [
-                {"start": round(float(word.start), 3), "end": round(float(word.end), 3), "text": word.word.strip()}
-                for word in (segment.words or [])
-                if word.start is not None and word.end is not None and word.word.strip()
+                {"id": f"word-{word_index + item_index + 1:05d}", "start": round(float(word.start), 3), "end": round(float(word.end), 3), "text": word.word.strip()}
+                for item_index, word in enumerate(word for word in (segment.words or []) if word.start is not None and word.end is not None and word.word.strip())
             ]
+            word_index += len(words)
             text = segment.text.strip()
             if text:
                 segments.append({
@@ -113,7 +114,8 @@ def main() -> int:
         return 2
 
     payload = {
-        "schemaVersion": 2,
+        "schemaVersion": 3,
+        "kind": "raw-asr-transcript",
         "sourceAudio": {"fileName": args.audio.name, "sha256": sha256_file(args.audio)},
         "durationSeconds": round(float(info.duration), 3),
         "engine": {

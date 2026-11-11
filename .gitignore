@@ -10,5 +10,11 @@ assets/remotion-starter/public/private/
 tests/private/
 private/chat-research/
 *.local.lock.json
+*.script.lock.json
+*.asr-transcript.lock.json
+*.script-audio-alignment.lock.json
+alignment-overrides*.json
+approved-script.*
+final-voice.*
 __pycache__/
 *.pyc

@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "language": "vi",
+  "equivalences": [
+    {"canonical": "ai", "forms": ["ai", "ây ai", "ay ai", "a i"]},
+    {"canonical": "token", "forms": ["token", "tô kần", "to ken"]},
+    {"canonical": "checklist", "forms": ["checklist", "chếch lít", "check list"]}
+  ]
+}

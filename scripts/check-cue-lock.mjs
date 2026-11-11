@@ -1,17 +1,33 @@
 #!/usr/bin/env node
 import {existsSync} from 'node:fs';
 import {resolve} from 'node:path';
-import {cueHash, normalizeText, readJson, sha256File, transcriptHash} from './lib/lock-utils.mjs';
+import {alignmentHash, cueHash, normalizeText, readJson, scriptHash, sha256File, transcriptHash} from './lib/lock-utils.mjs';
 
 const args = process.argv.slice(2);
-const transcriptArg = args[0]; const cueArg = args[1];
 const value = (flag) => { const index = args.indexOf(flag); return index >= 0 ? args[index + 1] : undefined; };
-if (!transcriptArg || !cueArg) {
-  console.error('Dùng: node scripts/check-cue-lock.mjs transcript.lock.json cue-sheet.lock.json [--audio voice.mp3]');
+const transcriptArg = value('--transcript') ?? args[0]; const cueArg = value('--cue-lock') ?? args[1];
+if (!cueArg) {
+  console.error('Dùng legacy: node scripts/check-cue-lock.mjs transcript.lock.json cue-sheet.lock.json; v3: node scripts/check-cue-lock.mjs --cue-lock cue-sheet.lock.json --script script.lock.json --asr asr-transcript.lock.json --alignment alignment.lock.json');
   process.exit(2);
 }
-const transcript = await readJson(resolve(transcriptArg));
 const lock = await readJson(resolve(cueArg));
+if (lock.schemaVersion === 3) {
+  const scriptArg=value('--script'); const alignmentArg=value('--alignment'); const asrArg=value('--asr');
+  if (!scriptArg || !alignmentArg || !asrArg) { console.error('Cue lock v3 bắt buộc --script script.lock.json --asr asr-transcript.lock.json --alignment script-audio-alignment.lock.json.'); process.exit(2); }
+  const script=await readJson(resolve(scriptArg)); const asr=await readJson(resolve(asrArg)); const alignment=await readJson(resolve(alignmentArg)); const errors=[];
+  if (script.kind!=='approved-script'||script.scriptSha256!==scriptHash(script)) errors.push('Script lock không hợp lệ.');
+  if (asr.kind!=='raw-asr-transcript'||asr.schemaVersion!==3||asr.transcriptSha256!==transcriptHash(asr)) errors.push('ASR transcript không hợp lệ.');
+  if (alignment.kind!=='script-audio-alignment'||!alignment.reviewed||alignment.alignmentSha256!==alignmentHash(alignment)) errors.push('Alignment lock không hợp lệ.');
+  if (alignment.scriptSha256!==script.scriptSha256||alignment.asrTranscriptSha256!==asr.transcriptSha256||alignment.audioSha256!==asr.sourceAudio?.sha256) errors.push('Alignment không trỏ tới script/ASR/audio hiện tại.');
+  if (lock.scriptSha256!==script.scriptSha256||lock.alignmentSha256!==alignment.alignmentSha256||lock.transcriptSha256!==asr.transcriptSha256||lock.audioSha256!==asr.sourceAudio?.sha256) errors.push('Cue lock v3 không trỏ tới source locks hiện tại.');
+  if (lock.cueSheetSha256!==cueHash(lock)) errors.push('cueSheetSha256 không khớp.');
+  const mappings=new Map((alignment.mappings??[]).map((item)=>[item.scriptSegmentId,item])); const scripts=new Map((script.segments??[]).map((item)=>[item.id,item])); let previous=-Infinity;
+  for(const cue of lock.cues??[]){ const ids=cue.scriptSegmentIds??[]; const selected=ids.map((id)=>({script:scripts.get(id),mapping:mappings.get(id)})); if(!selected.length||selected.some((item)=>!item.script||!item.mapping)){errors.push(`${cue.id}: scriptSegmentIds không hợp lệ.`);continue;} const start=Math.min(...selected.map((item)=>item.mapping.start)); const end=Math.max(...selected.map((item)=>item.mapping.end)); const spoken=selected.map((item)=>item.script.text).join(' '); if(Math.abs(cue.start-start)>0.001||Math.abs(cue.end-end)>0.001)errors.push(`${cue.id}: thời gian không suy ra từ alignment.`); if(normalizeText(cue.spokenText)!==normalizeText(spoken))errors.push(`${cue.id}: spokenText không khớp approved script.`); if(cue.visualHit<start-0.001||cue.visualHit-start>0.201||cue.readableBy<start-0.001||cue.readableBy-start>0.201)errors.push(`${cue.id}: visual timing vượt 0,2s.`); if(cue.start<previous)errors.push(`${cue.id}: cue không theo thứ tự.`);previous=cue.start; }
+  const audioArg=value('--audio'); if(audioArg&&await sha256File(resolve(audioArg))!==lock.audioSha256)errors.push('Final voice không khớp cue lock.');
+  if(errors.length){errors.forEach((error)=>console.error(`FAIL ${error}`));process.exit(1);} console.log(`PASS Cue lock v3 hợp lệ: ${(lock.cues??[]).length} cue từ approved script.`);process.exit(0);
+}
+if (!transcriptArg) { console.error('Legacy cue lock bắt buộc transcript.lock.json.'); process.exit(2); }
+const transcript = await readJson(resolve(transcriptArg));
 const errors = [];
 if (transcript.schemaVersion !== 2 || lock.schemaVersion !== 2) errors.push('Transcript và cue lock phải dùng schemaVersion 2.');
 if (!transcript.reviewed) errors.push('Transcript chưa được rà soát.');

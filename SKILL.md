@@ -5,7 +5,7 @@ description: "Tạo, chỉnh sửa và tự kiểm định video ngắn cho Cộ
 
 # Alpha Intelligence Video Skill
 
-Voice và nội dung đã duyệt là nguồn sự thật. Không dùng lịch sử chat làm dependency ẩn.
+Script đã duyệt là nguồn chữ; voice final là nguồn thời gian. Không dùng lịch sử chat làm dependency ẩn.
 
 ## Định tuyến bắt buộc v3
 
@@ -29,21 +29,23 @@ Không đọc toàn bộ lịch sử chat hoặc toàn bộ knowledge pack. Ch�
 
 ## Pipeline production bắt buộc
 
-1. Chạy `transcribe-audio.py` bằng Faster Whisper `small` trở lên. Nếu ASR/model không hoạt động, **dừng trước storyboard**; không ước lượng cue bằng số chữ hoặc khoảng lặng.
-2. Rà chính tả transcript nhưng không sửa timestamp; chạy `lock-reviewed-transcript.mjs --confirm-reviewed` để đặt `reviewed: true` và tính lại hash.
-3. Tạo đúng ba concept cho mỗi scene: direct, metaphorical, typography. Chạy concept gate trước khi xem reference.
-4. Khóa concept draft, hash file, rồi mới truy xuất tối đa ba micro-reference/scene và ghi `reference-review.lock.json`; không xem reference trước ideation.
-5. Dựng bằng motion graph hoặc custom TSX có manifest. Legacy recipe chỉ dùng migration/fallback có lý do.
-6. Chạy `build-cue-lock.mjs`; transcript, plan, composition và QA dùng cùng `cue-sheet.lock.json`.
-7. Render candidate và `qaMode="semantic"`; chạy toàn bộ v3 gates và motion-density.
-8. Tạo QA pack và visual-review pack từ MP4; máy audit toàn bộ frame, agent xem contact sheet/anomaly rồi chấm từng scene.
-9. Sửa và rerender cho tới khi mọi scene cùng semantic/sync/readability đạt tối thiểu 8/10; tối đa năm vòng, không đạt thì chặn bàn giao.
-10. Khi dùng production reference, chạy reference-order, reference-novelty và reference-aware visual review; chỉ `finalize-master.mjs` mới được tạo master sau khi mọi lock/report cùng khớp hash.
+1. Production bắt buộc nhận `approved-script.md|txt` và `final-voice.mp3|wav`; chạy `check-input-contract.mjs` trước mọi storyboard.
+2. Khóa script bằng `lock-approved-script.mjs`. Chạy `transcribe-audio.py` bằng Faster Whisper `small` trở lên chỉ để lấy ASR word timestamp; raw ASR không được thay script.
+3. Chạy `align-script-to-audio.mjs`, rà mapping và `lock-reviewed-alignment.mjs --confirm-reviewed`. Nếu câu thiếu/thừa/đổi nghĩa, **dừng trước storyboard**; không tự đổi script hoặc đoán timestamp.
+4. Tạo đúng ba concept cho mỗi scene: direct, metaphorical, typography. Chạy concept gate trước khi xem reference.
+5. Khóa concept draft, hash file, rồi mới truy xuất tối đa ba micro-reference/scene và ghi `reference-review.lock.json`; không xem reference trước ideation.
+6. Dựng bằng motion graph hoặc custom TSX có manifest. Legacy recipe chỉ dùng migration/fallback có lý do.
+7. Chạy `build-cue-lock.mjs` từ script lock + alignment lock; plan production chỉ dùng `scriptSegmentIds` và mọi cue/QA dùng cùng `cue-sheet.lock.json`.
+8. Render candidate và `qaMode="semantic"`; chạy toàn bộ v3 gates và motion-density.
+9. Tạo QA pack và visual-review pack từ MP4; máy audit toàn bộ frame, agent xem contact sheet/anomaly rồi chấm từng scene.
+10. Sửa và rerender cho tới khi mọi scene cùng semantic/sync/readability đạt tối thiểu 8/10; tối đa năm vòng, không đạt thì chặn bàn giao.
+11. Khi dùng production reference, chạy reference-order, reference-novelty và reference-aware visual review; chỉ `finalize-master.mjs` mới được tạo master sau khi mọi lock/report cùng khớp hash.
 
 ## Điều kiện dừng
 
-- Không có ASR hoặc transcript chưa review.
-- Audio/transcript hash làm cue lock mất hiệu lực.
+- Không có script đã khóa, final voice, raw ASR, alignment đã review hoặc hash không khớp.
+- Production plan dùng ASR transcript/`segmentIds` làm nguồn chữ thay vì `scriptSegmentIds`.
+- Script, voice, raw-ASR hoặc alignment hash thay đổi làm cue lock mất hiệu lực.
 - Segment chưa map cue hoặc `voiceOnly` không có lý do.
 - Scene dài trên 4 giây thiếu state change, lặp recipe/layout hoặc graphic không giải thích được ý.
 - Chưa có ba concept, reference được xem trước draft lock hoặc concept được chọn có semantic clarity dưới 4/5.

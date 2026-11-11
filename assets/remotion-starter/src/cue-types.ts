@@ -6,6 +6,7 @@ export type Cue = {
   sceneId: string;
   beatId: string;
   segmentIds: string[];
+  scriptSegmentIds?: string[];
   start: number;
   end: number;
   visualHit: number;
@@ -18,10 +19,12 @@ export type Cue = {
 };
 
 export type CueSheetLock = {
-  schemaVersion: 2;
+  schemaVersion: 2 | 3;
   fps: number;
   audioSha256: string;
   transcriptSha256: string;
+  scriptSha256?: string;
+  alignmentSha256?: string;
   durationSeconds: number;
   maxCueLagSeconds: number;
   maxCumulativeDriftSeconds: number;
@@ -30,7 +33,7 @@ export type CueSheetLock = {
   cueSheetSha256: string;
 };
 
-export type SceneBeat = {id: string; cueId: string; segmentIds: string[]; action: string; target: string; onScreenText?: string; visualMeaning: string};
+export type SceneBeat = {id: string; cueId: string; segmentIds?: string[]; scriptSegmentIds?: string[]; action: string; target: string; onScreenText?: string; visualMeaning: string};
 export type SceneSpec = {id: string; recipe: SceneRecipe; startCueId: string; endCueId: string; motionConcept: string; layoutFamily: string; holdReason?: string; beats: SceneBeat[]};
 export type VideoPlan = {schemaVersion: 2; fps: number; scenes: SceneSpec[]; voiceOnlySegments: Array<{segmentId: string; reason: string}>};
 

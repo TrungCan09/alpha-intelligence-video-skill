@@ -19,6 +19,24 @@ export const transcriptPayload = (transcript) => {
 
 export const transcriptHash = (transcript) => sha256Value(transcriptPayload(transcript));
 
+export const scriptPayload = (script) => {
+  const clone = structuredClone(script);
+  delete clone.scriptSha256;
+  return clone;
+};
+
+export const scriptHash = (script) => sha256Value(scriptPayload(script));
+
+export const alignmentPayload = (alignment) => {
+  const clone = structuredClone(alignment);
+  delete clone.alignmentSha256;
+  return clone;
+};
+
+export const alignmentHash = (alignment) => sha256Value(alignmentPayload(alignment));
+
+export const tokenise = (value = '') => normalizeText(value).split(' ').filter(Boolean);
+
 export const cuePayload = (cueLock) => {
   const clone = structuredClone(cueLock);
   delete clone.cueSheetSha256;
