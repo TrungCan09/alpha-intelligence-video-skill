@@ -8,6 +8,7 @@ if (!planArg || !conceptsArg || !cueArg) { console.error('Dùng: node scripts/ch
 const plan = await readJson(resolve(planArg)); const concepts = await readJson(resolve(conceptsArg)); const cueLock = await readJson(resolve(cueArg)); const cueIds = new Set((cueLock.cues ?? []).map((cue) => cue.id)); const errors = [];
 if (plan.schemaVersion !== 3) errors.push('Video plan phải dùng schemaVersion 3.');
 const productionTiming = plan.timingSource === 'script-audio-alignment';
+if (productionTiming && plan.sourceReferenceMode !== 'production-source-library') errors.push('Production v3.4 bắt buộc sourceReferenceMode=production-source-library.');
 for (const scene of plan.scenes ?? []) {
   if (!RENDER_MODES.includes(scene.renderMode)) errors.push(`${scene.id}: renderMode không hợp lệ.`);
   if (!findConcept(concepts, scene.id, scene.conceptId)) errors.push(`${scene.id}: conceptId không tồn tại trong exploration file.`);

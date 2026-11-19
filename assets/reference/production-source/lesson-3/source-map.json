@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "lessonId": "lesson-3",
+  "title": "Vì sao AI tự tin nhưng vẫn có thể sai?",
+  "composition": "composition.tsx",
+  "files": [
+    {"path": "composition.tsx", "role": "orchestrator + voice and sparse SFX mapping"},
+    {"path": "scenes.tsx", "role": "nine verification and risk scenes"},
+    {"path": "timeline.ts", "role": "legacy measured cue example; never copy timestamps"}
+  ],
+  "sourceUnits": [
+    {"id": "lesson-3/book-contradiction", "files": ["scenes.tsx"], "semanticFunctions": ["concrete hook", "claim contradicted"], "techniques": ["details accumulate into a plausible dossier", "the contradiction arrives as a clear state change"], "avoid": ["Do not use vague particles or a generic question mark to signify an answer."]},
+    {"id": "lesson-3/hallucination-label", "files": ["scenes.tsx"], "semanticFunctions": ["term definition", "risk reveal"], "techniques": ["term arrives exactly at its spoken cue", "prior claim stays available as context"], "avoid": ["Do not delay the named concept after voice has introduced it."]},
+    {"id": "lesson-3/risk-grid", "files": ["scenes.tsx"], "semanticFunctions": ["four-condition taxonomy", "parallel list"], "techniques": ["all condition cards establish together", "voice focus moves across the already-legible grid"], "avoid": ["Do not reveal equivalent list items as unrelated slides."]},
+    {"id": "lesson-3/verification-checklist", "files": ["scenes.tsx"], "semanticFunctions": ["actionable checklist", "verification"], "techniques": ["questions accumulate in one stage", "each question gets one restrained emphasis"], "avoid": ["Do not spam checkmark, pulse, or SFX per line."]}
+  ],
+  "doNotCopy": ["Cue seconds and SFX positions are historical evidence only.", "Do not reproduce the fictional book text, risk copy, or exact card geometry.", "Do not import user voice paths or on-screen copy into a new production."],
+  "qualityNotes": ["A confidence-versus-trust contrast needs typography with enough space for Vietnamese diacritics.", "Every connector or marker must have an explicit relation."]
+}

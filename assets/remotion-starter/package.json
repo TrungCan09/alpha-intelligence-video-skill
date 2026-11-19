@@ -1,6 +1,6 @@
 {
   "name": "alpha-intelligence-remotion-starter",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "private": true,
   "scripts": {
     "typecheck": "tsc --noEmit",
@@ -20,7 +20,7 @@
     "render:v32:demo": "remotion render src/index.ts AlphaV32ReferenceDemo ../../outputs/alpha-v32-reference-demo.mp4 --codec=h264 --audio-codec=aac --crf=16 --concurrency=1 --disable-shared-memory-capture --gop=30 --overwrite",
     "render:v32:demo:semantic": "remotion render src/index.ts AlphaV32ReferenceDemoSemantic ../../outputs/alpha-v32-reference-demo-semantic.mp4 --codec=h264 --audio-codec=aac --crf=20 --scale=0.5 --concurrency=1 --disable-shared-memory-capture --gop=30 --overwrite",
     "review:v3:pack": "node ../../scripts/build-visual-review-pack.mjs ../../outputs/alpha-video-v3-candidate.mp4 --cue-lock src/cue-sheet.lock.json --plan src/video-plan.v3.json --out ../../outputs/visual-review/iteration-1",
-    "render:master": "node ../../scripts/finalize-master.mjs --candidate ../../outputs/alpha-video-v3-candidate.mp4 --script-lock ../../private/script.lock.json --asr-lock ../../private/asr-transcript.lock.json --alignment-lock ../../private/script-audio-alignment.lock.json --voice ../../private/final-voice.mp3 --cue-lock ../../private/cue-sheet.lock.json --plan src/video-plan.v3.json --concepts src/concept-candidates.json --project . --report ../../outputs/qa/report.json --visual-review ../../outputs/visual-review/latest/report.json --visual-pack ../../outputs/visual-review/latest/index.json --out ../../outputs/alpha-video-v3-master.mp4"
+    "render:master": "node ../../scripts/finalize-master.mjs --candidate ../../outputs/alpha-video-v3-candidate.mp4 --script-lock ../../private/script.lock.json --asr-lock ../../private/asr-transcript.lock.json --alignment-lock ../../private/script-audio-alignment.lock.json --voice ../../private/final-voice.mp3 --cue-lock ../../private/cue-sheet.lock.json --plan src/video-plan.v3.json --concepts src/concept-candidates.json --source-review ../../private/production-source-review.lock.json --source-library ../../knowledge/production-source-library.json --project . --report ../../outputs/qa/report.json --visual-review ../../outputs/visual-review/latest/report.json --visual-pack ../../outputs/visual-review/latest/index.json --out ../../outputs/alpha-video-v3-master.mp4"
   },
   "dependencies": {
     "@fontsource/montserrat": "5.2.8",

@@ -2,7 +2,7 @@
 
 Skill tiếng Việt để sản xuất video ngắn cho **Cộng đồng Alpha Intelligence** bằng pipeline tái lập: bài viết → script → voice → Faster Whisper → cue lock → ba concept/scene → motion graph hoặc custom TSX → semantic QA → master.
 
-Repository này tổng hợp độc lập hệ thống nhận diện, kinh nghiệm timing và các lỗi motion đã được kiểm chứng trong quá trình sản xuất. Production references v3.2 chỉ được thêm khi chủ sở hữu xác nhận quyền công khai; các tài sản riêng tư khác vẫn bị loại khỏi Git. Từ v3.3, production bắt buộc khóa script đã duyệt cùng voice final trước khi dựng.
+Repository này tổng hợp độc lập hệ thống nhận diện, kinh nghiệm timing và các lỗi motion đã được kiểm chứng trong quá trình sản xuất. Production references v3.2 chỉ được thêm khi chủ sở hữu xác nhận quyền công khai; các tài sản riêng tư khác vẫn bị loại khỏi Git. Từ v3.4, production bắt buộc khóa script đã duyệt cùng voice final, sau đó dùng source reference library đã lọc trước khi dựng.
 
 Từ v3.2, skill vẫn tạo ba luận đề thị giác trước, sau đó mới truy xuất micro-reference từ ba video production đã duyệt. Reference cung cấp kỹ thuật và quality bar, không thay visual thesis hoặc thưởng điểm cho độ giống.
 
@@ -81,7 +81,18 @@ node scripts/check-reference-novelty.mjs video-plan.v3.json --concepts concept-c
 
 Không có master thật thì dừng bước ingest; không dùng preview hoặc reference tổng hợp thay thế.
 
-Trước khi tạo tag v3.3.0, chạy `node scripts/check-production-release.mjs .`. Gate này cố ý thất bại nếu thiếu một trong ba MP4, transcript, shot index, manifest, contact sheet hoặc library hợp lệ.
+Trước khi tạo tag v3.4.0, chạy `node scripts/check-production-release.mjs .`. Gate này cố ý thất bại nếu thiếu một trong ba MP4, transcript, shot index, manifest, contact sheet hoặc library hợp lệ.
+
+## Production source reference v3.4
+
+Ba master được tách thành source reference đã lọc ở `assets/reference/production-source/`: không có voice, SFX, render output, `node_modules` hay log. Source map mô tả kỹ thuật được học và phần không được copy.
+
+```bash
+node scripts/check-production-source-library.mjs knowledge/production-source-library.json
+node scripts/build-production-source-review-lock.mjs concept-candidates.json knowledge/production-source-library.json --out production-source-review.lock.json
+# Chỉ sau concept lock: điền sourceUnitIds, techniquesToLearn, elementsNotToCopy.
+node scripts/check-production-source-review.mjs production-source-review.lock.json --concepts concept-candidates.json --library knowledge/production-source-library.json
+```
 
 Nếu có quyền sử dụng Cy Grotesk V3 Wide, cài file `.woff2` cục bộ:
 
@@ -98,7 +109,7 @@ Composition `AlphaPrimitivesDemo` kiểm tra các pattern bổ sung:
 npm run render:primitives-preview
 ```
 
-## Pipeline production v3.3 — script-locked voice alignment
+## Pipeline production v3.4 — script-locked voice + source alignment
 
 ```bash
 python -m pip install -r requirements-asr.txt
@@ -110,6 +121,10 @@ node scripts/align-script-to-audio.mjs --script script.lock.json --asr asr-trans
 node scripts/lock-reviewed-alignment.mjs script-audio-alignment.lock.json --confirm-reviewed
 node scripts/check-concept-exploration.mjs concept-candidates.json
 node scripts/check-reference-order.mjs concept-candidates.json video-plan.v3.json
+node scripts/check-production-source-library.mjs knowledge/production-source-library.json
+node scripts/build-production-source-review-lock.mjs concept-candidates.json knowledge/production-source-library.json --out production-source-review.lock.json
+# điền source unit sau khi concept đã khóa
+node scripts/check-production-source-review.mjs production-source-review.lock.json --concepts concept-candidates.json --library knowledge/production-source-library.json
 node scripts/build-cue-lock.mjs --script script.lock.json --alignment script-audio-alignment.lock.json --plan video-plan.v3.json --out cue-sheet.lock.json
 node scripts/check-script-audio-alignment.mjs script.lock.json asr-transcript.lock.json script-audio-alignment.lock.json --audio final-voice.mp3
 node scripts/check-cue-lock.mjs --cue-lock cue-sheet.lock.json --script script.lock.json --asr asr-transcript.lock.json --alignment script-audio-alignment.lock.json --audio final-voice.mp3

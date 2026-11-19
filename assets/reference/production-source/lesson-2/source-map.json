@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "lessonId": "lesson-2",
+  "title": "AI tạo ra câu trả lời như thế nào?",
+  "composition": "composition.tsx",
+  "files": [
+    {"path": "composition.tsx", "role": "orchestrator + selective audio hits"},
+    {"path": "scenes.tsx", "role": "ten mechanism-explainer scenes"},
+    {"path": "timeline.ts", "role": "legacy measured cue example; never copy timestamps"}
+  ],
+  "sourceUnits": [
+    {"id": "lesson-2/mechanism-reveal", "files": ["scenes.tsx"], "semanticFunctions": ["illusion to mechanism", "explanation reveal"], "techniques": ["surface response separates to reveal a causal layer", "no full-screen flash"], "avoid": ["Do not use a reveal merely as decoration."]},
+    {"id": "lesson-2/token-process", "files": ["scenes.tsx"], "semanticFunctions": ["sequential mechanism", "prediction loop"], "techniques": ["token movement is sequential because the mechanism is sequential", "selection resolves into a completed response"], "avoid": ["Do not apply token-by-token motion to ordinary lists."]},
+    {"id": "lesson-2/context-comparison", "files": ["scenes.tsx"], "semanticFunctions": ["context improves result", "comparison"], "techniques": ["two states coexist", "focus shifts when the narration changes subject"], "avoid": ["Do not crop, shrink, or hide one side without a semantic reason."]},
+    {"id": "lesson-2/unreadable-mind", "files": ["scenes.tsx"], "semanticFunctions": ["system boundary", "user-provided context"], "techniques": ["unreachable state stays visually outside the AI system", "user moves explicit context into the prompt"], "avoid": ["Do not use a decorative X or connector that does not explain a relation."]}
+  ],
+  "doNotCopy": ["Cue seconds and SFX positions are historical evidence only.", "Do not reproduce the exact token UI or cell example.", "Do not import user voice paths or on-screen copy into a new production."],
+  "qualityNotes": ["Mechanism scenes must communicate correctly when decoration is removed.", "Use a hard cut or local exit when the semantic system changes."]
+}

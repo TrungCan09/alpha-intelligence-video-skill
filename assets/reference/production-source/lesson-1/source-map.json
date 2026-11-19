@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "lessonId": "lesson-1",
+  "title": "Sản phẩm và năng lực thật",
+  "composition": "composition.tsx",
+  "files": [
+    {"path": "composition.tsx", "role": "orchestrator + sparse SFX choreography"},
+    {"path": "scenes.tsx", "role": "nine semantic scene implementations"},
+    {"path": "timeline.ts", "role": "legacy measured cue example; never copy timestamps"}
+  ],
+  "sourceUnits": [
+    {"id": "lesson-1/hook-split", "files": ["scenes.tsx"], "semanticFunctions": ["claim contrast", "problem framing"], "techniques": ["completed state breaks into a contrast", "hold after one decisive hit"], "avoid": ["Do not reuse the exact product-versus-learning copy or layout."]},
+    {"id": "lesson-1/parallel-comparison", "files": ["scenes.tsx"], "semanticFunctions": ["A/B choice", "parallel comparison"], "techniques": ["both alternatives remain visible", "focus transfers without hiding the alternative"], "avoid": ["Do not stagger an inherently parallel choice."]},
+    {"id": "lesson-1/accumulating-questions", "files": ["scenes.tsx"], "semanticFunctions": ["guided reflection", "sequential prompts"], "techniques": ["one persistent stage", "new question gains focus while earlier text de-emphasizes"], "avoid": ["Only use sequential accumulation when the voice itself is sequential."]},
+    {"id": "lesson-1/physical-lever", "files": ["scenes.tsx"], "semanticFunctions": ["physical metaphor", "empowerment payoff"], "techniques": ["clear fulcrum and beam geometry", "single hero glow at payoff"], "avoid": ["Do not use a lever when the spoken meaning lacks a real balance/advantage relation."]}
+  ],
+  "doNotCopy": ["Cue seconds and SFX positions are historical evidence only.", "Do not reproduce the same sequence of nine scenes.", "Do not import user voice paths or on-screen copy into a new production."],
+  "qualityNotes": ["Typography enters with a semantic state change, not ambient motion.", "One visual focal glow per frame."]
+}

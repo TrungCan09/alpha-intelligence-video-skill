@@ -1,0 +1,317 @@
+{
+  "schemaVersion": 1,
+  "kind": "production-source-library",
+  "sourceRoot": "assets/reference/production-source",
+  "lessons": [
+    {
+      "schemaVersion": 1,
+      "lessonId": "lesson-1",
+      "title": "Sản phẩm và năng lực thật",
+      "composition": "composition.tsx",
+      "files": [
+        {
+          "path": "composition.tsx",
+          "role": "orchestrator + sparse SFX choreography",
+          "sha256": "6e1fd74a4aeeec4fcbeb65254e4025ef6e71573f12ab9684305a7e8fcb1c4da0"
+        },
+        {
+          "path": "scenes.tsx",
+          "role": "nine semantic scene implementations",
+          "sha256": "2c913e974aff466872483b3d9043223c925c00cb31756f1f79aa8e6beb0ac9aa"
+        },
+        {
+          "path": "timeline.ts",
+          "role": "legacy measured cue example; never copy timestamps",
+          "sha256": "0a6790b2810ac4f07b4b247f1aaf533e5bccb1ac2b63f201d875184bcb606704"
+        }
+      ],
+      "sourceUnits": [
+        {
+          "id": "lesson-1/hook-split",
+          "files": [
+            "scenes.tsx"
+          ],
+          "semanticFunctions": [
+            "claim contrast",
+            "problem framing"
+          ],
+          "techniques": [
+            "completed state breaks into a contrast",
+            "hold after one decisive hit"
+          ],
+          "avoid": [
+            "Do not reuse the exact product-versus-learning copy or layout."
+          ]
+        },
+        {
+          "id": "lesson-1/parallel-comparison",
+          "files": [
+            "scenes.tsx"
+          ],
+          "semanticFunctions": [
+            "A/B choice",
+            "parallel comparison"
+          ],
+          "techniques": [
+            "both alternatives remain visible",
+            "focus transfers without hiding the alternative"
+          ],
+          "avoid": [
+            "Do not stagger an inherently parallel choice."
+          ]
+        },
+        {
+          "id": "lesson-1/accumulating-questions",
+          "files": [
+            "scenes.tsx"
+          ],
+          "semanticFunctions": [
+            "guided reflection",
+            "sequential prompts"
+          ],
+          "techniques": [
+            "one persistent stage",
+            "new question gains focus while earlier text de-emphasizes"
+          ],
+          "avoid": [
+            "Only use sequential accumulation when the voice itself is sequential."
+          ]
+        },
+        {
+          "id": "lesson-1/physical-lever",
+          "files": [
+            "scenes.tsx"
+          ],
+          "semanticFunctions": [
+            "physical metaphor",
+            "empowerment payoff"
+          ],
+          "techniques": [
+            "clear fulcrum and beam geometry",
+            "single hero glow at payoff"
+          ],
+          "avoid": [
+            "Do not use a lever when the spoken meaning lacks a real balance/advantage relation."
+          ]
+        }
+      ],
+      "doNotCopy": [
+        "Cue seconds and SFX positions are historical evidence only.",
+        "Do not reproduce the same sequence of nine scenes.",
+        "Do not import user voice paths or on-screen copy into a new production."
+      ],
+      "qualityNotes": [
+        "Typography enters with a semantic state change, not ambient motion.",
+        "One visual focal glow per frame."
+      ],
+      "sourceMapSha256": "4652a2157b15e6a5529d29dece4b8ccce2d8a935abac151f1d75d932bc6eb195"
+    },
+    {
+      "schemaVersion": 1,
+      "lessonId": "lesson-2",
+      "title": "AI tạo ra câu trả lời như thế nào?",
+      "composition": "composition.tsx",
+      "files": [
+        {
+          "path": "composition.tsx",
+          "role": "orchestrator + selective audio hits",
+          "sha256": "47a441207dd0a25130f4d337af9b00b42911e7e895a67051d83dc68bdd4dfb75"
+        },
+        {
+          "path": "scenes.tsx",
+          "role": "ten mechanism-explainer scenes",
+          "sha256": "738a0d96e52742cda5caea779b37c5cf6e97462fc9571b82b69b6c1a3bfab953"
+        },
+        {
+          "path": "timeline.ts",
+          "role": "legacy measured cue example; never copy timestamps",
+          "sha256": "ba54bf0ed1b1da1ad29a4611545afafa580db82d6636c3c8fbd09015fed61d5b"
+        }
+      ],
+      "sourceUnits": [
+        {
+          "id": "lesson-2/mechanism-reveal",
+          "files": [
+            "scenes.tsx"
+          ],
+          "semanticFunctions": [
+            "illusion to mechanism",
+            "explanation reveal"
+          ],
+          "techniques": [
+            "surface response separates to reveal a causal layer",
+            "no full-screen flash"
+          ],
+          "avoid": [
+            "Do not use a reveal merely as decoration."
+          ]
+        },
+        {
+          "id": "lesson-2/token-process",
+          "files": [
+            "scenes.tsx"
+          ],
+          "semanticFunctions": [
+            "sequential mechanism",
+            "prediction loop"
+          ],
+          "techniques": [
+            "token movement is sequential because the mechanism is sequential",
+            "selection resolves into a completed response"
+          ],
+          "avoid": [
+            "Do not apply token-by-token motion to ordinary lists."
+          ]
+        },
+        {
+          "id": "lesson-2/context-comparison",
+          "files": [
+            "scenes.tsx"
+          ],
+          "semanticFunctions": [
+            "context improves result",
+            "comparison"
+          ],
+          "techniques": [
+            "two states coexist",
+            "focus shifts when the narration changes subject"
+          ],
+          "avoid": [
+            "Do not crop, shrink, or hide one side without a semantic reason."
+          ]
+        },
+        {
+          "id": "lesson-2/unreadable-mind",
+          "files": [
+            "scenes.tsx"
+          ],
+          "semanticFunctions": [
+            "system boundary",
+            "user-provided context"
+          ],
+          "techniques": [
+            "unreachable state stays visually outside the AI system",
+            "user moves explicit context into the prompt"
+          ],
+          "avoid": [
+            "Do not use a decorative X or connector that does not explain a relation."
+          ]
+        }
+      ],
+      "doNotCopy": [
+        "Cue seconds and SFX positions are historical evidence only.",
+        "Do not reproduce the exact token UI or cell example.",
+        "Do not import user voice paths or on-screen copy into a new production."
+      ],
+      "qualityNotes": [
+        "Mechanism scenes must communicate correctly when decoration is removed.",
+        "Use a hard cut or local exit when the semantic system changes."
+      ],
+      "sourceMapSha256": "502a0b86817e22b3295e112c9627134f73a145aa425ddc4a0f63ca74dba57052"
+    },
+    {
+      "schemaVersion": 1,
+      "lessonId": "lesson-3",
+      "title": "Vì sao AI tự tin nhưng vẫn có thể sai?",
+      "composition": "composition.tsx",
+      "files": [
+        {
+          "path": "composition.tsx",
+          "role": "orchestrator + voice and sparse SFX mapping",
+          "sha256": "95e4e4183b0c467444e5ac954aeeb6b5b67025c4b73542693d9307aec9ffcdca"
+        },
+        {
+          "path": "scenes.tsx",
+          "role": "nine verification and risk scenes",
+          "sha256": "381ed5ed243b6c058bb80b26f5014b91bc7969b0a172f78e151ce6f0938f6219"
+        },
+        {
+          "path": "timeline.ts",
+          "role": "legacy measured cue example; never copy timestamps",
+          "sha256": "fa6b9b5f215ab34d3045883613b70a334469cc0ca5d3a5bd88f8621915391c44"
+        }
+      ],
+      "sourceUnits": [
+        {
+          "id": "lesson-3/book-contradiction",
+          "files": [
+            "scenes.tsx"
+          ],
+          "semanticFunctions": [
+            "concrete hook",
+            "claim contradicted"
+          ],
+          "techniques": [
+            "details accumulate into a plausible dossier",
+            "the contradiction arrives as a clear state change"
+          ],
+          "avoid": [
+            "Do not use vague particles or a generic question mark to signify an answer."
+          ]
+        },
+        {
+          "id": "lesson-3/hallucination-label",
+          "files": [
+            "scenes.tsx"
+          ],
+          "semanticFunctions": [
+            "term definition",
+            "risk reveal"
+          ],
+          "techniques": [
+            "term arrives exactly at its spoken cue",
+            "prior claim stays available as context"
+          ],
+          "avoid": [
+            "Do not delay the named concept after voice has introduced it."
+          ]
+        },
+        {
+          "id": "lesson-3/risk-grid",
+          "files": [
+            "scenes.tsx"
+          ],
+          "semanticFunctions": [
+            "four-condition taxonomy",
+            "parallel list"
+          ],
+          "techniques": [
+            "all condition cards establish together",
+            "voice focus moves across the already-legible grid"
+          ],
+          "avoid": [
+            "Do not reveal equivalent list items as unrelated slides."
+          ]
+        },
+        {
+          "id": "lesson-3/verification-checklist",
+          "files": [
+            "scenes.tsx"
+          ],
+          "semanticFunctions": [
+            "actionable checklist",
+            "verification"
+          ],
+          "techniques": [
+            "questions accumulate in one stage",
+            "each question gets one restrained emphasis"
+          ],
+          "avoid": [
+            "Do not spam checkmark, pulse, or SFX per line."
+          ]
+        }
+      ],
+      "doNotCopy": [
+        "Cue seconds and SFX positions are historical evidence only.",
+        "Do not reproduce the fictional book text, risk copy, or exact card geometry.",
+        "Do not import user voice paths or on-screen copy into a new production."
+      ],
+      "qualityNotes": [
+        "A confidence-versus-trust contrast needs typography with enough space for Vietnamese diacritics.",
+        "Every connector or marker must have an explicit relation."
+      ],
+      "sourceMapSha256": "51df8079a04c3650510dfe5701619ed9be6f9b23ee0c9cc70d39e22a3ae99050"
+    }
+  ],
+  "librarySha256": "528fe666b148f582e7e96b8a925d36e1263cafa9d65d2dd77360cb569d962b43"
+}

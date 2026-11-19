@@ -13,8 +13,9 @@ Script đã duyệt là nguồn chữ; voice final là nguồn thời gian. Khô
 2. Viết script: đọc [bảo toàn nguồn](references/source-content-rules.md) và [ElevenLabs](references/script-elevenlabs.md).
 3. Phân tích voice/cue: đọc [content timing](references/content-timing.md).
 4. Trước khi xem reference, đọc [motion ideation](references/motion-ideation.md) cùng [Alpha taste profile](references/alpha-taste-profile.md), tạo ba concept/scene và khóa draft.
-5. Sau khi khóa draft mới đọc đúng nhóm trong `knowledge/motion-vocabulary.json`, [motion grammar](references/motion-grammar-v3.md), [motion language](references/motion-language.md) và [production reference library](references/production-reference-library.md). Nếu library production chưa được nhập, giữ workflow v3.1 và không giả lập reference.
-6. Render/bàn giao: đọc [QA](references/qa-delivery.md) và [Visual Critic Loop](references/visual-review-loop.md). Dự án cũ đọc [migration v3](references/migration-v3.md).
+5. Sau khi khóa draft, đọc [production source library](references/production-source-library.md), chọn tối đa hai `sourceUnit`/scene và khóa `production-source-review.lock.json`. Source chỉ cải thiện execution, không thay visual thesis.
+6. Sau đó mới đọc đúng nhóm trong `knowledge/motion-vocabulary.json`, [motion grammar](references/motion-grammar-v3.md), [motion language](references/motion-language.md) và [production reference library](references/production-reference-library.md). Nếu library video production chưa được nhập, giữ workflow v3.1 và không giả lập reference.
+7. Render/bàn giao: đọc [QA](references/qa-delivery.md) và [Visual Critic Loop](references/visual-review-loop.md). Dự án cũ đọc [migration v3](references/migration-v3.md).
 
 ## Bộ nhớ sản xuất v3
 
@@ -33,13 +34,14 @@ Không đọc toàn bộ lịch sử chat hoặc toàn bộ knowledge pack. Ch�
 2. Khóa script bằng `lock-approved-script.mjs`. Chạy `transcribe-audio.py` bằng Faster Whisper `small` trở lên chỉ để lấy ASR word timestamp; raw ASR không được thay script.
 3. Chạy `align-script-to-audio.mjs`, rà mapping và `lock-reviewed-alignment.mjs --confirm-reviewed`. Nếu câu thiếu/thừa/đổi nghĩa, **dừng trước storyboard**; không tự đổi script hoặc đoán timestamp.
 4. Tạo đúng ba concept cho mỗi scene: direct, metaphorical, typography. Chạy concept gate trước khi xem reference.
-5. Khóa concept draft, hash file, rồi mới truy xuất tối đa ba micro-reference/scene và ghi `reference-review.lock.json`; không xem reference trước ideation.
-6. Dựng bằng motion graph hoặc custom TSX có manifest. Legacy recipe chỉ dùng migration/fallback có lý do.
-7. Chạy `build-cue-lock.mjs` từ script lock + alignment lock; plan production chỉ dùng `scriptSegmentIds` và mọi cue/QA dùng cùng `cue-sheet.lock.json`.
-8. Render candidate và `qaMode="semantic"`; chạy toàn bộ v3 gates và motion-density.
-9. Tạo QA pack và visual-review pack từ MP4; máy audit toàn bộ frame, agent xem contact sheet/anomaly rồi chấm từng scene.
-10. Sửa và rerender cho tới khi mọi scene cùng semantic/sync/readability đạt tối thiểu 8/10; tối đa năm vòng, không đạt thì chặn bàn giao.
-11. Khi dùng production reference, chạy reference-order, reference-novelty và reference-aware visual review; chỉ `finalize-master.mjs` mới được tạo master sau khi mọi lock/report cùng khớp hash.
+5. Khóa concept draft, rồi mới đọc source map và ghi `production-source-review.lock.json`: tối đa hai source unit/scene, nêu kỹ thuật học được và phần không sao chép.
+6. Sau source review mới truy xuất tối đa ba micro-reference video/scene và ghi `reference-review.lock.json`; không xem reference trước ideation.
+7. Dựng bằng motion graph hoặc custom TSX có manifest. Legacy recipe chỉ dùng migration/fallback có lý do.
+8. Chạy `build-cue-lock.mjs` từ script lock + alignment lock; plan production chỉ dùng `scriptSegmentIds` và mọi cue/QA dùng cùng `cue-sheet.lock.json`.
+9. Render candidate và `qaMode="semantic"`; chạy toàn bộ v3 gates và motion-density.
+10. Tạo QA pack và visual-review pack từ MP4; máy audit toàn bộ frame, agent xem contact sheet/anomaly rồi chấm từng scene.
+11. Sửa và rerender cho tới khi mọi scene cùng semantic/sync/readability đạt tối thiểu 8/10; tối đa năm vòng, không đạt thì chặn bàn giao.
+12. Production master bắt buộc có source library/review lock hợp lệ. Khi dùng production video reference, chạy thêm reference-order, reference-novelty và reference-aware visual review.
 
 ## Điều kiện dừng
 
@@ -49,6 +51,7 @@ Không đọc toàn bộ lịch sử chat hoặc toàn bộ knowledge pack. Ch�
 - Segment chưa map cue hoặc `voiceOnly` không có lý do.
 - Scene dài trên 4 giây thiếu state change, lặp recipe/layout hoặc graphic không giải thích được ý.
 - Chưa có ba concept, reference được xem trước draft lock hoặc concept được chọn có semantic clarity dưới 4/5.
+- Source code được đọc trước concept lock, source review thiếu anti-copy note, hoặc source timing lịch sử bị dùng làm timing mới.
 - Graph có timestamp số; custom scene thiếu manifest; scene legacy thiếu fallbackReason.
 - Text sớm hơn voice hoặc muộn quá 0,2 giây; connector đi trước nguồn.
 - QA report chưa xác nhận readable, no clipping/overlap và đúng `visualMeaning` cho từng cue.

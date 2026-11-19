@@ -57,6 +57,10 @@ jobs:
           node scripts/test-v3-pipeline.mjs .
           node scripts/test-visual-review.mjs .
           node scripts/test-production-reference.mjs .
+      - name: Kiểm tra production source reference v3.4
+        run: |
+          node scripts/check-production-source-library.mjs knowledge/production-source-library.json
+          node scripts/test-production-source-reference.mjs .
       - name: Kiểm tra SFX generator
         run: node scripts/generate-sfx.mjs --out outputs/test-sfx
       - name: Cài starter
