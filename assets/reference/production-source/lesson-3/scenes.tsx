@@ -70,7 +70,6 @@ export const NonexistentScene: React.FC<SceneProps> = ({durationInFrames}) => {
     </SafeStage>
   </SceneShell>;
 };
-
 export const PredictionPurposeScene: React.FC<SceneProps> = ({durationInFrames}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
